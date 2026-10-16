@@ -1,0 +1,77 @@
+/* ==========================================================================
+   HERON AI DESIGN SYSTEM VARIABLES & GLOBAL STYLES
+   ========================================================================== */
+
+:root {
+  --cl-bg: #FAF8F5;
+  --cl-surface: #ffffff;
+  --cl-dark: #0c161e;
+  --cl-dark-surface: #12202b;
+  --cl-brand: #fa3600;
+  --cl-brand-hover: #e03000;
+  --cl-text-primary: #0c161e;
+  --cl-text-secondary: rgba(18, 32, 43, 0.75);
+  --cl-text-tertiary: rgba(18, 32, 43, 0.45);
+  --cl-border: rgba(0, 0, 0, 0.09);
+  --cl-border-dashed: rgba(0, 0, 0, 0.14);
+
+  --font-display: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: var(--font-body);
+  background-color: var(--cl-bg);
+  color: var(--cl-text-primary);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  min-height: 100vh;
+  background-color: var(--cl-bg);
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}
+
+code, pre, .font-mono {
+  font-family: var(--font-mono);
+}
+
+::selection {
+  background-color: #fa3600;
+  color: #ffffff;
+}
+
+/* Lenis smooth scrolling integration */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
