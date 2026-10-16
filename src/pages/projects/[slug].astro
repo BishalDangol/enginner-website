@@ -1,0 +1,352 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Button from "../../components/Button.astro";
+import SpecTable from "../../components/SpecTable.astro";
+import { getCollection, render } from "astro:content";
+
+export async function getStaticPaths() {
+  const projects = await getCollection("projects");
+  return projects.map((project) => ({
+    params: { slug: project.id },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+
+const formattedDate = project.data.completed instanceof Date
+  ? project.data.completed.toISOString().slice(0, 10)
+  : String(project.data.completed);
+
+const specs = [
+  { parameter: "Structural Topology", value: project.data.towerType.toUpperCase(), standard: "TIA-222-H", tolerance: "As-Built Certified" },
+  { parameter: "Height Above Ground Level", value: `${project.data.heightM ?? "Not disclosed"} Meters`, standard: "EIA/TIA", tolerance: "± 20 mm" },
+  { parameter: "Geographic Location", value: project.data.location, standard: "WGS84", tolerance: `${project.data.lat ?? ""}, ${project.data.lng ?? ""}` },
+  { parameter: "Client / Operator", value: project.data.client ?? "Not disclosed", standard: "Carrier SLA", tolerance: "Confidential" },
+  { parameter: "Completion Date", value: formattedDate, standard: "EPC Milestone", tolerance: "Signed Off" },
+  { parameter: "Wind Speed Rating", value: "160–180 km/h Gust", standard: "IS 875 (Part 3)", tolerance: "Class IV / V" },
+  { parameter: "Earthing Resistance", value: "< 2.8 Ohms", standard: "IEEE 81", tolerance: "3-point fall verified" },
+];
+---
+
+<BaseLayout
+  title={`${project.data.title} (${project.data.siteId}) // Apex Tower Projects`}
+  description={`As-built case study for site ${project.data.siteId}: ${project.data.towerType} tower in ${project.data.location}.`}
+>
+  <div class="project-detail-container">
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb-nav label" aria-label="Breadcrumb">
+      <a href="/projects">PROJECTS</a>
+      <span aria-hidden="true">//</span>
+      <span class="active-crumb">{project.data.siteId}</span>
+    </nav>
+
+    <!-- Header Sheet Bar -->
+    <header class="detail-header">
+      <div class="header-top-row">
+        <span class="label site-id-badge">SITE ID: {project.data.siteId}</span>
+        <span class="data location-coords">{project.data.location} // {project.data.lat ?? "27.70"}° N, {project.data.lng ?? "85.32"}° E</span>
+      </div>
+      <h1 class="detail-title">{project.data.title}</h1>
+      <div class="metadata-strip">
+        <div class="meta-item">
+          <span class="label">TOWER TYPE</span>
+          <span class="data">{project.data.towerType.toUpperCase()}</span>
+        </div>
+        <div class="meta-item">
+          <span class="label">HEIGHT</span>
+          <span class="data">{project.data.heightM} METERS</span>
+        </div>
+        <div class="meta-item">
+          <span class="label">CLIENT</span>
+          <span class="data">{project.data.client ?? "Not disclosed"}</span>
+        </div>
+        <div class="meta-item">
+          <span class="label">COMPLETED</span>
+          <span class="data">{formattedDate}</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Body Layout -->
+    <div class="detail-grid">
+      <!-- Left: Article Prose & Scope -->
+      <article class="prose-content">
+        <Content />
+
+        <div class="action-card">
+          <span class="label action-tag">COMMISSIONING &amp; AS-BUILT LOG</span>
+          <p class="action-text">
+            Looking to deploy similar telecom topology in this region or elevation zone? Our civil survey team can conduct a preliminary desktop RF Line-of-Sight review within 24 hours.
+          </p>
+          <Button href="/contact" variant="primary">
+            Request Quote for Similar Site
+          </Button>
+        </div>
+      </article>
+
+      <!-- Right: Technical Blueprint & Spec Table -->
+      <aside class="detail-sidebar">
+        <!-- Blueprint Drawing Card -->
+        <div class="blueprint-card">
+          <div class="blueprint-header label">
+            <span>DRAWING: DWG-{project.data.siteId}</span>
+            <span>REV: AS-BUILT</span>
+          </div>
+
+          <div class="blueprint-canvas">
+            <svg viewBox="0 0 200 240" class="blueprint-svg" preserveAspectRatio="xMidYMid meet">
+              <defs>
+                <pattern id="bpGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+                  <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#c9d1cf" stroke-width="0.5" stroke-dasharray="2,2"/>
+                </pattern>
+              </defs>
+              <rect width="200" height="240" fill="#edf0ee" />
+              <rect width="200" height="240" fill="url(#bpGrid)" />
+
+              {/* Central structure */}
+              <line x1="100" y1="20" x2="100" y2="210" stroke="#b8380f" stroke-width="1" stroke-dasharray="4,2"/>
+              <line x1="90" y1="30" x2="60" y2="210" stroke="#12202b" stroke-width="2"/>
+              <line x1="110" y1="30" x2="140" y2="210" stroke="#12202b" stroke-width="2"/>
+
+              {/* Cross lattices */}
+              <line x1="85" y1="60" x2="115" y2="60" stroke="#3a4954" stroke-width="1.2"/>
+              <line x1="80" y1="100" x2="120" y2="100" stroke="#3a4954" stroke-width="1.2"/>
+              <line x1="75" y1="140" x2="125" y2="140" stroke="#3a4954" stroke-width="1.2"/>
+              <line x1="70" y1="180" x2="130" y2="180" stroke="#3a4954" stroke-width="1.2"/>
+
+              <line x1="85" y1="60" x2="120" y2="100" stroke="#5b6b76" stroke-width="0.8"/>
+              <line x1="115" y1="60" x2="80" y2="100" stroke="#5b6b76" stroke-width="0.8"/>
+              <line x1="80" y1="100" x2="125" y2="140" stroke="#5b6b76" stroke-width="0.8"/>
+              <line x1="120" y1="100" x2="75" y2="140" stroke="#5b6b76" stroke-width="0.8"/>
+              <line x1="75" y1="140" x2="130" y2="180" stroke="#5b6b76" stroke-width="0.8"/>
+              <line x1="125" y1="140" x2="70" y2="180" stroke="#5b6b76" stroke-width="0.8"/>
+
+              {/* Dish */}
+              <circle cx="85" cy="80" r="12" stroke="#12202b" stroke-width="1.5" fill="#ffffff"/>
+              <line x1="85" y1="80" x2="95" y2="80" stroke="#12202b" stroke-width="1.5"/>
+
+              {/* Foundation */}
+              <rect x="50" y="210" width="100" height="15" fill="#3a4954"/>
+              <line x1="10" y1="210" x2="190" y2="210" stroke="#12202b" stroke-width="2"/>
+
+              {/* Beacon */}
+              <circle cx="100" cy="20" r="2.5" fill="#e8501a"/>
+            </svg>
+          </div>
+
+          <div class="blueprint-footer label">
+            <span>FIELD PROOF: TIA-222-H PASS</span>
+            <span>GROUND: &lt; 2.8 Ω</span>
+          </div>
+        </div>
+
+        <!-- Spec Table -->
+        <SpecTable
+          caption={`Field Specifications: Site ${project.data.siteId}`}
+          rows={specs}
+        />
+      </aside>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .project-detail-container {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: var(--space-5) var(--gutter) var(--space-9) var(--gutter);
+  }
+
+  .breadcrumb-nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-bottom: var(--space-4);
+    color: var(--ink-500);
+  }
+
+  .breadcrumb-nav a {
+    color: var(--color-text-secondary);
+    text-decoration: none;
+  }
+
+  .breadcrumb-nav a:hover {
+    color: var(--color-text-accent);
+    text-decoration: underline;
+  }
+
+  .active-crumb {
+    color: var(--color-text-primary);
+    font-weight: 700;
+  }
+
+  .detail-header {
+    border-bottom: var(--border-hairline);
+    padding-bottom: var(--space-5);
+    margin-bottom: var(--space-6);
+  }
+
+  .header-top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-2);
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .site-id-badge {
+    background-color: var(--color-surface-night);
+    color: var(--color-text-on-night);
+    padding: 2px var(--space-2);
+  }
+
+  .location-coords {
+    color: var(--color-text-secondary);
+    font-size: 0.8125rem;
+  }
+
+  .detail-title {
+    font-size: var(--font-size-h1);
+    margin: 0 0 var(--space-4) 0;
+  }
+
+  .metadata-strip {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-3);
+    background-color: var(--color-surface-raised);
+    border: var(--border-hairline);
+    padding: var(--space-3);
+  }
+
+  @media (min-width: 640px) {
+    .metadata-strip {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .meta-item .label {
+    font-size: 0.625rem;
+    color: var(--ink-500);
+  }
+
+  .meta-item .data {
+    font-size: 0.875rem;
+    color: var(--color-text-primary);
+    font-weight: 700;
+  }
+
+  .detail-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-7);
+  }
+
+  @media (min-width: 1024px) {
+    .detail-grid {
+      grid-template-columns: 1.3fr 1fr;
+    }
+  }
+
+  .prose-content :global(h2) {
+    font-size: var(--font-size-h2);
+    margin: var(--space-6) 0 var(--space-3) 0;
+    color: var(--color-text-primary);
+  }
+
+  .prose-content :global(h3) {
+    font-size: 1.125rem;
+    margin: var(--space-4) 0 var(--space-2) 0;
+    color: var(--color-text-primary);
+  }
+
+  .prose-content :global(p) {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-4);
+  }
+
+  .prose-content :global(ul) {
+    margin-bottom: var(--space-4);
+    padding-left: var(--space-5);
+    color: var(--color-text-secondary);
+  }
+
+  .prose-content :global(li) {
+    margin-bottom: var(--space-2);
+    line-height: 1.5;
+  }
+
+  .action-card {
+    background-color: var(--color-surface-raised);
+    border: var(--border-strong);
+    box-shadow: var(--shadow-hard);
+    padding: var(--space-5);
+    margin-top: var(--space-6);
+  }
+
+  .action-tag {
+    color: var(--color-action-primary);
+    margin-bottom: var(--space-2);
+    display: block;
+  }
+
+  .action-text {
+    font-size: 0.9375rem;
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-4);
+    line-height: 1.45;
+  }
+
+  .detail-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+  }
+
+  .blueprint-card {
+    background-color: var(--color-surface-raised);
+    border: var(--border-strong);
+    padding: var(--space-4);
+  }
+
+  .blueprint-header, .blueprint-footer {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.6875rem;
+    color: var(--color-text-secondary);
+    padding: var(--space-1) 0;
+  }
+
+  .blueprint-header {
+    border-bottom: var(--border-hairline);
+    margin-bottom: var(--space-3);
+  }
+
+  .blueprint-footer {
+    border-top: var(--border-hairline);
+    margin-top: var(--space-3);
+  }
+
+  .blueprint-canvas {
+    background-color: var(--color-surface-page);
+    border: 1px dashed var(--color-border-hairline);
+    display: flex;
+    justify-content: center;
+  }
+
+  .blueprint-svg {
+    width: 100%;
+    max-height: 260px;
+  }
+</style>

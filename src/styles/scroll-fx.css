@@ -1,0 +1,109 @@
+/* ==========================================================================
+   SITE-WIDE SCROLL-TRIGGERED ANIMATIONS, PARALLAX & REVEAL SYSTEM
+   ========================================================================== */
+
+/* Subtle Parallax Background Grids */
+.parallax-grid-bg {
+  background-image:
+    linear-gradient(rgba(18, 32, 43, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(18, 32, 43, 0.04) 1px, transparent 1px);
+  background-size: 24px 24px;
+  background-position: center center;
+}
+
+/* Scroll-Driven Reveal Elements */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+[data-reveal].is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger Delays for Cards Grids */
+[data-reveal-delay="1"] { transition-delay: 0.08s; }
+[data-reveal-delay="2"] { transition-delay: 0.16s; }
+[data-reveal-delay="3"] { transition-delay: 0.24s; }
+[data-reveal-delay="4"] { transition-delay: 0.32s; }
+[data-reveal-delay="5"] { transition-delay: 0.40s; }
+[data-reveal-delay="6"] { transition-delay: 0.48s; }
+
+/* Interactive Scale-In for Key Technical Figures */
+[data-reveal="scale"] {
+  opacity: 0;
+  transform: scale(0.96) translateY(18px);
+}
+
+[data-reveal="scale"].is-revealed {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+/* Pinned Stage Smooth Entrance Transitions */
+.pinned-story-stage {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+}
+
+/* Engineering Datum Tracking Bar (Top or Floating edge indicator) */
+.engineering-scroll-hud {
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  z-index: 50;
+  background: rgba(12, 22, 30, 0.92);
+  border: 1px solid rgba(237, 240, 238, 0.2);
+  padding: 6px 12px;
+  color: var(--vellum-100);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.engineering-scroll-hud.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hud-progress-meter {
+  width: 48px;
+  height: 3px;
+  background: rgba(237, 240, 238, 0.2);
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+}
+
+.hud-progress-fill {
+  height: 100%;
+  background: var(--orange-500);
+  width: 0%;
+  transition: width 0.1s linear;
+}
+
+/* Reduced Motion Safety */
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal],
+  [data-reveal="scale"] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .engineering-scroll-hud {
+    display: none !important;
+  }
+}

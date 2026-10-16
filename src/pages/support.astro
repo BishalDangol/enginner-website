@@ -1,0 +1,277 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import StatusTiles from "../islands/StatusTiles.tsx";
+import Button from "../components/Button.astro";
+---
+
+<BaseLayout
+  title="Customer Support &amp; NOC Telemetry // Apex Tower"
+  description="24/7 Network Operations Center support, emergency rigger dispatch, live SLA telemetry, and escalation matrix for telecom operators and ISPs."
+>
+  <div class="support-page-container">
+    <header class="page-header">
+      <span class="label">MISSION-CRITICAL OPERATIONS // 24/7/365 SURVEILLANCE</span>
+      <h1 class="page-title">Network Operations Center &amp; Support</h1>
+      <p class="page-lead">
+        Continuous telemetry monitoring of tower obstacle strobes, hybrid power systems, and microwave backbone links, backed by rapid-response emergency field crews.
+      </p>
+    </header>
+
+    <!-- Emergency Direct Contact Banner -->
+    <div class="emergency-banner">
+      <div class="emergency-left">
+        <span class="label emergency-badge">PRIORITY 1 ESCALATION // CRITICAL OUTAGE</span>
+        <h2 class="emergency-title">Emergency Rigging &amp; NOC Hotline</h2>
+        <p class="emergency-lead">
+          Immediate phone access for transmission breaks, catastrophic storm events, or aviation obstruction light failure.
+        </p>
+      </div>
+
+      <div class="emergency-right">
+        <span class="label phone-label">DIRECT NOC DESK (24/7)</span>
+        <a href="tel:+97714567890" class="emergency-phone data">+977 1 456-7890</a>
+        <span class="label noc-pin">SECURE SIP TRUNK: PIN #NOC-01</span>
+      </div>
+    </div>
+
+    <!-- Live Status Tiles Island (on surface.night) -->
+    <StatusTiles client:idle />
+
+    <!-- Incident Escalation Matrix Table -->
+    <section class="matrix-section">
+      <div class="section-title-bar">
+        <span class="label">SLA GOVERNANCE</span>
+        <h2 class="section-heading">Incident Severity &amp; Escalation Matrix</h2>
+      </div>
+
+      <div class="table-responsive" tabindex="0" role="region" aria-label="Incident escalation tiers table">
+        <table class="matrix-table">
+          <thead>
+            <tr>
+              <th scope="col" class="label">Severity Level</th>
+              <th scope="col" class="label">Incident Classification</th>
+              <th scope="col" class="label">Response Time</th>
+              <th scope="col" class="label">Escalation Authority</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row" class="data severity-p1">P1 - CRITICAL</th>
+              <td class="data">Tower structural collapse hazard, total backbone outage, or aviation beacon failure.</td>
+              <td class="data font-bold">&lt; 15 Minutes (Dispatch &lt; 4 Hours)</td>
+              <td class="data">VP Infrastructure &amp; Lead Rigger</td>
+            </tr>
+            <tr class="stripe">
+              <th scope="row" class="data severity-p2">P2 - MAJOR</th>
+              <td class="data">Redundant microwave link loss, primary grid failure running on battery backup.</td>
+              <td class="data font-bold">&lt; 30 Minutes (Dispatch &lt; 8 Hours)</td>
+              <td class="data">Senior NOC Operations Manager</td>
+            </tr>
+            <tr>
+              <th scope="row" class="data severity-p3">P3 - MINOR</th>
+              <td class="data">Non-critical telemetry drop, compound perimeter fence breach, scheduled routine check.</td>
+              <td class="data font-bold">&lt; 2 Hours (Resolution &lt; 24 Hours)</td>
+              <td class="data">Duty NOC Field Supervisor</td>
+            </tr>
+            <tr class="stripe">
+              <th scope="row" class="data severity-p4">P4 - REQUEST</th>
+              <td class="data">Colocation expansion request, grounding test report copy, as-built CAD download.</td>
+              <td class="data font-bold">&lt; 1 Business Day</td>
+              <td class="data">Account Support Desk</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Raise Non-Emergency Ticket -->
+    <div class="ticket-callout">
+      <div>
+        <span class="label">ROUTINE REQUEST OR PLANNED WORK NOTIFICATION?</span>
+        <h3 class="ticket-title">Email Technical Support Desk</h3>
+        <p class="ticket-desc">
+          Submit site access permits, scheduled antenna replacements, or preventive maintenance booking requests via email.
+        </p>
+      </div>
+      <Button href="mailto:support@apextowerinfra.com" variant="primary">
+        Email support@apextowerinfra.com
+      </Button>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .support-page-container {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: var(--space-6) var(--gutter) var(--space-9) var(--gutter);
+  }
+
+  .page-header {
+    border-bottom: var(--border-hairline);
+    padding-bottom: var(--space-5);
+    margin-bottom: var(--space-6);
+  }
+
+  .page-title {
+    font-size: var(--font-size-h1);
+    margin: var(--space-2) 0 var(--space-3) 0;
+  }
+
+  .page-lead {
+    font-size: 1.125rem;
+    color: var(--color-text-secondary);
+    max-width: 70ch;
+    margin: 0;
+  }
+
+  .emergency-banner {
+    background-color: var(--color-surface-night);
+    color: var(--color-text-on-night);
+    border: var(--border-strong);
+    border-left: 6px solid var(--color-action-primary);
+    padding: var(--space-6);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-5);
+    margin-bottom: var(--space-6);
+  }
+
+  .emergency-badge {
+    color: var(--color-graphic-accent);
+    margin-bottom: var(--space-1);
+    display: block;
+  }
+
+  .emergency-title {
+    font-size: var(--font-size-h2);
+    color: var(--white);
+    margin: 0 0 var(--space-2) 0;
+  }
+
+  .emergency-lead {
+    font-size: 0.9375rem;
+    color: var(--color-text-on-night);
+    opacity: 0.85;
+    max-width: 55ch;
+    margin: 0;
+  }
+
+  .emergency-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  @media (min-width: 768px) {
+    .emergency-right {
+      align-items: flex-end;
+    }
+  }
+
+  .phone-label {
+    opacity: 0.7;
+    margin-bottom: 2px;
+  }
+
+  .emergency-phone {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--color-graphic-accent);
+    text-decoration: none;
+    letter-spacing: 0.05em;
+  }
+
+  .noc-pin {
+    opacity: 0.7;
+    font-size: 0.6875rem;
+    margin-top: 2px;
+  }
+
+  .matrix-section {
+    margin-top: var(--space-8);
+    background-color: var(--color-surface-raised);
+    border: var(--border-strong);
+    padding: var(--space-6);
+  }
+
+  .section-title-bar {
+    border-bottom: var(--border-hairline);
+    padding-bottom: var(--space-2);
+    margin-bottom: var(--space-4);
+  }
+
+  .section-heading {
+    font-size: var(--font-size-h2);
+    margin: var(--space-1) 0 0 0;
+  }
+
+  .table-responsive {
+    overflow-x: auto;
+  }
+
+  .matrix-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 680px;
+  }
+
+  .matrix-table th, .matrix-table td {
+    padding: var(--space-3) var(--space-4);
+    border-bottom: var(--border-hairline);
+    text-align: left;
+  }
+
+  .matrix-table thead {
+    background-color: var(--color-surface-muted);
+  }
+
+  .severity-p1 {
+    color: var(--color-status-outage);
+    font-weight: 700;
+  }
+
+  .severity-p2 {
+    color: var(--color-status-degraded);
+    font-weight: 700;
+  }
+
+  .severity-p3 {
+    color: var(--color-status-planned);
+    font-weight: 700;
+  }
+
+  .severity-p4 {
+    color: var(--color-text-secondary);
+  }
+
+  .stripe {
+    background-color: rgba(225, 230, 228, 0.4);
+  }
+
+  .ticket-callout {
+    background-color: var(--color-surface-page);
+    border: var(--border-strong);
+    padding: var(--space-6);
+    margin-top: var(--space-8);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+  }
+
+  .ticket-title {
+    font-size: 1.25rem;
+    margin: var(--space-1) 0 var(--space-2) 0;
+  }
+
+  .ticket-desc {
+    font-size: 0.9375rem;
+    color: var(--color-text-secondary);
+    max-width: 60ch;
+    margin: 0;
+  }
+</style>

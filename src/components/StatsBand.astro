@@ -1,0 +1,180 @@
+---
+interface StatItem {
+  value: string;
+  unit?: string;
+  label: string;
+  asOf: string;
+}
+
+interface Props {
+  stats?: StatItem[];
+  class?: string;
+}
+
+const defaultStats: StatItem[] = [
+  {
+    value: "428",
+    unit: "SITES",
+    label: "Towers erected & commissioned",
+    asOf: "14 Mar 2026",
+  },
+  {
+    value: "1.8M",
+    unit: "HRS",
+    label: "Safe working-at-height hours without LTI",
+    asOf: "01 Mar 2026",
+  },
+  {
+    value: "120",
+    unit: "METERS",
+    label: "Maximum mast height engineered",
+    asOf: "Jan 2026",
+  },
+  {
+    value: "99.98",
+    unit: "% SLA",
+    label: "Maintained microwave & fiber uptime",
+    asOf: "30-day trailing",
+  },
+];
+
+const { stats = defaultStats, class: className = "" } = Astro.props;
+---
+
+<section class:list={["stats-band", className]} aria-label="Key operational statistics">
+  <div class="stats-container">
+    <div class="stats-header">
+      <span class="label">PERFORMANCE METRICS // AUDITED FIELD DATA</span>
+      <span class="label text-muted">VERIFIED BY NTA &amp; ISO AUDITORS</span>
+    </div>
+
+    <div class="stats-grid">
+      {stats.map((stat) => (
+        <div class="stat-card">
+          <div class="stat-top">
+            <span class="stat-num">{stat.value}</span>
+            {stat.unit && <span class="stat-unit">{stat.unit}</span>}
+          </div>
+          <div class="stat-label">{stat.label}</div>
+          <div class="stat-footer">
+            <span class="label stat-asof">AS OF: {stat.asOf}</span>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .stats-band {
+    background-color: var(--color-surface-night);
+    color: var(--color-text-on-night);
+    border-top: var(--border-strong);
+    border-bottom: var(--border-strong);
+    padding: var(--space-6) 0;
+  }
+
+  .stats-container {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+  }
+
+  .stats-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    padding-bottom: var(--space-2);
+    margin-bottom: var(--space-5);
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .text-muted {
+    opacity: 0.6;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  @media (min-width: 640px) {
+    .stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .stats-grid {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+    }
+  }
+
+  .stat-card {
+    padding: var(--space-4);
+    background-color: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  @media (min-width: 1024px) {
+    .stat-card {
+      border: none;
+      border-right: 1px solid rgba(255, 255, 255, 0.12);
+      padding: var(--space-4) var(--space-5);
+    }
+    .stat-card:last-child {
+      border-right: none;
+    }
+  }
+
+  .stat-top {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-2);
+    margin-bottom: var(--space-2);
+  }
+
+  .stat-num {
+    font-family: var(--font-mono);
+    font-size: var(--font-size-h1);
+    font-weight: 700;
+    line-height: 1;
+    color: var(--color-graphic-accent);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .stat-unit {
+    font-family: var(--font-mono);
+    font-size: var(--font-size-label);
+    font-weight: 600;
+    color: var(--color-text-on-night);
+    opacity: 0.8;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .stat-label {
+    font-size: 0.9375rem;
+    line-height: 1.4;
+    color: var(--color-text-on-night);
+    margin-bottom: var(--space-3);
+  }
+
+  .stat-footer {
+    border-top: 1px dashed rgba(255, 255, 255, 0.15);
+    padding-top: var(--space-2);
+  }
+
+  .stat-asof {
+    font-size: 0.6875rem;
+    opacity: 0.6;
+    letter-spacing: 0.05em;
+  }
+</style>

@@ -1,0 +1,259 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Button from "../components/Button.astro";
+import SpecTable from "../components/SpecTable.astro";
+
+const safetySpecs = [
+  { parameter: "High-Angle Tie-Off Policy", value: "100% Dual Lanyard Continuous", standard: "OSHA 1926 Subpart M", tolerance: "Zero exceptions" },
+  { parameter: "High Wind Work Cutoff", value: "45 km/h (12.5 m/s) Gust Ceiling", standard: "Apex HSE Protocol", tolerance: "Anemometer logged" },
+  { parameter: "Lightning Proximity Cutoff", value: "15 km radius detector halt", standard: "NFPA 780 Guidelines", tolerance: "Immediate descent" },
+  { parameter: "Full-Body Harness Rating", value: "EN 361 / ANSI Z359.11 Tested", standard: "Certified 140 kg capacity", tolerance: "Daily pre-climb logged" },
+  { parameter: "Gin-Pole Proof Load", value: "1.5x Rated Working Load Limit", standard: "ASME B30.7", tolerance: "Quarterly NDT pass" },
+  { parameter: "Emergency Rescue Plan (ERP)", value: "Controlled descent gear on-site", standard: "ISO 45001 Clause 8.2", tolerance: "< 15 min retrieval" },
+];
+---
+
+<BaseLayout
+  title="Occupational Health, Safety &amp; Rigging Standards // Apex Tower"
+  description="ISO 45001:2018 certified safety management for work at height. 0 Fatalities and 1.8 million safe rigging man-hours without LTI."
+>
+  <div class="safety-page-container">
+    <header class="page-header">
+      <span class="label">HSE COMPLIANCE REGISTER // OCCUPATIONAL SAFETY</span>
+      <h1 class="page-title">Working at Height, Done Safely</h1>
+      <p class="page-lead">
+        Erecting telecommunications towers at 2,500 meters altitude allows zero margin for equipment failure or compromised procedures. Safety is engineered into every hoist, gin-pole lift, and rigging protocol.
+      </p>
+    </header>
+
+    <!-- Key Statistics Banner -->
+    <div class="safety-stats-grid">
+      <div class="stat-box">
+        <span class="stat-number">0</span>
+        <span class="label stat-tag">FATALITIES &amp; CATASTROPHIC INCIDENTS</span>
+        <span class="stat-sub">Across all company operations since founding</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-number">1.8M</span>
+        <span class="label stat-tag">HOURS WITHOUT LOST-TIME INJURY (LTI)</span>
+        <span class="stat-sub">Continuous audited field safe hours (14 Mar 2026)</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-number">100%</span>
+        <span class="label stat-tag">CERTIFIED RIGGING CLIMBERS</span>
+        <span class="stat-sub">All high-angle riggers trained under IRATA / OSHA</span>
+      </div>
+    </div>
+
+    <!-- Core Safety Pillars -->
+    <section class="safety-pillars">
+      <div class="section-title-bar">
+        <span class="label">NON-NEGOTIABLE PROTOCOLS</span>
+        <h2 class="section-heading">Four Foundational Rules of Tower Erection</h2>
+      </div>
+
+      <div class="pillars-grid">
+        <div class="pillar-card">
+          <div class="pillar-num label">[01]</div>
+          <h3 class="pillar-title">100% Continuous Tie-Off</h3>
+          <p class="pillar-text">
+            No rigger is ever disconnected from an engineered anchor point while working at heights above 2.0 meters. Climbers employ dual-lanyard shock absorbers and vertical safety life-lines with automatic rope grabs.
+          </p>
+        </div>
+
+        <div class="pillar-card">
+          <div class="pillar-num label">[02]</div>
+          <h3 class="pillar-title">Weather Threshold Cutoffs</h3>
+          <p class="pillar-text">
+            Work at height is strictly terminated if local anemometers register sustained wind velocities above 45 km/h, if ambient temperature drops below freezing with ice on members, or if lightning strikes within 15 km.
+          </p>
+        </div>
+
+        <div class="pillar-card">
+          <div class="pillar-num label">[03]</div>
+          <h3 class="pillar-title">Pre-Climb Tool &amp; Gear Inspection</h3>
+          <p class="pillar-text">
+            Every carabiner, sling, capstan winch, and harness must be signed off on the daily Job Safety Analysis (JSA) checklist before tower ascent. Gear with any abrasion or gate defect is immediately quarantined.
+          </p>
+        </div>
+
+        <div class="pillar-card">
+          <div class="pillar-num label">[04]</div>
+          <h3 class="pillar-title">Self-Rescue &amp; Descent Kits on Site</h3>
+          <p class="pillar-text">
+            Every tower site has an emergency rescue plan (ERP) and a pre-rigged casualty rescue kit. In the event of climber distress, certified rescue personnel can initiate controlled lowering within 15 minutes.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Audited Safety Specifications Table -->
+    <section class="spec-section">
+      <SpecTable
+        caption="Occupational Health & Safety Governing Thresholds"
+        rows={safetySpecs}
+      />
+    </section>
+
+    <!-- Certification Badges -->
+    <section class="certifications-section">
+      <div class="cert-card">
+        <span class="label">ISO 45001:2018 CERTIFICATION #HSE-NP-2024</span>
+        <h3 class="cert-title">Occupational Health &amp; Safety Management System</h3>
+        <p class="cert-text">
+          Independently audited by Bureau Veritas for compliance with international high-risk civil engineering and high-angle erection standards. Annual surveillance audits confirm total conformance.
+        </p>
+        <div class="cert-meta label">
+          EXPIRY: OCTOBER 2027 // AUDIT SCOPE: TELECOMMUNICATION TOWER ERECTION &amp; MAINTENANCE
+        </div>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .safety-page-container {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: var(--space-6) var(--gutter) var(--space-9) var(--gutter);
+  }
+
+  .page-header {
+    border-bottom: var(--border-hairline);
+    padding-bottom: var(--space-5);
+    margin-bottom: var(--space-6);
+  }
+
+  .page-title {
+    font-size: var(--font-size-h1);
+    margin: var(--space-2) 0 var(--space-3) 0;
+  }
+
+  .page-lead {
+    font-size: 1.125rem;
+    color: var(--color-text-secondary);
+    max-width: 70ch;
+    margin: 0;
+  }
+
+  .safety-stats-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+    margin-bottom: var(--space-8);
+  }
+
+  @media (min-width: 768px) {
+    .safety-stats-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .stat-box {
+    background-color: var(--color-surface-night);
+    color: var(--color-text-on-night);
+    border: var(--border-strong);
+    padding: var(--space-5);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .stat-number {
+    font-family: var(--font-mono);
+    font-size: var(--font-size-h1);
+    color: var(--color-graphic-accent);
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: var(--space-2);
+  }
+
+  .stat-tag {
+    color: var(--color-text-on-night);
+    margin-bottom: var(--space-2);
+    font-size: 0.75rem;
+  }
+
+  .stat-sub {
+    font-size: 0.8125rem;
+    opacity: 0.75;
+  }
+
+  .section-title-bar {
+    border-bottom: var(--border-hairline);
+    padding-bottom: var(--space-2);
+    margin-bottom: var(--space-5);
+  }
+
+  .section-heading {
+    font-size: var(--font-size-h2);
+    margin: var(--space-1) 0 0 0;
+  }
+
+  .pillars-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+    margin-bottom: var(--space-8);
+  }
+
+  @media (min-width: 640px) {
+    .pillars-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .pillar-card {
+    background-color: var(--color-surface-raised);
+    border: var(--border-strong);
+    box-shadow: var(--shadow-hard);
+    padding: var(--space-5);
+  }
+
+  .pillar-num {
+    color: var(--color-action-primary);
+    font-weight: 700;
+    margin-bottom: var(--space-2);
+  }
+
+  .pillar-title {
+    font-size: 1.125rem;
+    margin: 0 0 var(--space-2) 0;
+    color: var(--color-text-primary);
+  }
+
+  .pillar-text {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .spec-section {
+    margin-bottom: var(--space-8);
+  }
+
+  .certifications-section {
+    background-color: var(--color-surface-raised);
+    border: var(--border-strong);
+    padding: var(--space-6);
+  }
+
+  .cert-title {
+    font-size: 1.25rem;
+    margin: var(--space-2) 0 var(--space-2) 0;
+  }
+
+  .cert-text {
+    font-size: 0.9375rem;
+    color: var(--color-text-secondary);
+    line-height: 1.5;
+    margin-bottom: var(--space-4);
+  }
+
+  .cert-meta {
+    color: var(--ink-500);
+    border-top: var(--border-dashed);
+    padding-top: var(--space-2);
+  }
+</style>

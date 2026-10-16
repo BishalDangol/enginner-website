@@ -1,0 +1,128 @@
+---
+interface SpecRow {
+  parameter: string;
+  value: string;
+  standard?: string;
+  tolerance?: string;
+}
+
+interface Props {
+  caption: string;
+  rows?: SpecRow[];
+  class?: string;
+}
+
+const { caption, rows = [], class: className = "" } = Astro.props;
+---
+
+<div class:list={["table-wrapper", className]} tabindex="0" role="region" aria-label={`${caption} (scrollable table)`}>
+  {rows.length === 0 ? (
+    <div class="empty-state">
+      <p class="data">No specifications published for this site.</p>
+    </div>
+  ) : (
+    <table class="spec-table">
+      <caption class="spec-caption label">{caption}</caption>
+      <thead>
+        <tr>
+          <th scope="col" class="label col-param">Engineering Parameter</th>
+          <th scope="col" class="label col-val">Design Specification</th>
+          <th scope="col" class="label col-std">Governing Standard</th>
+          <th scope="col" class="label col-tol">Tolerance / Test Limit</th>
+        </tr>
+      </thead>
+      <tbody>
+        {rows.map((row, idx) => (
+          <tr class={idx % 2 === 1 ? "stripe" : ""}>
+            <th scope="row" class="data param-name">{row.parameter}</th>
+            <td class="data param-val">{row.value}</td>
+            <td class="data param-std">{row.standard ?? "TIA-222-H"}</td>
+            <td class="data param-tol">{row.tolerance ?? "± 0.5%"}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  )}
+</div>
+
+<style>
+  .table-wrapper {
+    overflow-x: auto;
+    border: var(--border-strong);
+    background-color: var(--color-surface-raised);
+    margin: var(--space-4) 0;
+  }
+
+  .table-wrapper:focus-visible {
+    outline: 2px solid var(--color-focus-ring);
+    outline-offset: 2px;
+  }
+
+  .empty-state {
+    padding: var(--space-6);
+    text-align: center;
+    color: var(--color-text-secondary);
+  }
+
+  .spec-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    min-width: 600px;
+  }
+
+  .spec-caption {
+    text-align: left;
+    padding: var(--space-3) var(--space-4);
+    background-color: var(--color-surface-night);
+    color: var(--color-text-on-night);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  thead {
+    background-color: var(--color-surface-muted);
+    border-bottom: var(--border-strong);
+  }
+
+  th, td {
+    padding: var(--space-3) var(--space-4);
+    border-bottom: var(--border-hairline);
+    vertical-align: middle;
+  }
+
+  thead th {
+    color: var(--color-text-primary);
+    font-weight: 700;
+  }
+
+  .col-val, .param-val {
+    text-align: right;
+  }
+
+  .col-tol, .param-tol {
+    text-align: right;
+  }
+
+  .stripe {
+    background-color: rgba(225, 230, 228, 0.4);
+  }
+
+  .param-name {
+    font-weight: 600;
+    color: var(--color-text-primary);
+    text-align: left;
+  }
+
+  .param-val {
+    color: var(--color-action-primary);
+    font-weight: 600;
+  }
+
+  .param-std {
+    color: var(--color-text-secondary);
+  }
+
+  .param-tol {
+    color: var(--ink-500);
+  }
+</style>

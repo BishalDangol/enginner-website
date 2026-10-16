@@ -1,0 +1,137 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ProjectCard from "../../components/ProjectCard.astro";
+import Button from "../../components/Button.astro";
+import { getCollection } from "astro:content";
+
+const projects = await getCollection("projects");
+projects.sort((a, b) => new Date(b.data.completed).getTime() - new Date(a.data.completed).getTime());
+---
+
+<BaseLayout
+  title="Projects &amp; Infrastructure Archive // Apex Tower"
+  description="Audited case studies of telecommunication lattice towers, guyed masts, monopoles, and fiber backbones engineered and erected across Nepal."
+>
+  <div class="projects-container">
+    <header class="projects-header">
+      <div class="header-metadata">
+        <span class="label">FIELD ARCHIVE // COMPLETED EPC CONTRACTS</span>
+        <span class="data total-tag">{projects.length} AUDITED DEPLOYMENTS</span>
+      </div>
+      <h1 class="projects-title">Infrastructure Projects Directory</h1>
+      <p class="projects-lead">
+        Deterministic delivery across mountain ridges, seismic river valleys, and dense metropolitan rooftops. Every site is built to TIA-222-H standards with verified mill and torque test records.
+      </p>
+    </header>
+
+    <!-- Project Grid -->
+    <div class="projects-grid">
+      {projects.map((p) => (
+        <ProjectCard
+          title={p.data.title}
+          siteId={p.data.siteId}
+          towerType={p.data.towerType}
+          heightM={p.data.heightM}
+          location={p.data.location}
+          completed={p.data.completed}
+          slug={p.id}
+          client={p.data.client}
+        />
+      ))}
+    </div>
+
+    <!-- Bottom Verification Band -->
+    <section class="archive-summary">
+      <div class="summary-box">
+        <span class="label">REGULATORY AUDIT CERTIFICATION</span>
+        <h2 class="summary-heading">All As-Built Documentation Stamped &amp; Filed</h2>
+        <p class="summary-text">
+          Our engineering documentation archives retain 25-year structural calculation packages, geotechnical bore logs, galvanizing thickness records, and theodolite verticality certificates for every project ID.
+        </p>
+        <Button href="/contact" variant="primary">
+          Submit RFQ for New Site Erection
+        </Button>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .projects-container {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: var(--space-6) var(--gutter) var(--space-9) var(--gutter);
+  }
+
+  .projects-header {
+    border-bottom: var(--border-hairline);
+    padding-bottom: var(--space-5);
+    margin-bottom: var(--space-7);
+  }
+
+  .header-metadata {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-2);
+  }
+
+  .total-tag {
+    background-color: var(--color-surface-night);
+    color: var(--color-text-on-night);
+    padding: 2px var(--space-2);
+    font-size: 0.75rem;
+  }
+
+  .projects-title {
+    font-size: var(--font-size-h1);
+    margin: 0 0 var(--space-3) 0;
+  }
+
+  .projects-lead {
+    font-size: 1.125rem;
+    color: var(--color-text-secondary);
+    max-width: 70ch;
+    margin: 0;
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+    margin-bottom: var(--space-8);
+  }
+
+  @media (min-width: 640px) {
+    .projects-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .projects-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .archive-summary {
+    background-color: var(--color-surface-raised);
+    border: var(--border-strong);
+    box-shadow: var(--shadow-hard);
+    padding: var(--space-6);
+    margin-top: var(--space-8);
+  }
+
+  .summary-heading {
+    font-size: var(--font-size-h2);
+    margin: var(--space-2) 0 var(--space-3) 0;
+  }
+
+  .summary-text {
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+    max-width: 75ch;
+    line-height: 1.5;
+    margin-bottom: var(--space-5);
+  }
+</style>

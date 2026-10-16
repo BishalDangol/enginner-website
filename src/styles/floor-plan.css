@@ -1,0 +1,359 @@
+/* ==========================================================================
+   INTERACTIVE FLOOR PLAN & ARCHITECTURAL STORYTELLING STYLES
+   Style definition for InteractiveFloorPlan.tsx
+   ========================================================================== */
+
+.floorplan-story-container {
+  width: 100%;
+  position: relative;
+  margin-top: var(--space-4);
+  background-color: var(--color-surface-page);
+}
+
+/* Two-Column Layout Grid: Left Scrolling Cards, Right Sticky Diagram */
+.floorplan-layout-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+  position: relative;
+}
+
+@media (min-width: 1024px) {
+  .floorplan-layout-grid {
+    grid-template-columns: 1fr 1.2fr;
+    gap: var(--space-8);
+    align-items: stretch; /* Stretches column so diagram stays fixed for full duration */
+  }
+}
+
+/* Left Column: Scrolling Content & Explanatory Cards */
+.floorplan-content-scroll-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  padding-bottom: 32vh; /* Scroll buffer so diagram stays fixed until final card is read */
+}
+
+.floorplan-intro-card {
+  background: var(--color-surface-raised);
+  border: 1px solid var(--color-border-hairline);
+  padding: var(--space-5);
+  border-left: 3px solid var(--color-text-primary);
+  transition: opacity 0.15s ease-out, transform 0.15s ease-out, filter 0.15s ease-out;
+  will-change: opacity, transform, filter;
+}
+
+.tag-mono {
+  color: var(--color-text-secondary);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  margin-bottom: var(--space-2);
+  display: block;
+}
+
+.intro-main-title {
+  font-family: var(--font-display);
+  font-size: var(--font-size-h2);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--color-text-primary);
+  margin: var(--space-2) 0 var(--space-3) 0;
+}
+
+.intro-title {
+  font-size: var(--font-size-h3);
+  margin: var(--space-2) 0 var(--space-3) 0;
+  color: var(--color-text-primary);
+}
+
+.intro-desc {
+  font-size: 0.9375rem;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+  margin-bottom: var(--space-4);
+}
+
+.intro-stats-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+  border-top: 1px dashed var(--color-border-hairline);
+  padding-top: var(--space-3);
+}
+
+.stat-unit {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 11px;
+}
+
+/* Sequential Step Cards Stack */
+.floorplan-cards-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.floorplan-step-card {
+  background: var(--color-surface-raised);
+  border: 1px solid var(--color-border-hairline);
+  border-left: 3px solid var(--vellum-300);
+  padding: var(--space-5);
+  cursor: pointer;
+  transition: opacity 0.15s ease-out, transform 0.15s ease-out, filter 0.15s ease-out, background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  outline: none;
+  will-change: opacity, transform, filter;
+}
+
+.floorplan-step-card:hover {
+  border-color: var(--ink-700);
+  box-shadow: 0 4px 16px rgba(18, 32, 43, 0.06);
+}
+
+.floorplan-step-card.card-active {
+  border-left: 4px solid var(--orange-500);
+  border-color: var(--ink-900);
+  box-shadow: 0 6px 24px rgba(18, 32, 43, 0.1);
+  background: #ffffff;
+}
+
+.card-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-2);
+}
+
+.step-counter {
+  color: var(--orange-500);
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.code-pill {
+  background: var(--vellum-200);
+  color: var(--ink-900);
+  padding: 3px 8px;
+  font-size: 10px;
+  letter-spacing: 0.05em;
+}
+
+.indicator-pip {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1px solid var(--vellum-300);
+  transition: all 0.2s ease;
+}
+
+.card-title {
+  font-size: 1.125rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  margin: var(--space-1) 0;
+  color: var(--color-text-primary);
+}
+
+.card-subtitle {
+  color: var(--color-text-secondary);
+  font-size: 11px;
+  margin-bottom: var(--space-3);
+  display: block;
+}
+
+.card-body-text {
+  font-size: 0.9375rem;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+  margin-bottom: var(--space-4);
+}
+
+/* Technical Specs Matrix */
+.card-specs-matrix {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 6px;
+  background: var(--vellum-100);
+  padding: var(--space-3);
+  border: 1px solid var(--color-border-hairline);
+  margin-bottom: var(--space-4);
+}
+
+@media (min-width: 640px) {
+  .card-specs-matrix {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.spec-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.spec-lbl {
+  font-size: 10px;
+  color: var(--ink-500);
+}
+
+.spec-val {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ink-900);
+}
+
+/* Telemetry Row at bottom of card */
+.card-telemetry-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-2);
+  border-top: 1px dashed var(--color-border-hairline);
+  padding-top: var(--space-3);
+  font-size: 11px;
+}
+
+.tel-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* ==========================================================================
+   RIGHT COLUMN: PINNED FIXED ARCHITECTURAL STAGE
+   ========================================================================== */
+
+.floorplan-pinned-diagram-col {
+  position: relative;
+  height: 100%;
+}
+
+@media (min-width: 1024px) {
+  .floorplan-sticky-stage {
+    position: sticky;
+    top: 96px;
+    z-index: 20;
+    height: calc(100vh - 120px);
+    max-height: calc(100vh - 120px);
+    will-change: transform;
+  }
+}
+
+.floorplan-sticky-stage {
+  background: var(--night-900);
+  border: 1px solid var(--ink-700);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), inset 0 0 20px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  height: 100%;
+}
+
+/* Diagram Header & View Mode Switcher */
+.diagram-header-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: rgba(18, 32, 43, 0.95);
+  border-bottom: 1px solid rgba(237, 240, 238, 0.15);
+  gap: 8px;
+}
+
+.diagram-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+}
+
+.live-status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 8px #10b981;
+}
+
+.view-mode-tabs {
+  display: inline-flex;
+  gap: 4px;
+}
+
+.mode-btn {
+  background: rgba(12, 22, 30, 0.8);
+  border: 1px solid rgba(237, 240, 238, 0.2);
+  color: var(--vellum-300);
+  padding: 4px 10px;
+  font-size: 10px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.mode-btn:hover {
+  background: var(--ink-700);
+  color: var(--white);
+}
+
+.mode-btn.active {
+  background: var(--orange-700);
+  border-color: var(--orange-500);
+  color: var(--white);
+  box-shadow: 0 0 8px rgba(232, 80, 26, 0.4);
+}
+
+/* SVG Viewport */
+.floorplan-svg-viewport {
+  width: 100%;
+  position: relative;
+  background: #0c161e;
+  overflow: hidden;
+}
+
+.floorplan-cad-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 480px;
+}
+
+/* Pinned Telemetry Strip at Bottom of Diagram */
+.diagram-footer-telemetry {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  padding: 12px 16px;
+  background: rgba(18, 32, 43, 0.95);
+  border-top: 1px solid rgba(237, 240, 238, 0.12);
+}
+
+@media (min-width: 640px) {
+  .diagram-footer-telemetry {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.telemetry-chip {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+
+.telemetry-chip .tel-lbl {
+  color: var(--vellum-300);
+  font-size: 9px;
+  letter-spacing: 0.05em;
+}
+
+.telemetry-chip .data {
+  color: var(--vellum-100);
+}

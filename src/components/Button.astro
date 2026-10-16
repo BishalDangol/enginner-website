@@ -1,0 +1,159 @@
+---
+interface Props {
+  variant?: "primary" | "secondary" | "tertiary" | "split";
+  href?: string;
+  type?: "button" | "submit" | "reset";
+  disabled?: boolean;
+  class?: string;
+  id?: string;
+  [key: string]: any;
+}
+
+const {
+  variant = "primary",
+  href,
+  type = "button",
+  disabled = false,
+  class: className = "",
+  id,
+  ...rest
+} = Astro.props;
+
+const Tag = href ? "a" : "button";
+---
+
+<Tag
+  href={href}
+  type={!href ? type : undefined}
+  disabled={!href && disabled ? true : undefined}
+  aria-disabled={href && disabled ? "true" : undefined}
+  class:list={[
+    "btn",
+    `btn-${variant}`,
+    disabled && "btn-disabled",
+    className
+  ]}
+  id={id}
+  {...rest}
+>
+  <span class="btn-content">
+    <slot />
+  </span>
+  {variant === "split" && (
+    <span class="btn-split-arrow" aria-hidden="true">→</span>
+  )}
+</Tag>
+
+<style>
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 48px;
+    min-height: 48px;
+    min-width: 44px;
+    box-sizing: border-box;
+    font-family: var(--font-mono);
+    font-size: var(--font-size-label);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+    border-radius: var(--radius-0);
+    cursor: pointer;
+    transition: background-color var(--motion-fast) var(--motion-ease),
+                color var(--motion-fast) var(--motion-ease),
+                border-color var(--motion-fast) var(--motion-ease),
+                transform var(--motion-instant) var(--motion-ease);
+    user-select: none;
+    white-space: normal;
+    text-align: center;
+  }
+
+  /* Primary */
+  .btn-primary {
+    background-color: var(--color-action-primary);
+    color: var(--color-text-on-accent);
+    border: 1px solid var(--color-action-primary);
+    padding: 0 var(--space-5);
+  }
+  .btn-primary:hover:not(:disabled):not(.btn-disabled) {
+    background-color: var(--color-action-primary-hover);
+    border-color: var(--color-action-primary-hover);
+    color: var(--color-text-on-accent);
+  }
+  .btn-primary:active:not(:disabled):not(.btn-disabled) {
+    background-color: var(--color-action-primary-active);
+    transform: translateY(1px);
+  }
+
+  /* Secondary */
+  .btn-secondary {
+    background-color: transparent;
+    color: var(--color-text-primary);
+    border: var(--border-strong);
+    padding: 0 var(--space-5);
+  }
+  .btn-secondary:hover:not(:disabled):not(.btn-disabled) {
+    background-color: var(--color-surface-muted);
+  }
+  .btn-secondary:active:not(:disabled):not(.btn-disabled) {
+    background-color: var(--color-surface-muted);
+    transform: translateY(1px);
+  }
+
+  /* Tertiary */
+  .btn-tertiary {
+    background-color: transparent;
+    color: var(--color-text-accent);
+    border: none;
+    padding: 0 var(--space-3);
+  }
+  .btn-tertiary:hover:not(:disabled):not(.btn-disabled) {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  /* Split */
+  .btn-split {
+    background-color: var(--color-action-primary);
+    color: var(--color-text-on-accent);
+    border: 1px solid var(--color-action-primary);
+    padding: 0;
+  }
+  .btn-split .btn-content {
+    padding: 0 var(--space-4);
+  }
+  .btn-split-arrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 100%;
+    border-left: 1px dashed rgba(255, 255, 255, 0.4);
+    font-size: 1rem;
+  }
+  .btn-split:hover:not(:disabled):not(.btn-disabled) {
+    background-color: var(--color-action-primary-hover);
+  }
+  .btn-split:active:not(:disabled):not(.btn-disabled) {
+    background-color: var(--color-action-primary-active);
+    transform: translateY(1px);
+  }
+
+  /* Focus */
+  .btn:focus-visible {
+    outline: 2px solid var(--color-focus-ring);
+    outline-offset: 2px;
+  }
+
+  /* Disabled */
+  .btn:disabled,
+  .btn-disabled {
+    background-color: var(--color-surface-muted) !important;
+    color: var(--ink-500) !important;
+    border-color: var(--color-border-hairline) !important;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+</style>

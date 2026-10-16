@@ -1,0 +1,228 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import RFQForm from "../islands/RFQForm.tsx";
+---
+
+<BaseLayout
+  title="Request a Quote (RFQ) &amp; Engineering Coordination // Apex Tower"
+  description="Submit project parameters for turnkey telecommunications tower erection, foundation engineering, and optical network deployment."
+>
+  <div class="contact-page-container">
+    <header class="page-header">
+      <span class="label">PRIMARY CONVERSION GATEWAY // TENDER &amp; COMMERCIAL ESTIMATION</span>
+      <h1 class="page-title">Request a Quote (RFQ)</h1>
+      <p class="page-lead">
+        Provide initial site coordinates, height requirements, and structural specifications. Our lead structural and civil engineering desk provides stamped budget estimates within 2 business days.
+      </p>
+    </header>
+
+    <div class="contact-grid">
+      <!-- Left: Interactive Multi-Step RFQ Island -->
+      <div class="rfq-container">
+        <noscript>
+          <div class="noscript-notice">
+            <h2 class="label">JAVASCRIPT DISABLED // DIRECT RFQ INSTRUCTIONS</h2>
+            <p>
+              To submit an engineering request for quotation without JavaScript, please email your scope documentation, tower coordinates, and tender RFP directly to:
+            </p>
+            <p class="data font-bold"><a href="mailto:rfq@apextowerinfra.com">rfq@apextowerinfra.com</a></p>
+            <p>Or call the commercial desk directly at <strong>+977 1 456-7890</strong>.</p>
+          </div>
+        </noscript>
+
+        <RFQForm client:load />
+      </div>
+
+      <!-- Right: Commercial & Engineering Office Specs -->
+      <aside class="contact-sidebar">
+        <div class="sidebar-card">
+          <span class="label sidebar-tag">PROCUREMENT TIMELINE</span>
+          <h2 class="sidebar-title">Guaranteed Response Terms</h2>
+          <ul class="sla-list">
+            <li>
+              <strong>Initial Review:</strong> Acknowledgment &amp; engineer assignment within 4 operating hours.
+            </li>
+            <li>
+              <strong>Budgetary Proposal:</strong> Turnkey bill of quantities (BOQ) within 48 business hours.
+            </li>
+            <li>
+              <strong>On-Site Survey:</strong> Geotechnical team dispatch scheduled within 5 business days.
+            </li>
+          </ul>
+        </div>
+
+        <div class="sidebar-card">
+          <span class="label sidebar-tag">OFFICIAL REPOSITORIES &amp; YARDS</span>
+          <h2 class="sidebar-title">Headquarters &amp; Engineering Yard</h2>
+          <address class="office-address">
+            <strong>Apex Tower &amp; Infrastructure Ltd.</strong><br/>
+            Ring Road Engineering Yard, Sector 4<br/>
+            Kathmandu Valley, Bagmati Province, Nepal
+          </address>
+          <div class="sidebar-meta">
+            <span class="label">COORDINATES:</span>
+            <span class="data">27°42'34" N, 85°19'12" E</span>
+          </div>
+          <div class="sidebar-meta">
+            <span class="label">OFFICE HOURS:</span>
+            <span class="data">Sunday–Friday, 09:00 – 18:00 (NPT)</span>
+          </div>
+        </div>
+
+        <div class="sidebar-card emergency-sidebar">
+          <span class="label emergency-label">24/7 EMERGENCY RIGGING DESK</span>
+          <p class="emergency-txt">
+            For active microwave path failures, aviation beacon blackouts, or structural storm damage:
+          </p>
+          <a href="tel:+97714567890" class="emergency-call data">+977 1 456-7890</a>
+          <span class="label pin-tag">DIRECT NOC EXTENSION</span>
+        </div>
+      </aside>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .contact-page-container {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: var(--space-6) var(--gutter) var(--space-9) var(--gutter);
+  }
+
+  .page-header {
+    border-bottom: var(--border-hairline);
+    padding-bottom: var(--space-5);
+    margin-bottom: var(--space-6);
+  }
+
+  .page-title {
+    font-size: var(--font-size-h1);
+    margin: var(--space-2) 0 var(--space-3) 0;
+  }
+
+  .page-lead {
+    font-size: 1.125rem;
+    color: var(--color-text-secondary);
+    max-width: 70ch;
+    margin: 0;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-7);
+  }
+
+  @media (min-width: 1024px) {
+    .contact-grid {
+      grid-template-columns: 1.6fr 1fr;
+    }
+  }
+
+  .noscript-notice {
+    background-color: var(--color-surface-raised);
+    border: var(--border-strong);
+    padding: var(--space-5);
+    margin-bottom: var(--space-6);
+  }
+
+  .noscript-notice .label {
+    color: var(--color-action-primary);
+    margin-bottom: var(--space-2);
+  }
+
+  .contact-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+  }
+
+  .sidebar-card {
+    background-color: var(--color-surface-raised);
+    border: var(--border-strong);
+    box-shadow: var(--shadow-hard);
+    padding: var(--space-5);
+  }
+
+  .sidebar-tag {
+    color: var(--color-action-primary);
+    margin-bottom: var(--space-2);
+    display: block;
+  }
+
+  .sidebar-title {
+    font-size: 1.25rem;
+    margin: 0 0 var(--space-3) 0;
+  }
+
+  .sla-list {
+    margin: 0;
+    padding-left: var(--space-4);
+    font-size: 0.9375rem;
+    color: var(--color-text-secondary);
+  }
+
+  .sla-list li {
+    margin-bottom: var(--space-3);
+    line-height: 1.45;
+  }
+
+  .office-address {
+    font-style: normal;
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    margin-bottom: var(--space-4);
+  }
+
+  .sidebar-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px dashed var(--color-border-hairline);
+    padding-top: var(--space-2);
+    margin-top: var(--space-2);
+  }
+
+  .sidebar-meta .label {
+    font-size: 0.6875rem;
+    color: var(--ink-500);
+  }
+
+  .sidebar-meta .data {
+    font-size: 0.8125rem;
+  }
+
+  .emergency-sidebar {
+    background-color: var(--color-surface-night);
+    color: var(--color-text-on-night);
+    border-left: 4px solid var(--color-action-primary);
+  }
+
+  .emergency-label {
+    color: var(--color-graphic-accent);
+    margin-bottom: var(--space-2);
+    display: block;
+  }
+
+  .emergency-txt {
+    font-size: 0.875rem;
+    opacity: 0.85;
+    line-height: 1.4;
+    margin-bottom: var(--space-3);
+  }
+
+  .emergency-call {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--color-graphic-accent);
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    display: block;
+    margin-bottom: var(--space-2);
+  }
+
+  .pin-tag {
+    opacity: 0.6;
+    font-size: 0.6875rem;
+  }
+</style>

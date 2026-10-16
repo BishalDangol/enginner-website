@@ -1,0 +1,183 @@
+---
+interface Step {
+  step: string;
+  title: string;
+  desc: string;
+  duration: string;
+}
+
+const steps: Step[] = [
+  {
+    step: "01",
+    title: "Site Survey & Geotechnical",
+    desc: "Drone LiDAR topographical scanning, soil load-bearing bore testing, and RF line-of-sight analysis.",
+    duration: "5–7 Days",
+  },
+  {
+    step: "02",
+    title: "Structural & Wind Modeling",
+    desc: "TIA-222-H calculations, foundation sizing for seismic Class 4 zones, and civil CAD fabrication drafts.",
+    duration: "7–10 Days",
+  },
+  {
+    step: "03",
+    title: "Permitting & Aviation Clearance",
+    desc: "Civil Aviation Authority obstruction light permits, local municipal land-use filings, and right-of-way approvals.",
+    duration: "10–14 Days",
+  },
+  {
+    step: "04",
+    title: "Fabrication & Rigging Erection",
+    desc: "High-tensile galvanized steel fabrication, bolt torque verification, and gin-pole erection by certified climbers.",
+    duration: "14–21 Days",
+  },
+  {
+    step: "05",
+    title: "Antenna Rigging & Commissioning",
+    desc: "Feedline sweep testing (VSWR < 1.15), azimuth/tilt optical calibration, grounding resistance check (< 5 Ohms).",
+    duration: "3–5 Days",
+  },
+  {
+    step: "06",
+    title: "SLA Handover & 24/7 Monitoring",
+    desc: "As-built documentation handover, aviation strobe telemetry integration, and NOC preventive maintenance enrollment.",
+    duration: "Ongoing",
+  },
+];
+---
+
+<section class="process-stepper" aria-labelledby="stepper-title">
+  <div class="stepper-container">
+    <div class="stepper-header">
+      <span class="label">EXECUTION PROTOCOL // FIELD METHODOLOGY</span>
+      <h2 id="stepper-title" class="stepper-heading">From Survey to Commissioning</h2>
+      <p class="stepper-sub">
+        Deterministic project schedules managed under ISO 9001:2015 quality assurance guidelines.
+      </p>
+    </div>
+
+    <div class="stepper-grid">
+      {steps.map((item) => (
+        <div class="step-card">
+          <div class="step-top">
+            <span class="label step-num">[{item.step}]</span>
+            <span class="data step-duration">{item.duration}</span>
+          </div>
+          <h3 class="step-title">{item.title}</h3>
+          <p class="step-desc">{item.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .process-stepper {
+    padding: var(--space-8) 0;
+    background-color: var(--color-surface-page);
+    border-top: var(--border-hairline);
+    border-bottom: var(--border-hairline);
+  }
+
+  .stepper-container {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+  }
+
+  .stepper-header {
+    margin-bottom: var(--space-6);
+  }
+
+  .stepper-heading {
+    font-size: var(--font-size-h2);
+    margin: var(--space-2) 0 var(--space-3) 0;
+    color: var(--color-text-primary);
+  }
+
+  .stepper-sub {
+    font-size: 1.0625rem;
+    color: var(--color-text-secondary);
+    max-width: 65ch;
+    margin: 0;
+  }
+
+  .stepper-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+    position: relative;
+  }
+
+  @media (min-width: 640px) {
+    .stepper-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .stepper-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-5);
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .stepper-grid {
+      grid-template-columns: repeat(6, 1fr);
+      gap: 0;
+    }
+  }
+
+  .step-card {
+    background-color: var(--color-surface-raised);
+    border: var(--border-strong);
+    padding: var(--space-4);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    position: relative;
+  }
+
+  @media (min-width: 1280px) {
+    .step-card {
+      border-right: none;
+    }
+    .step-card:last-child {
+      border-right: var(--border-strong);
+    }
+  }
+
+  .step-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px dashed var(--color-border-hairline);
+    padding-bottom: var(--space-2);
+    margin-bottom: var(--space-3);
+  }
+
+  .step-num {
+    color: var(--color-graphic-accent);
+    font-weight: 700;
+  }
+
+  .step-duration {
+    font-size: 0.75rem;
+    color: var(--color-text-secondary);
+  }
+
+  .step-title {
+    font-size: 1rem;
+    margin: 0 0 var(--space-2) 0;
+    color: var(--color-text-primary);
+    line-height: 1.25;
+  }
+
+  .step-desc {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    line-height: 1.45;
+    margin: 0;
+  }
+</style>

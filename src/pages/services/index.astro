@@ -1,0 +1,241 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Button from "../../components/Button.astro";
+import { getCollection } from "astro:content";
+
+const services = await getCollection("services");
+services.sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout
+  title="Engineering Services // Apex Tower & Infrastructure"
+  description="Full-lifecycle telecom infrastructure: tower erection, civil foundations, structural calculations, fiber backbones, microwave LoS, and preventive maintenance."
+>
+  <div class="page-container">
+    <header class="page-header">
+      <span class="label">CAPABILITY REGISTER // DISCIPLINE: TELECOM CIVIL &amp; RF RIGGING</span>
+      <h1 class="page-title">Engineering Services Directory</h1>
+      <p class="page-lead">
+        We execute turnkey EPC contracts for national telecommunications operators, licensed ISPs, and defense communication networks under TIA-222-H and ISO 9001:2015 quality frameworks.
+      </p>
+    </header>
+
+    <div class="services-list-grid">
+      {services.map((svc) => (
+        <article class="service-entry-card">
+          <div class="entry-header">
+            <span class="label entry-index">SHEET [{String(svc.data.order).padStart(2, '0')}]</span>
+            <span class="label entry-code">CODE: APX-SVC-{svc.data.order}</span>
+          </div>
+
+          <h2 class="entry-title">
+            <a href={`/services/${svc.id}`}>{svc.data.title}</a>
+          </h2>
+
+          <p class="entry-summary">{svc.data.summary}</p>
+
+          <div class="entry-footer">
+            <Button href={`/services/${svc.id}`} variant="secondary">
+              Review Scope Specifications →
+            </Button>
+            <Button href="/contact" variant="primary">
+              Request Quote
+            </Button>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <!-- Equipment & Tooling Specification Table -->
+    <section class="equipment-section">
+      <div class="equipment-header">
+        <span class="label">FIELD EQUIPMENT &amp; ASSET AUDIT</span>
+        <h2 class="equipment-title">Certified Rigging Winches &amp; Testing Apparatus</h2>
+      </div>
+
+      <div class="table-responsive" tabindex="0" role="region" aria-label="Field equipment specifications">
+        <table class="equip-table">
+          <thead>
+            <tr>
+              <th scope="col" class="label">Equipment Type</th>
+              <th scope="col" class="label">Model &amp; Manufacturer</th>
+              <th scope="col" class="label">Calibration / Inspection</th>
+              <th scope="col" class="label">Capacity / Operating Limit</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row" class="data">Telescopic Gin-Pole Mast</th>
+              <td class="data">Apex HD-32 Heavy Erection Pole</td>
+              <td class="data">Quarterly NDT Magnetic Particle Test</td>
+              <td class="data text-right">3.5 Ton SWL @ 90°</td>
+            </tr>
+            <tr class="stripe">
+              <th scope="row" class="data">Capstan Rigging Winch</th>
+              <td class="data">AB Chance Series 90 Gas-Powered</td>
+              <td class="data">Pre-deployment load proof tested</td>
+              <td class="data text-right">1,000 kg Continuous Pull</td>
+            </tr>
+            <tr>
+              <th scope="row" class="data">Feedline Sweep Analyzer</th>
+              <td class="data">Anritsu Site Master S331L</td>
+              <td class="data">Factory calibrated (Valid Dec 2026)</td>
+              <td class="data text-right">2 MHz – 4 GHz (VSWR &lt; 1.05)</td>
+            </tr>
+            <tr class="stripe">
+              <th scope="row" class="data">Earth Ground Tester</th>
+              <td class="data">Megger DET4TC2 4-Pole Fall-of-Potential</td>
+              <td class="data">Annual ISO 17025 verification</td>
+              <td class="data text-right">0.01 Ω Resolution (&lt; 5 Ω SLA)</td>
+            </tr>
+            <tr>
+              <th scope="row" class="data">Fusion Splicer &amp; OTDR</th>
+              <td class="data">Fujikura 90S+ / EXFO FTB-1v2 Pro</td>
+              <td class="data">Automated arc calibration on-site</td>
+              <td class="data text-right">Splice Loss &lt; 0.02 dB (SM)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .page-container {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: var(--space-6) var(--gutter) var(--space-9) var(--gutter);
+  }
+
+  .page-header {
+    border-bottom: var(--border-hairline);
+    padding-bottom: var(--space-5);
+    margin-bottom: var(--space-7);
+  }
+
+  .page-title {
+    font-size: var(--font-size-h1);
+    margin: var(--space-2) 0 var(--space-3) 0;
+  }
+
+  .page-lead {
+    font-size: 1.125rem;
+    color: var(--color-text-secondary);
+    max-width: 70ch;
+    margin: 0;
+  }
+
+  .services-list-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+    margin-bottom: var(--space-8);
+  }
+
+  @media (min-width: 768px) {
+    .services-list-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .service-entry-card {
+    background-color: var(--color-surface-raised);
+    border: var(--border-strong);
+    box-shadow: var(--shadow-hard);
+    padding: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .entry-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px dashed var(--color-border-hairline);
+    padding-bottom: var(--space-2);
+    margin-bottom: var(--space-3);
+  }
+
+  .entry-index {
+    color: var(--color-action-primary);
+    font-weight: 700;
+  }
+
+  .entry-code {
+    color: var(--ink-500);
+  }
+
+  .entry-title {
+    font-size: 1.375rem;
+    margin: 0 0 var(--space-3) 0;
+  }
+
+  .entry-title a {
+    color: var(--color-text-primary);
+    text-decoration: none;
+  }
+
+  .entry-title a:hover {
+    color: var(--color-text-accent);
+    text-decoration: underline;
+  }
+
+  .entry-summary {
+    font-size: 0.9375rem;
+    color: var(--color-text-secondary);
+    line-height: 1.5;
+    margin: 0 0 var(--space-5) 0;
+    flex-grow: 1;
+  }
+
+  .entry-footer {
+    display: flex;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+    border-top: var(--border-hairline);
+    padding-top: var(--space-4);
+  }
+
+  /* Equipment section */
+  .equipment-section {
+    background-color: var(--color-surface-raised);
+    border: var(--border-strong);
+    padding: var(--space-6);
+    margin-top: var(--space-8);
+  }
+
+  .equipment-title {
+    font-size: var(--font-size-h2);
+    margin: var(--space-2) 0 var(--space-4) 0;
+  }
+
+  .table-responsive {
+    overflow-x: auto;
+  }
+
+  .equip-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 640px;
+  }
+
+  .equip-table th, .equip-table td {
+    padding: var(--space-3) var(--space-4);
+    border-bottom: var(--border-hairline);
+    text-align: left;
+  }
+
+  .equip-table thead {
+    background-color: var(--color-surface-muted);
+  }
+
+  .stripe {
+    background-color: rgba(225, 230, 228, 0.4);
+  }
+
+  .text-right {
+    text-align: right;
+  }
+</style>

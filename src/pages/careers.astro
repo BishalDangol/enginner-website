@@ -1,0 +1,267 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Button from "../components/Button.astro";
+import { getCollection, render } from "astro:content";
+
+const careers = await getCollection("careers");
+---
+
+<BaseLayout
+  title="Careers in Tower Rigging &amp; Engineering // Apex Tower"
+  description="Open roles for certified high-angle tower riggers, structural engineers, and NOC microwave specialists."
+>
+  <div class="careers-container">
+    <header class="page-header">
+      <span class="label">TALENT ACQUISITION // FIELD RIGGING &amp; STRUCTURAL DESIGN</span>
+      <h1 class="page-title">Build Critical Infrastructure with Us</h1>
+      <p class="page-lead">
+        We recruit experienced tower climbers, civil structural engineers, and fiber specialists who value uncompromising safety, rigorous field discipline, and real engineering impact.
+      </p>
+    </header>
+
+    <!-- Culture & Benefits Banner -->
+    <div class="benefits-grid">
+      <div class="benefit-card">
+        <span class="label benefit-tag">SAFETY FIRST</span>
+        <h3 class="benefit-title">Premium European Fall Protection</h3>
+        <p class="benefit-text">
+          Every rigger is outfitted with top-tier Petzl / DBI-SALA full-body harnesses, dual shock-absorbing lanyards, and personal locator beacons. No compromises on personal safety.
+        </p>
+      </div>
+
+      <div class="benefit-card">
+        <span class="label benefit-tag">PROFESSIONAL ADVANCEMENT</span>
+        <h3 class="benefit-title">Certified Rigging &amp; Winch Training</h3>
+        <p class="benefit-text">
+          Sponsored certifications in IRATA rope access, ASME gin-pole operation, high-voltage proximity safety, and Anritsu sweep analyzer operation.
+        </p>
+      </div>
+
+      <div class="benefit-card">
+        <span class="label benefit-tag">COMPREHENSIVE COVERAGE</span>
+        <h3 class="benefit-title">High-Altitude Medical &amp; Life Insurance</h3>
+        <p class="benefit-text">
+          Comprehensive 24/7 personal accident, medical emergency evacuation (including helicopter rescue in remote mountain zones), and family health coverage.
+        </p>
+      </div>
+    </div>
+
+    <!-- Active Openings -->
+    <section class="openings-section">
+      <div class="section-title-bar">
+        <span class="label">ACTIVE VACANCIES // FIELD &amp; HEADQUARTERS</span>
+        <h2 class="section-heading">Open Positions</h2>
+      </div>
+
+      <div class="openings-list">
+        {careers.map(async (job) => {
+          const { Content } = await render(job);
+          return (
+            <article class="job-card">
+              <div class="job-header">
+                <div>
+                  <h3 class="job-title">{job.data.title}</h3>
+                  <div class="job-meta">
+                    <span class="data job-loc">{job.data.location}</span>
+                    <span aria-hidden="true">//</span>
+                    <span class="label job-type">{job.data.type.toUpperCase()}</span>
+                  </div>
+                </div>
+                <div class="job-status">
+                  <span class="label status-open">● ACCEPTING APPLICATIONS</span>
+                </div>
+              </div>
+
+              <div class="job-content">
+                <Content />
+              </div>
+
+              <div class="job-footer">
+                <p class="data apply-instruction">
+                  To apply, email your resume and climb logbook to <a href="mailto:careers@apextowerinfra.com" class="font-bold">careers@apextowerinfra.com</a> specifying the role title in the subject line.
+                </p>
+                <Button href={`mailto:careers@apextowerinfra.com?subject=Application: ${encodeURIComponent(job.data.title)}`} variant="primary">
+                  Apply for This Position
+                </Button>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .careers-container {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: var(--space-6) var(--gutter) var(--space-9) var(--gutter);
+  }
+
+  .page-header {
+    border-bottom: var(--border-hairline);
+    padding-bottom: var(--space-5);
+    margin-bottom: var(--space-6);
+  }
+
+  .page-title {
+    font-size: var(--font-size-h1);
+    margin: var(--space-2) 0 var(--space-3) 0;
+  }
+
+  .page-lead {
+    font-size: 1.125rem;
+    color: var(--color-text-secondary);
+    max-width: 70ch;
+    margin: 0;
+  }
+
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+    margin-bottom: var(--space-8);
+  }
+
+  @media (min-width: 768px) {
+    .benefits-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .benefit-card {
+    background-color: var(--color-surface-raised);
+    border: var(--border-strong);
+    box-shadow: var(--shadow-hard);
+    padding: var(--space-5);
+  }
+
+  .benefit-tag {
+    color: var(--color-action-primary);
+    font-weight: 700;
+    margin-bottom: var(--space-2);
+    display: block;
+  }
+
+  .benefit-title {
+    font-size: 1.125rem;
+    margin: 0 0 var(--space-2) 0;
+    color: var(--color-text-primary);
+  }
+
+  .benefit-text {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .openings-section {
+    margin-top: var(--space-8);
+  }
+
+  .section-title-bar {
+    border-bottom: var(--border-hairline);
+    padding-bottom: var(--space-2);
+    margin-bottom: var(--space-5);
+  }
+
+  .section-heading {
+    font-size: var(--font-size-h2);
+    margin: var(--space-1) 0 0 0;
+  }
+
+  .openings-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .job-card {
+    background-color: var(--color-surface-raised);
+    border: var(--border-strong);
+    padding: var(--space-6);
+  }
+
+  .job-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-bottom: var(--border-hairline);
+    padding-bottom: var(--space-4);
+    margin-bottom: var(--space-4);
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+
+  .job-title {
+    font-size: 1.375rem;
+    margin: 0 0 var(--space-1) 0;
+  }
+
+  .job-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    color: var(--color-text-secondary);
+    font-size: 0.875rem;
+  }
+
+  .job-type {
+    color: var(--color-text-accent);
+    font-weight: 700;
+  }
+
+  .status-open {
+    color: var(--color-status-operational);
+    background-color: #e6f4ea;
+    padding: 4px var(--space-3);
+    font-weight: 600;
+  }
+
+  .job-content :global(h2), .job-content :global(h3) {
+    font-size: 1.0625rem;
+    margin: var(--space-4) 0 var(--space-2) 0;
+    color: var(--color-text-primary);
+  }
+
+  .job-content :global(p) {
+    font-size: 0.9375rem;
+    color: var(--color-text-secondary);
+    line-height: 1.5;
+    margin-bottom: var(--space-3);
+  }
+
+  .job-content :global(ul) {
+    padding-left: var(--space-5);
+    margin-bottom: var(--space-4);
+    color: var(--color-text-secondary);
+  }
+
+  .job-content :global(li) {
+    margin-bottom: var(--space-1);
+    font-size: 0.875rem;
+    line-height: 1.45;
+  }
+
+  .job-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: var(--border-hairline);
+    padding-top: var(--space-4);
+    flex-wrap: wrap;
+    gap: var(--space-4);
+  }
+
+  .apply-instruction {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    max-width: 60ch;
+  }
+
+  .apply-instruction a {
+    color: var(--color-text-accent);
+  }
+</style>

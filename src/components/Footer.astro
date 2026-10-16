@@ -1,0 +1,293 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer" role="contentinfo">
+  <!-- Drafting divider -->
+  <div class="footer-divider" aria-hidden="true">
+    <div class="divider-crosshair left">+</div>
+    <div class="divider-line"></div>
+    <div class="divider-crosshair right">+</div>
+  </div>
+
+  <div class="footer-container">
+    <div class="footer-grid">
+      <!-- Col 1: Identity & Compliance -->
+      <div class="footer-col col-identity">
+        <div class="footer-brand">
+          <svg class="brand-mark" viewBox="0 0 32 32" width="24" height="24" fill="none" aria-hidden="true">
+            <rect width="32" height="32" fill="#12202B"/>
+            <path d="M16 4L7 28H11L16 13L21 28H25L16 4Z" fill="#E8501A"/>
+            <line x1="11" y1="18" x2="21" y2="18" stroke="#EDF0EE" stroke-width="1.2"/>
+            <line x1="9" y1="23" x2="23" y2="23" stroke="#EDF0EE" stroke-width="1.2"/>
+          </svg>
+          <span class="brand-name">APEX TOWER &amp; INFRASTRUCTURE</span>
+        </div>
+        <p class="footer-desc">
+          Engineering, turnkey construction, structural assessment and 24/7 maintenance of critical telecom towers, microwave backhaul, and fiber networks.
+        </p>
+        <div class="compliance-box">
+          <div class="label compliance-title">LICENSING &amp; STANDARDS</div>
+          <div class="data compliance-text">NTA INFRASTRUCTURE LICENSE #NTA-IN-042</div>
+          <div class="data compliance-text">STRUCTURAL DESIGN: TIA-222-H / IS 875 (PART 3)</div>
+          <div class="data compliance-text">CERTIFICATIONS: ISO 9001:2015 &amp; ISO 45001:2018</div>
+        </div>
+      </div>
+
+      <!-- Col 2: Services -->
+      <div class="footer-col">
+        <h3 class="label footer-heading">ENGINEERING SERVICES</h3>
+        <ul class="footer-links">
+          <li><a href="/services/tower-construction">Tower Construction &amp; Erection</a></li>
+          <li><a href="/services/civil-foundations">Civil &amp; Geological Foundation Works</a></li>
+          <li><a href="/services/structural-analysis">Structural Analysis &amp; Rigging Audits</a></li>
+          <li><a href="/services/fiber-backbone">Fiber Optical Backbone &amp; FTTH</a></li>
+          <li><a href="/services/microwave-backhaul">Microwave Line-of-Sight Backhaul</a></li>
+          <li><a href="/services/maintenance-noc">24/7 Preventive &amp; Emergency NOC</a></li>
+        </ul>
+      </div>
+
+      <!-- Col 3: Resources -->
+      <div class="footer-col">
+        <h3 class="label footer-heading">RESOURCES &amp; COMPLIANCE</h3>
+        <ul class="footer-links">
+          <li><a href="/safety">HSE Policy &amp; Rigging Safety</a></li>
+          <li><a href="/coverage">Regional Tower Coverage Map</a></li>
+          <li><a href="/projects">Civil Infrastructure Case Studies</a></li>
+          <li><a href="/support">Client Support &amp; SLA Status</a></li>
+          <li><a href="/careers">Field Riggers &amp; Climber Careers</a></li>
+          <li><a href="/contact">Request a Quote (RFQ)</a></li>
+        </ul>
+      </div>
+
+      <!-- Col 4: Contact & NOC -->
+      <div class="footer-col col-contact">
+        <h3 class="label footer-heading">DIRECT COORDINATION</h3>
+        <div class="contact-card">
+          <div class="label contact-tag">EMERGENCY NOC (24/7)</div>
+          <div class="contact-value">
+            <a href="tel:+97714567890" class="data noc-phone">+977 1 456-7890</a>
+          </div>
+          <p class="contact-sub label">Dedicated dispatch for microwave &amp; power outages</p>
+        </div>
+
+        <div class="address-details">
+          <div class="label">HEADQUARTERS &amp; YARD</div>
+          <address class="office-address">
+            Ring Road Engineering Yard, Sector 4<br/>
+            Kathmandu Valley, Bagmati Province, Nepal
+          </address>
+          <div class="label email-label">GENERAL &amp; TENDERS</div>
+          <a href="mailto:rfq@apextowerinfra.com" class="footer-email">rfq@apextowerinfra.com</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom sheet bar -->
+    <div class="footer-bottom">
+      <div class="bottom-left">
+        <span class="label">SHEET 00 // REVISION: 2026.03 // APEX TOWER INFRASTRUCTURE LTD.</span>
+      </div>
+      <div class="bottom-right">
+        <span class="label">&copy; {year} APEX TOWER &amp; INFRASTRUCTURE. ALL RIGHTS RESERVED.</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background-color: var(--color-surface-raised);
+    border-top: var(--border-strong);
+    padding-top: var(--space-6);
+    color: var(--color-text-primary);
+  }
+
+  .footer-divider {
+    max-width: var(--container-max);
+    margin: 0 auto var(--space-6) auto;
+    padding: 0 var(--gutter);
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+
+  .divider-crosshair {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--color-border-hairline);
+    user-select: none;
+  }
+
+  .divider-line {
+    flex-grow: 1;
+    height: 1px;
+    background: var(--color-border-hairline);
+    margin: 0 var(--space-2);
+  }
+
+  .footer-container {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+    padding-bottom: var(--space-8);
+  }
+
+  @media (min-width: 640px) {
+    .footer-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .footer-grid {
+      grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
+      gap: var(--space-7);
+    }
+  }
+
+  .footer-brand {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-bottom: var(--space-3);
+  }
+
+  .brand-name {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1rem;
+    letter-spacing: -0.01em;
+  }
+
+  .footer-desc {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    line-height: 1.5;
+    margin-bottom: var(--space-5);
+  }
+
+  .compliance-box {
+    padding: var(--space-3);
+    background-color: var(--color-surface-page);
+    border: var(--border-hairline);
+  }
+
+  .compliance-title {
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-1);
+  }
+
+  .compliance-text {
+    font-size: 0.75rem;
+    color: var(--color-text-secondary);
+    line-height: 1.4;
+  }
+
+  .footer-heading {
+    margin-bottom: var(--space-4);
+    color: var(--color-text-primary);
+    border-bottom: var(--border-hairline);
+    padding-bottom: var(--space-2);
+  }
+
+  .footer-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .footer-links a {
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    font-size: 0.875rem;
+    display: inline-block;
+    min-height: 24px;
+    transition: color var(--motion-fast) var(--motion-ease);
+  }
+
+  .footer-links a:hover {
+    color: var(--color-text-accent);
+    text-decoration: underline;
+  }
+
+  .contact-card {
+    background-color: var(--color-surface-night);
+    color: var(--color-text-on-night);
+    padding: var(--space-4);
+    margin-bottom: var(--space-4);
+    border-left: 3px solid var(--color-status-operational);
+  }
+
+  .contact-tag {
+    color: var(--color-text-on-night);
+    opacity: 0.8;
+  }
+
+  .noc-phone {
+    font-size: 1.25rem;
+    color: var(--color-graphic-accent);
+    text-decoration: none;
+    display: block;
+    margin: var(--space-1) 0;
+    letter-spacing: 0.05em;
+  }
+
+  .contact-sub {
+    font-size: 0.6875rem;
+    color: var(--color-text-on-night);
+    opacity: 0.7;
+    margin: 0;
+  }
+
+  .address-details {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+  }
+
+  .office-address {
+    font-style: normal;
+    line-height: 1.4;
+    margin: var(--space-1) 0 var(--space-3) 0;
+  }
+
+  .email-label {
+    margin-top: var(--space-3);
+  }
+
+  .footer-email {
+    color: var(--color-text-accent);
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    text-decoration: none;
+  }
+
+  .footer-bottom {
+    border-top: var(--border-hairline);
+    padding: var(--space-4) 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    justify-content: space-between;
+  }
+
+  @media (min-width: 640px) {
+    .footer-bottom {
+      flex-direction: row;
+      align-items: center;
+    }
+  }
+
+  .bottom-left, .bottom-right {
+    color: var(--ink-500);
+  }
+</style>

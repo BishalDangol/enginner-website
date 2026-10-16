@@ -1,0 +1,211 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import CoverageMap from "../islands/CoverageMap.tsx";
+import Button from "../components/Button.astro";
+---
+
+<BaseLayout
+  title="Regional Tower Coverage &amp; Asset Atlas // Apex Tower"
+  description="National telecommunications infrastructure coverage map, tower coordinates, and operational audit register across all 7 provinces."
+>
+  <div class="coverage-page-container">
+    <header class="page-header">
+      <span class="label">NATIONAL INFRASTRUCTURE REGISTER // ASSET COORDINATES</span>
+      <h1 class="page-title">Regional Tower Grid &amp; Backhaul Reach</h1>
+      <p class="page-lead">
+        Explore verified telecommunication sites, microwave relay corridors, and metro optical loops. Toggle between the drafting map and accessible tabular list view.
+      </p>
+    </header>
+
+    <!-- Coverage Map Island -->
+    <CoverageMap client:load />
+
+    <!-- Regional Engineering Summary Grid -->
+    <section class="provinces-section">
+      <div class="section-title-bar">
+        <span class="label">REGIONAL ENGINEERING DEPOTS</span>
+        <h2 class="section-heading">Operational Hubs &amp; Rapid Field Logistics</h2>
+      </div>
+
+      <div class="depots-grid">
+        <div class="depot-card">
+          <div class="depot-header">
+            <span class="label">DEPOT 01</span>
+            <span class="data">CENTRAL / BAGMATI</span>
+          </div>
+          <h3 class="depot-title">Kathmandu Valley Engineering Yard</h3>
+          <p class="depot-desc">
+            Primary heavy steel fabrication facility, gin-pole test tower, central rigging winch depot, and 24/7 Master NOC facility.
+          </p>
+          <div class="depot-meta">
+            <span class="label">COORD: 27°42'N 85°19'E // 4-HR SLA COVERAGE</span>
+          </div>
+        </div>
+
+        <div class="depot-card">
+          <div class="depot-header">
+            <span class="label">DEPOT 02</span>
+            <span class="data">WESTERN / GANDAKI</span>
+          </div>
+          <h3 class="depot-title">Pokhara Hillside Logistics Depot</h3>
+          <p class="depot-desc">
+            Specialized mountain rigging hub with 4x4 off-road trucks, drone LiDAR surveying equipment, and high-altitude emergency riggers.
+          </p>
+          <div class="depot-meta">
+            <span class="label">COORD: 28°14'N 83°59'E // HIGH-WIND ALPINE SPECIALTY</span>
+          </div>
+        </div>
+
+        <div class="depot-card">
+          <div class="depot-header">
+            <span class="label">DEPOT 03</span>
+            <span class="data">SOUTHERN / TERAI</span>
+          </div>
+          <h3 class="depot-title">Biratnagar International Fiber Depot</h3>
+          <p class="depot-desc">
+            Cross-border optical transport staging yard, hydraulic micro-trenchers, cable blowing compressors, and DWDM splice labs.
+          </p>
+          <div class="depot-meta">
+            <span class="label">COORD: 26°27'N 87°16'E // LONG-HAUL FIBER GATEWAY</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <div class="survey-cta">
+      <div>
+        <span class="label">EXPANDING TO A NEW SECTOR?</span>
+        <h3 class="survey-cta-title">Book an On-Site Geotechnical &amp; RF Survey</h3>
+        <p class="survey-cta-desc">
+          We perform drone topographical scans, soil bearing boreholes, and line-of-sight verification within 5 business days.
+        </p>
+      </div>
+      <Button href="/contact" variant="primary">
+        Schedule Site Survey
+      </Button>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .coverage-page-container {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: var(--space-6) var(--gutter) var(--space-9) var(--gutter);
+  }
+
+  .page-header {
+    border-bottom: var(--border-hairline);
+    padding-bottom: var(--space-5);
+    margin-bottom: var(--space-6);
+  }
+
+  .page-title {
+    font-size: var(--font-size-h1);
+    margin: var(--space-2) 0 var(--space-3) 0;
+  }
+
+  .page-lead {
+    font-size: 1.125rem;
+    color: var(--color-text-secondary);
+    max-width: 70ch;
+    margin: 0;
+  }
+
+  .provinces-section {
+    margin-top: var(--space-8);
+  }
+
+  .section-title-bar {
+    border-bottom: var(--border-hairline);
+    padding-bottom: var(--space-2);
+    margin-bottom: var(--space-5);
+  }
+
+  .section-heading {
+    font-size: var(--font-size-h2);
+    margin: var(--space-1) 0 0 0;
+  }
+
+  .depots-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+  }
+
+  @media (min-width: 768px) {
+    .depots-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .depot-card {
+    background-color: var(--color-surface-raised);
+    border: var(--border-strong);
+    box-shadow: var(--shadow-hard);
+    padding: var(--space-5);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .depot-header {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px dashed var(--color-border-hairline);
+    padding-bottom: var(--space-2);
+    margin-bottom: var(--space-3);
+  }
+
+  .depot-title {
+    font-size: 1.125rem;
+    margin: 0 0 var(--space-2) 0;
+    color: var(--color-text-primary);
+  }
+
+  .depot-desc {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    line-height: 1.5;
+    margin: 0 0 var(--space-4) 0;
+    flex-grow: 1;
+  }
+
+  .depot-meta {
+    border-top: var(--border-hairline);
+    padding-top: var(--space-3);
+  }
+
+  .depot-meta .label {
+    font-size: 0.6875rem;
+    color: var(--color-text-accent);
+  }
+
+  .survey-cta {
+    background-color: var(--color-surface-night);
+    color: var(--color-text-on-night);
+    border: var(--border-strong);
+    padding: var(--space-6);
+    margin-top: var(--space-8);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-5);
+  }
+
+  .survey-cta-title {
+    font-size: var(--font-size-h2);
+    color: var(--white);
+    margin: var(--space-1) 0 var(--space-2) 0;
+  }
+
+  .survey-cta-desc {
+    font-size: 0.9375rem;
+    color: var(--color-text-on-night);
+    opacity: 0.85;
+    max-width: 60ch;
+    margin: 0;
+  }
+</style>

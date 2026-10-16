@@ -1,0 +1,257 @@
+---
+interface Props {
+  title: string;
+  siteId: string;
+  towerType: "lattice" | "monopole" | "guyed" | "rooftop" | "other";
+  heightM?: number;
+  location: string;
+  completed: Date | string;
+  slug: string;
+  image?: string;
+  imageAlt?: string;
+  client?: string;
+}
+
+const {
+  title,
+  siteId,
+  towerType,
+  heightM,
+  location,
+  completed,
+  slug,
+  image,
+  imageAlt = `${towerType} telecommunication tower at ${location}`,
+  client = "Not disclosed",
+} = Astro.props;
+
+const formattedDate = completed instanceof Date 
+  ? completed.toISOString().slice(0, 10)
+  : String(completed);
+
+// Technical SVG Tower Blueprint fallback if no image provided
+const towerIcons = {
+  lattice: `<path d="M20 180 L80 20 L140 180 Z" stroke="#E8501A" stroke-width="2" fill="none"/><line x1="40" y1="130" x2="120" y2="130" stroke="#3A4954" stroke-width="1.5"/><line x1="55" y1="80" x2="105" y2="80" stroke="#3A4954" stroke-width="1.5"/><line x1="40" y1="130" x2="105" y2="80" stroke="#3A4954" stroke-width="1"/><line x1="120" y1="130" x2="55" y2="80" stroke="#3A4954" stroke-width="1"/><line x1="20" y1="180" x2="105" y2="80" stroke="#3A4954" stroke-width="1"/><line x1="140" y1="180" x2="55" y2="80" stroke="#3A4954" stroke-width="1"/><circle cx="80" cy="20" r="3" fill="#E8501A"/>`,
+  monopole: `<line x1="80" y1="20" x2="80" y2="180" stroke="#E8501A" stroke-width="6"/><line x1="60" y1="180" x2="100" y2="180" stroke="#3A4954" stroke-width="4"/><line x1="65" y1="60" x2="95" y2="60" stroke="#3A4954" stroke-width="3"/><line x1="70" y1="110" x2="90" y2="110" stroke="#3A4954" stroke-width="3"/><circle cx="80" cy="20" r="4" fill="#E8501A"/>`,
+  guyed: `<line x1="80" y1="20" x2="80" y2="180" stroke="#E8501A" stroke-width="3"/><line x1="80" y1="40" x2="20" y2="180" stroke="#5B6B76" stroke-width="1" stroke-dasharray="2,2"/><line x1="80" y1="40" x2="140" y2="180" stroke="#5B6B76" stroke-width="1" stroke-dasharray="2,2"/><line x1="80" y1="100" x2="35" y2="180" stroke="#5B6B76" stroke-width="1" stroke-dasharray="2,2"/><line x1="80" y1="100" x2="125" y2="180" stroke="#5B6B76" stroke-width="1" stroke-dasharray="2,2"/>`,
+  rooftop: `<rect x="30" y="140" width="100" height="40" stroke="#3A4954" stroke-width="2" fill="none"/><line x1="80" y1="50" x2="80" y2="140" stroke="#E8501A" stroke-width="3"/><line x1="65" y1="80" x2="95" y2="80" stroke="#3A4954" stroke-width="2"/><circle cx="80" cy="50" r="3" fill="#E8501A"/>`,
+  other: `<rect x="40" y="40" width="80" height="120" stroke="#E8501A" stroke-width="2" fill="none"/><line x1="40" y1="40" x2="120" y2="160" stroke="#3A4954" stroke-width="1"/><line x1="120" y1="40" x2="40" y2="160" stroke="#3A4954" stroke-width="1"/>`,
+};
+
+const iconSvg = towerIcons[towerType] || towerIcons.lattice;
+---
+
+<article class="project-card">
+  <a href={`/projects/${slug}`} class="project-card-link" aria-label={`View project details for ${title} (${siteId})`}>
+    <!-- Top Drawing / Photo Header -->
+    <div class="card-media">
+      {image ? (
+        <img src={image} alt={imageAlt} class="card-img" loading="lazy" />
+      ) : (
+        <div class="card-drafting-art" aria-hidden="true">
+          <svg viewBox="0 0 160 200" class="drafting-svg" preserveAspectRatio="xMidYMid meet">
+            <g class="grid-lines">
+              <line x1="0" y1="50" x2="160" y2="50" stroke="#c9d1cf" stroke-width="0.5" stroke-dasharray="2,2"/>
+              <line x1="0" y1="100" x2="160" y2="100" stroke="#c9d1cf" stroke-width="0.5" stroke-dasharray="2,2"/>
+              <line x1="0" y1="150" x2="160" y2="150" stroke="#c9d1cf" stroke-width="0.5" stroke-dasharray="2,2"/>
+            </g>
+            <Fragment set:html={iconSvg} />
+          </svg>
+          <div class="drawing-corner-tag label">DWG // SEC-4</div>
+        </div>
+      )}
+      <div class="card-site-id label">ID: {siteId}</div>
+    </div>
+
+    <!-- Content -->
+    <div class="card-content">
+      <div class="card-type-tag label">
+        TYPE: {towerType.toUpperCase()}
+      </div>
+      <h3 class="card-title">{title}</h3>
+
+      <!-- Technical Data Specs -->
+      <dl class="card-data-grid">
+        <div class="data-pair">
+          <dt class="label">HEIGHT</dt>
+          <dd class="data">{heightM ? `${heightM} M` : "Not disclosed"}</dd>
+        </div>
+        <div class="data-pair">
+          <dt class="label">LOCATION</dt>
+          <dd class="data">{location}</dd>
+        </div>
+        <div class="data-pair">
+          <dt class="label">CLIENT</dt>
+          <dd class="data">{client}</dd>
+        </div>
+        <div class="data-pair">
+          <dt class="label">COMPLETED</dt>
+          <dd class="data">{formattedDate}</dd>
+        </div>
+      </dl>
+
+      <div class="card-action">
+        <span class="label action-link">
+          VIEW PROJECT SPECIFICATIONS <span class="arrow" aria-hidden="true">→</span>
+        </span>
+      </div>
+    </div>
+  </a>
+</article>
+
+<style>
+  .project-card {
+    background-color: var(--color-surface-raised);
+    border: var(--border-strong);
+    box-shadow: var(--shadow-hard);
+    transition: transform var(--motion-fast) var(--motion-ease),
+                box-shadow var(--motion-fast) var(--motion-ease);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .project-card:hover {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 0 var(--color-border-strong);
+  }
+
+  .project-card-link {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    text-decoration: none;
+    color: inherit;
+    outline: none;
+  }
+
+  .project-card-link:focus-visible {
+    outline: 2px solid var(--color-focus-ring);
+    outline-offset: 2px;
+  }
+
+  .card-media {
+    position: relative;
+    height: 190px;
+    background-color: var(--color-surface-page);
+    border-bottom: var(--border-strong);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(100%) contrast(110%);
+  }
+
+  .card-drafting-art {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-surface-page);
+    position: relative;
+  }
+
+  .drafting-svg {
+    height: 150px;
+    width: auto;
+  }
+
+  .drawing-corner-tag {
+    position: absolute;
+    top: var(--space-2);
+    left: var(--space-2);
+    font-size: 0.625rem;
+    color: var(--ink-500);
+    letter-spacing: 0.08em;
+  }
+
+  .card-site-id {
+    position: absolute;
+    bottom: var(--space-2);
+    right: var(--space-2);
+    background-color: var(--color-surface-night);
+    color: var(--color-text-on-night);
+    padding: 2px var(--space-2);
+    font-size: 0.6875rem;
+  }
+
+  .card-content {
+    padding: var(--space-4);
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: space-between;
+  }
+
+  .card-type-tag {
+    color: var(--color-text-accent);
+    margin-bottom: var(--space-1);
+    font-size: 0.6875rem;
+  }
+
+  .card-title {
+    font-size: 1.125rem;
+    line-height: 1.3;
+    margin: 0 0 var(--space-4) 0;
+    color: var(--color-text-primary);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .card-data-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-3);
+    margin: 0 0 var(--space-4) 0;
+    padding-top: var(--space-3);
+    border-top: var(--border-dashed);
+  }
+
+  .data-pair {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .data-pair dt {
+    font-size: 0.625rem;
+    color: var(--ink-500);
+  }
+
+  .data-pair dd {
+    margin: 0;
+    font-size: 0.8125rem;
+    color: var(--color-text-primary);
+  }
+
+  .card-action {
+    border-top: var(--border-hairline);
+    padding-top: var(--space-3);
+  }
+
+  .action-link {
+    font-size: 0.75rem;
+    color: var(--color-action-primary);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: color var(--motion-fast) var(--motion-ease);
+  }
+
+  .project-card:hover .action-link {
+    color: var(--color-action-primary-hover);
+  }
+
+  .arrow {
+    font-weight: 700;
+  }
+</style>

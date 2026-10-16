@@ -1,0 +1,128 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Button from "../components/Button.astro";
+---
+
+<BaseLayout
+  title="404 — Coordinate Not Found // Apex Tower"
+  description="Requested telecommunications sheet or asset coordinate is not mapped in the current infrastructure index."
+>
+  <div class="error-container">
+    <div class="error-card">
+      <div class="error-header label">
+        <span>ERROR CODE // 404_NULL_COORDINATE</span>
+        <span>STATUS: UNRESOLVED</span>
+      </div>
+
+      <div class="error-body">
+        <span class="label error-tag">SIGNAL LOSS // OFF-GRID ASSET</span>
+        <h1 class="error-title">Coordinate Unresolved</h1>
+        <p class="error-lead">
+          The requested technical sheet, tower ID, or drawing specification is not cataloged in the active registry or may have been decommissioned.
+        </p>
+
+        <div class="diagnostics-box">
+          <div class="label diag-header">DIAGNOSTIC TELEMETRY:</div>
+          <div class="data diag-item">REQUEST STATUS: 404 NOT_FOUND</div>
+          <div class="data diag-item">SURVEILLANCE NODE: APX-KTM-GW01</div>
+          <div class="data diag-item">SUGGESTION: VERIFY TOWER ID OR RETURN TO ATLAS</div>
+        </div>
+
+        <div class="error-actions">
+          <Button href="/" variant="primary">
+            Return to Master Sheet (Home)
+          </Button>
+          <Button href="/projects" variant="secondary">
+            Inspect Project Directory
+          </Button>
+          <Button href="/support" variant="secondary">
+            NOC Incident Desk
+          </Button>
+        </div>
+      </div>
+
+      <div class="error-footer label">
+        <span>REF: ERR-404-ORPHAN // APEX TOWER &amp; INFRASTRUCTURE</span>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .error-container {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: var(--space-8) var(--gutter) var(--space-10) var(--gutter);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh;
+  }
+
+  .error-card {
+    background-color: var(--color-surface-raised);
+    border: var(--border-strong);
+    box-shadow: var(--shadow-hard);
+    max-width: 680px;
+    width: 100%;
+  }
+
+  .error-header, .error-footer {
+    background-color: var(--color-surface-night);
+    color: var(--color-text-on-night);
+    padding: var(--space-2) var(--space-4);
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.6875rem;
+  }
+
+  .error-body {
+    padding: var(--space-7) var(--space-6);
+  }
+
+  .error-tag {
+    color: var(--color-status-outage);
+    margin-bottom: var(--space-2);
+    display: block;
+    font-weight: 700;
+  }
+
+  .error-title {
+    font-size: var(--font-size-h1);
+    margin: 0 0 var(--space-3) 0;
+    color: var(--color-text-primary);
+  }
+
+  .error-lead {
+    font-size: 1.0625rem;
+    color: var(--color-text-secondary);
+    line-height: 1.5;
+    margin: 0 0 var(--space-5) 0;
+  }
+
+  .diagnostics-box {
+    background-color: var(--color-surface-page);
+    border: 1px dashed var(--color-border-hairline);
+    padding: var(--space-4);
+    margin-bottom: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .diag-header {
+    color: var(--ink-500);
+    margin-bottom: 2px;
+  }
+
+  .diag-item {
+    font-size: 0.8125rem;
+    color: var(--color-text-primary);
+  }
+
+  .error-actions {
+    display: flex;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+  }
+</style>

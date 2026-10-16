@@ -1,0 +1,59 @@
+---
+import "../styles/global.css";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import SkipLink from "../components/SkipLink.astro";
+
+interface Props {
+  title: string;
+  description?: string;
+  lang?: string;
+}
+
+const {
+  title,
+  description = "Tower construction, civil foundations, structural engineering, and fiber backbone infrastructure for telecom operators and ISPs.",
+  lang = "en"
+} = Astro.props;
+---
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" href="/favicon.svg" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <!-- Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Apex Tower & Infrastructure Ltd.",
+      "url": "https://example.com",
+      "logo": "https://example.com/favicon.svg",
+      "description": description,
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Ring Road Engineering Yard, Sector 4",
+        "addressLocality": "Kathmandu Valley",
+        "addressCountry": "NP"
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+977-1-4567890",
+        "contactType": "Emergency NOC",
+        "availableLanguage": ["English", "Nepali"]
+      }
+    })} />
+  </head>
+  <body>
+    <SkipLink />
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+    <script src="../scripts/scroll-system.ts"></script>
+  </body>
+</html>

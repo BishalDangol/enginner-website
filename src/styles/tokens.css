@@ -1,0 +1,85 @@
+:root {
+  /* primitives */
+  --ink-900: #12202b;
+  --ink-700: #3a4954;
+  --ink-500: #5b6b76;
+  --vellum-100: #edf0ee;
+  --vellum-200: #e1e6e4;
+  --vellum-300: #c9d1cf;
+  --white: #ffffff;
+  --orange-500: #e8501a;
+  --orange-700: #b8380f;
+  --night-900: #0c161e;
+
+  /* semantic */
+  --color-text-primary: var(--ink-900);
+  --color-text-secondary: var(--ink-700);
+  --color-text-accent: var(--orange-700);
+  --color-text-on-accent: var(--white);
+  --color-text-on-night: var(--vellum-100);
+  --color-surface-page: var(--vellum-100);
+  --color-surface-raised: var(--white);
+  --color-surface-muted: var(--vellum-200);
+  --color-surface-night: var(--night-900);
+  --color-border-hairline: var(--vellum-300);
+  --color-border-strong: var(--ink-900);
+  --color-action-primary: var(--orange-700);
+  --color-action-primary-hover: #9c2e0b;
+  --color-action-primary-active: #802508;
+  --color-graphic-accent: var(--orange-500);
+  --color-focus-ring: var(--ink-900);
+
+  /* status (always pair with icon + label) */
+  --color-status-operational: #1f7a4d;
+  --color-status-degraded: #8a5a00;
+  --color-status-outage: #b3261e;
+  --color-status-planned: #1f5fa8;
+
+  /* type */
+  --font-display: "Archivo Variable", "Arial Narrow", Arial, "Noto Sans Devanagari", sans-serif;
+  --font-body: "Archivo Variable", Arial, "Noto Sans Devanagari", sans-serif;
+  --font-mono: "JetBrains Mono", "IBM Plex Mono", ui-monospace, Menlo, monospace;
+
+  --font-size-display: clamp(2.5rem, 1.6rem + 4vw, 5rem);
+  --font-size-h1: clamp(2rem, 1.4rem + 2.6vw, 3.5rem);
+  --font-size-h2: clamp(1.5rem, 1.2rem + 1.4vw, 2.25rem);
+  --font-size-h3: clamp(1.125rem, 1.05rem + 0.4vw, 1.375rem);
+  --font-size-body: 1rem;
+  --font-size-label: 0.75rem;
+  --font-size-data: 0.875rem;
+
+  /* spacing (4px base) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+  --space-10: 128px;
+
+  /* shape */
+  --radius-0: 0;
+  --radius-full: 9999px;
+  --border-hairline: 1px solid var(--color-border-hairline);
+  --border-dashed: 1px dashed var(--color-border-hairline);
+  --border-strong: 1px solid var(--color-border-strong);
+  --shadow-hard: 0 4px 0 0 var(--color-border-strong);
+
+  /* motion */
+  --motion-instant: 120ms;
+  --motion-fast: 200ms;
+  --motion-normal: 320ms;
+  --motion-slow: 600ms;
+  --motion-ease: cubic-bezier(0.2, 0, 0, 1);
+
+  /* layout */
+  --container-max: 1440px;
+  --gutter: 16px;
+  --tap-target: 44px;
+}
+
+@media (min-width: 768px) { :root { --gutter: 24px; } }
+@media (min-width: 1024px) { :root { --gutter: 32px; } }

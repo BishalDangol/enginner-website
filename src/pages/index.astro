@@ -1,16 +1,986 @@
 ---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Button from "../components/Button.astro";
+import StatsBand from "../components/StatsBand.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import CoverageMap from "../islands/CoverageMap.tsx";
+import ScrollProcessSheet from "../islands/ScrollProcessSheet.tsx";
+import TowerTypologySelector from "../islands/TowerTypologySelector.tsx";
+import Interactive3DTowerVisualizer from "../islands/Interactive3DTowerVisualizer.tsx";
+import InteractiveFloorPlan from "../islands/InteractiveFloorPlan.tsx";
+import { getCollection } from "astro:content";
+
+const projects = await getCollection("projects");
+const featuredProjects = projects.slice(0, 3);
+const services = await getCollection("services");
+services.sort((a, b) => a.data.order - b.data.order);
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout
+  title="Apex Tower & Infrastructure — Precision Telecom Engineering"
+  description="Turnkey construction, civil foundations, structural engineering, and maintenance of telecommunications towers and optical networks."
+>
+  <!-- DRAFTING SHEET HERO SECTION (Heron AI Inspiration) -->
+  <section class="drafting-hero-sheet" aria-labelledby="hero-heading">
+    <!-- Single horizontal scan line per page -->
+    <div class="scan-line scan-line-animated" aria-hidden="true"></div>
+
+    <div class="hero-container">
+      <!-- Sheet Header Index Line -->
+      <div class="sheet-top-index">
+        <div class="index-left">
+          <span class="label">SHEET 01 // GENERAL ARRANGEMENT &amp; STRUCTURAL SCHEMATIC</span>
+          <span class="data doc-code">DWG-REF: APX-TIA-2026-01</span>
+        </div>
+        <div class="index-right">
+          <span class="label">GEODETIC COORD: 27°42'34" N 85°19'12" E // ELEV: 1,350M ASL</span>
+        </div>
+      </div>
+
+      <!-- Main Asymmetric Drafting Split -->
+      <div class="hero-split-grid">
+        <!-- Left Column: Typography, Scope & Call-To-Action -->
+        <div class="hero-typography-col">
+          <div class="tag-ribbon">
+            <span class="ribbon-badge label">TURNKEY EPC TELECOM CONTRACTOR</span>
+            <span class="label spec-standard">DESIGN STANDARD: TIA-222-H // ISO 9001:2015</span>
+          </div>
+
+          <h1 id="hero-heading" class="hero-display-title">
+            Towers Built to Carry the Load. Networks Built to Stay Up.
+          </h1>
+
+          <p class="hero-lead-text">
+            We engineer, erect, and maintain self-supporting lattice towers, guyed masts, and optical networks from 18 m to 120 m across challenging mountain geology and seismic Class IV zones.
+          </p>
+
+          <div class="hero-cta-group">
+            <Button href="/contact" variant="split" class="hero-primary-btn">
+              Request a quote
+            </Button>
+            <Button href="/projects" variant="secondary">
+              Inspect Past Sites
+            </Button>
+          </div>
+
+          <!-- Technical Evidence Matrix -->
+          <div class="hero-evidence-bar">
+            <div class="evidence-cell">
+              <span class="label cell-label">NTA LICENSE</span>
+              <span class="data cell-val">#IN-042</span>
+            </div>
+            <div class="evidence-cell">
+              <span class="label cell-label">SAFETY RECORD</span>
+              <span class="data cell-val">0 LTI / 1.8M HRS</span>
+            </div>
+            <div class="evidence-cell">
+              <span class="label cell-label">WIND CRITERIA</span>
+              <span class="data cell-val">180 KM/H GUST</span>
+            </div>
+            <div class="evidence-cell">
+              <span class="label cell-label">NOC SURVEILLANCE</span>
+              <span class="data cell-val">24/7 ACTIVE</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Vector Tower CAD Drawing + Overlaid Live HUD Telemetry Card -->
+        <div class="hero-drawing-col">
+          <div class="hero-cad-stage">
+            <!-- Background Drafting Tower Drawing -->
+            <div class="tower-drawing-frame" aria-hidden="true">
+              <img
+                src="/hero-tower.svg"
+                alt="Technical CAD elevation drawing of 60m telecommunications lattice tower with microwave dishes and equipment shelter"
+                class="hero-tower-vector"
+                loading="eager"
+              />
+            </div>
+
+            <!-- Overlaid Live Telemetry HUD Card (Inspired by Heron AI Dashboard Card) -->
+            <div class="hud-telemetry-card" role="region" aria-label="Live Operations Telemetry">
+              <!-- Top Metrics Counters -->
+              <div class="hud-metrics-bar">
+                <div class="hud-metric-tile">
+                  <span class="label hud-lbl">ACTIVE TOWERS</span>
+                  <div class="hud-counter-row">
+                    <span class="data hud-num">428</span>
+                    <span class="hud-dot dot-green" aria-hidden="true"></span>
+                  </div>
+                </div>
+
+                <div class="hud-metric-tile">
+                  <span class="label hud-lbl">SURVEYS QUEUED</span>
+                  <div class="hud-counter-row">
+                    <span class="data hud-num">4</span>
+                    <span class="hud-dot dot-amber" aria-hidden="true"></span>
+                  </div>
+                </div>
+
+                <div class="hud-metric-tile">
+                  <span class="label hud-lbl">30-DAY UPTIME</span>
+                  <div class="hud-counter-row">
+                    <span class="data hud-num">99.98%</span>
+                    <span class="hud-dot dot-blue" aria-hidden="true"></span>
+                  </div>
+                </div>
+
+                <div class="hud-metric-tile">
+                  <span class="label hud-lbl">SAFE RIGGING</span>
+                  <div class="hud-counter-row">
+                    <span class="data hud-num">1.8M<span class="text-xs font-normal">hrs</span></span>
+                    <span class="hud-dot dot-orange" aria-hidden="true"></span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Real-time Activity Feed -->
+              <div class="hud-activity-feed">
+                <div class="feed-header">
+                  <span class="label">FIELD TELEMETRY &amp; RIGGING AUDIT</span>
+                  <span class="label text-accent">NOC: LIVE</span>
+                </div>
+
+                <div class="feed-items-list">
+                  <div class="feed-row">
+                    <div class="feed-icon-box" aria-hidden="true">▲</div>
+                    <div class="feed-info">
+                      <span class="feed-title">KTM-001 Chandragiri Ridge (60m)</span>
+                      <span class="label feed-sub">Microwave RSL -42 dBm // Telemetry Normal</span>
+                    </div>
+                    <span class="label feed-time">02m ago</span>
+                  </div>
+
+                  <div class="feed-row">
+                    <div class="feed-icon-box" aria-hidden="true">■</div>
+                    <div class="feed-info">
+                      <span class="feed-title">PKR-104 Sarangkot Overlook (45m)</span>
+                      <span class="label feed-sub">ICAO Strobe Telemetry // Solar Hybrid 100%</span>
+                    </div>
+                    <span class="label feed-time">14m ago</span>
+                  </div>
+
+                  <div class="feed-row">
+                    <div class="feed-icon-box" aria-hidden="true">◆</div>
+                    <div class="feed-info">
+                      <span class="feed-title">CTW-201 Bharatpur Monopole (35m)</span>
+                      <span class="label feed-sub">Borehole Geotechnical Test Complete // 385 kPa</span>
+                    </div>
+                    <span class="label feed-time">1h ago</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Pending Approvals Action Cell -->
+              <div class="hud-pending-cell">
+                <div class="pending-info">
+                  <span class="label pending-tag">PENDING STRUCTURAL STAMP (3 SITES)</span>
+                  <span class="data pending-desc">TIA-222-H calculations awaiting engineer verification</span>
+                </div>
+                <a href="/projects" class="hud-review-link label">
+                  INSPECT SITES →
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Partner & Certification Logo Carousel (Heron AI Screenshot 1 Style) -->
+      <div class="hero-cert-carousel">
+        <button type="button" class="carousel-arrow-btn" aria-label="Previous certification" disabled>
+          ←
+        </button>
+        <div class="carousel-items-container">
+          <div class="cert-carousel-cell">
+            <span class="label cell-lead">STANDARDS COMPLIANCE:</span>
+            <span class="data font-bold">TIA-222-H STRUCTURAL</span>
+          </div>
+          <div class="cert-carousel-cell">
+            <span class="label cell-lead">QUALITY ASSURANCE:</span>
+            <span class="data font-bold">ISO 9001:2015</span>
+          </div>
+          <div class="cert-carousel-cell">
+            <span class="label cell-lead">OCCUPATIONAL SAFETY:</span>
+            <span class="data font-bold">ISO 45001:2018</span>
+          </div>
+          <div class="cert-carousel-cell">
+            <span class="label cell-lead">LICENSED PROVIDER:</span>
+            <span class="data font-bold">NTA #IN-042 INFRASTRUCTURE</span>
+          </div>
+          <div class="cert-carousel-cell">
+            <span class="label cell-lead">HIGH-ANGLE RIGGING:</span>
+            <span class="data font-bold">IRATA / OSHA 1926</span>
+          </div>
+        </div>
+        <button type="button" class="carousel-arrow-btn" aria-label="Next certification" disabled>
+          →
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS BAND (Audited Operational Data) -->
+  <StatsBand />
+
+  <!-- REAL-TIME 3D STRUCTURAL DIGITAL TWIN (PINNED STORYTELLING) -->
+  <section class="digital-twin-section" aria-labelledby="digital-twin-title">
+    <div class="content-container">
+      <!-- 3D Interactive WebGL Island -->
+      <Interactive3DTowerVisualizer client:load />
+    </div>
+  </section>
+
+  <!-- INTERACTIVE COMPOUND & EQUIPMENT SHELTER FLOOR PLAN (PINNED STORYTELLING) -->
+  <section class="section-padding bg-vellum parallax-grid-bg" aria-labelledby="floorplan-title" data-reveal>
+    <div class="content-container">
+      <!-- Interactive Pinned Floor Plan Island -->
+      <InteractiveFloorPlan client:visible />
+    </div>
+  </section>
+
+  <!-- TOWER TYPOLOGIES SECTION (Showcasing all 6 tower types) -->
+  <section class="section-padding" aria-labelledby="typologies-overview-title">
+    <div class="content-container">
+      <div class="section-header">
+        <span class="label">ENGINEERING CATALOGUE // STRUCTURAL DIVERSITY</span>
+        <h2 id="typologies-overview-title" class="section-title">
+          Tower Classifications for Every Terrain &amp; Load
+        </h2>
+        <p class="section-desc">
+          From compact urban monopoles to 120-meter alpine guyed masts, every tower typology is designed to carry specified antenna projected areas (EPA) under certified wind gust ratings.
+        </p>
+      </div>
+
+      <!-- Interactive Typology Selector Island -->
+      <TowerTypologySelector client:visible />
+    </div>
+  </section>
+
+  <!-- SMOOTH SCROLL-TRIGGERED PROCESS STEPPER (Heron AI Screenshots 2-5 Style) -->
+  <section class="process-scroll-wrapper" aria-labelledby="stepper-main-title">
+    <div class="content-container">
+      <div class="section-header">
+        <span class="label">EXECUTION SEQUENCE // SHEETS [01] THROUGH [06]</span>
+        <h2 id="stepper-main-title" class="section-title">
+          The Engineering Protocol: From Survey to Commissioning
+        </h2>
+        <p class="section-desc">
+          Explore the exact 6-phase engineering lifecycle. Select any sheet tab or inspect live parameter limits docked directly over the technical datum line.
+        </p>
+      </div>
+    </div>
+
+    <!-- Scroll-Triggered Process Sheet Island -->
+    <ScrollProcessSheet client:load />
+  </section>
+
+  <!-- FEATURED INFRASTRUCTURE PROJECTS -->
+  <section class="section-padding" aria-labelledby="projects-heading" data-reveal>
+    <div class="content-container">
+      <div class="section-header-flex">
+        <div>
+          <span class="label">AS-BUILT ARCHIVE // CASE STUDIES</span>
+          <h2 id="projects-heading" class="section-title">
+            Featured Field Deployments
+          </h2>
+          <p class="section-desc">
+            Audited sites operating in seismic zones, extreme wind corridors, and high-density metro rooftops.
+          </p>
+        </div>
+        <Button href="/projects" variant="secondary">
+          View All {projects.length} Sites
+        </Button>
+      </div>
+
+      <div class="projects-grid">
+        {featuredProjects.map((p, idx) => (
+          <div data-reveal data-reveal-delay={String(idx + 1)}>
+            <ProjectCard
+              title={p.data.title}
+              siteId={p.data.siteId}
+              towerType={p.data.towerType}
+              heightM={p.data.heightM}
+              location={p.data.location}
+              completed={p.data.completed}
+              slug={p.id}
+              client={p.data.client}
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- REGIONAL COVERAGE MAP ISLAND -->
+  <section class="section-padding bg-vellum" aria-labelledby="coverage-heading" data-reveal>
+    <div class="content-container">
+      <div class="section-header">
+        <span class="label">TELECOM ASSET ATLAS // PROVINCIAL REGISTER</span>
+        <h2 id="coverage-heading" class="section-title">
+          National Tower Grid &amp; Backhaul Reach
+        </h2>
+        <p class="section-desc">
+          Interactive map and verifiable audit register of erected telecom assets across all provinces.
+        </p>
+      </div>
+
+      <div data-reveal="scale">
+        <CoverageMap client:visible />
+      </div>
+    </div>
+  </section>
+
+  <!-- SAFETY & COMPLIANCE CALLOUT -->
+  <section class="safety-band" aria-labelledby="safety-heading">
+    <div class="content-container">
+      <div class="safety-grid">
+        <div class="safety-left">
+          <span class="label safety-tag">HSE COMMITMENT // ZERO TOLERANCE</span>
+          <h2 id="safety-heading" class="safety-title">
+            Work at Height, Done Safely.
+          </h2>
+          <p class="safety-text">
+            100% tie-off rules, dual-lanyard full-body harnesses, daily pre-climb rigging inspections, and third-party certified gin-poles. We have maintained an unbroken 0 Fatalities and 0 Lost-Time Injuries (LTI) record over 1.8 million hours.
+          </p>
+          <div class="safety-links">
+            <Button href="/safety" variant="secondary">
+              Review Safety Standards &amp; Policies
+            </Button>
+          </div>
+        </div>
+
+        <div class="safety-right">
+          <div class="cert-box">
+            <div class="cert-item">
+              <span class="label">QUALITY STANDARD</span>
+              <span class="data cert-val">ISO 9001:2015</span>
+              <span class="cert-desc">Audited Quality Management for Structural Fabrication</span>
+            </div>
+            <div class="cert-item">
+              <span class="label">OCCUPATIONAL SAFETY</span>
+              <span class="data cert-val">ISO 45001:2018</span>
+              <span class="cert-desc">Certified High-Angle Rigging &amp; Climbing Safety Systems</span>
+            </div>
+            <div class="cert-item">
+              <span class="label">TELECOM OPERATOR LICENSE</span>
+              <span class="data cert-val">NTA-IN-042</span>
+              <span class="cert-desc">Authorized Telecommunications Infrastructure Service Provider</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLOSING RFQ CTA -->
+  <section class="cta-section" aria-labelledby="cta-heading">
+    <div class="content-container text-center">
+      <span class="label cta-tag">PROJECT ESTIMATION &amp; PROCUREMENT</span>
+      <h2 id="cta-heading" class="cta-title">
+        Ready to Build or Reinforce Your Network?
+      </h2>
+      <p class="cta-desc">
+        Submit your project specifications or tender terms for an engineering quote within 2 business days.
+      </p>
+      <div class="cta-buttons">
+        <Button href="/contact" variant="primary" class="cta-btn-main">
+          Request a quote
+        </Button>
+        <Button href="/support" variant="secondary">
+          Contact 24/7 NOC Support
+        </Button>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Drafting Sheet Hero (Heron AI Styling) */
+  .drafting-hero-sheet {
+    background-color: var(--color-surface-page);
+    border-bottom: var(--border-strong);
+    position: relative;
+    padding-bottom: var(--space-6);
+  }
+
+  .hero-container {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+  }
+
+  /* Top Sheet Index Header */
+  .sheet-top-index {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: var(--border-hairline);
+    padding: var(--space-3) 0;
+    margin-bottom: var(--space-6);
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .index-left {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .doc-code {
+    font-size: 0.75rem;
+    color: var(--ink-500);
+  }
+
+  .index-right {
+    font-size: 0.75rem;
+    color: var(--color-text-secondary);
+  }
+
+  /* Asymmetric Split Grid */
+  .hero-split-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+    align-items: stretch;
+  }
+
+  @media (min-width: 1024px) {
+    .hero-split-grid {
+      grid-template-columns: 1.15fr 1fr;
+      gap: var(--space-8);
+    }
+  }
+
+  /* Left Typography Column */
+  .hero-typography-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-bottom: var(--space-4);
+  }
+
+  .tag-ribbon {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-bottom: var(--space-3);
+    flex-wrap: wrap;
+  }
+
+  .ribbon-badge {
+    background-color: var(--color-surface-night);
+    color: var(--color-text-on-night);
+    padding: 3px var(--space-3);
+    font-weight: 700;
+  }
+
+  .spec-standard {
+    color: var(--color-text-secondary);
+    font-size: 0.6875rem;
+  }
+
+  .hero-display-title {
+    font-size: var(--font-size-display);
+    line-height: 0.98;
+    margin: 0 0 var(--space-4) 0;
+    color: var(--color-text-primary);
+  }
+
+  .hero-lead-text {
+    font-size: 1.125rem;
+    color: var(--color-text-secondary);
+    line-height: 1.5;
+    max-width: 58ch;
+    margin: 0 0 var(--space-6) 0;
+  }
+
+  .hero-cta-group {
+    display: flex;
+    gap: var(--space-3);
+    margin-bottom: var(--space-7);
+    flex-wrap: wrap;
+  }
+
+  .hero-evidence-bar {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-3);
+    border-top: var(--border-dashed);
+    padding-top: var(--space-4);
+    max-width: 580px;
+  }
+
+  @media (min-width: 640px) {
+    .hero-evidence-bar {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .evidence-cell {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .cell-label {
+    font-size: 0.625rem;
+    color: var(--ink-500);
+  }
+
+  .cell-val {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+  }
+
+  /* Right Drawing & Overlaid HUD Stage */
+  .hero-drawing-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+  }
+
+  .hero-cad-stage {
+    position: relative;
+    background-color: var(--color-surface-raised);
+    border: var(--border-strong);
+    box-shadow: var(--shadow-hard);
+    min-height: 520px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    overflow: hidden;
+  }
+
+  .tower-drawing-frame {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-surface-page);
+    padding: var(--space-4) var(--space-4) var(--space-8) var(--space-4);
+    opacity: 0.95;
+  }
+
+  .hero-tower-vector {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+    filter: contrast(105%);
+  }
+
+  /* Overlaid HUD Telemetry Card (Heron AI Style) */
+  .hud-telemetry-card {
+    position: relative;
+    z-index: 10;
+    background-color: var(--color-surface-raised);
+    border-top: var(--border-strong);
+    margin: var(--space-4);
+    box-shadow: 0 4px 12px rgba(18, 32, 43, 0.12);
+  }
+
+  .hud-metrics-bar {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    background-color: var(--color-surface-muted);
+    border-bottom: var(--border-hairline);
+  }
+
+  @media (min-width: 640px) {
+    .hud-metrics-bar {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .hud-metric-tile {
+    padding: var(--space-3);
+    border-right: var(--border-hairline);
+    border-bottom: var(--border-hairline);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .hud-metric-tile:last-child {
+    border-right: none;
+  }
+
+  .hud-lbl {
+    font-size: 0.5625rem;
+    color: var(--ink-500);
+    margin-bottom: 2px;
+  }
+
+  .hud-counter-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+  }
+
+  .hud-num {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+  }
+
+  .hud-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: var(--radius-full);
+  }
+
+  .dot-green { background-color: var(--color-status-operational); }
+  .dot-amber { background-color: var(--color-status-degraded); }
+  .dot-blue { background-color: var(--color-status-planned); }
+  .dot-orange { background-color: var(--color-graphic-accent); }
+
+  .hud-activity-feed {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .feed-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px dashed var(--color-border-hairline);
+    padding-bottom: 4px;
+    margin-bottom: var(--space-2);
+  }
+
+  .feed-items-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .feed-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: 4px 0;
+  }
+
+  .feed-icon-box {
+    width: 22px;
+    height: 22px;
+    background-color: var(--color-surface-page);
+    border: 1px solid var(--color-border-hairline);
+    color: var(--color-action-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.625rem;
+    flex-shrink: 0;
+  }
+
+  .feed-info {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  .feed-title {
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    line-height: 1.2;
+  }
+
+  .feed-sub {
+    font-size: 0.625rem;
+    color: var(--ink-500);
+  }
+
+  .feed-time {
+    font-size: 0.625rem;
+    color: var(--ink-500);
+  }
+
+  .hud-pending-cell {
+    background-color: var(--color-surface-night);
+    color: var(--color-text-on-night);
+    padding: var(--space-2) var(--space-4);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .pending-info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .pending-tag {
+    color: var(--color-graphic-accent);
+    font-size: 0.625rem;
+  }
+
+  .pending-desc {
+    font-size: 0.75rem;
+    opacity: 0.8;
+  }
+
+  .hud-review-link {
+    color: var(--white);
+    background-color: var(--color-action-primary);
+    padding: 4px var(--space-3);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.6875rem;
+  }
+
+  /* Carousel Ribbon (Heron AI Style) */
+  .hero-cert-carousel {
+    display: flex;
+    align-items: stretch;
+    border: var(--border-hairline);
+    background-color: var(--color-surface-raised);
+    margin-top: var(--space-6);
+  }
+
+  .carousel-arrow-btn {
+    width: 44px;
+    background: transparent;
+    border: none;
+    border-right: var(--border-hairline);
+    font-family: var(--font-mono);
+    font-size: 1.125rem;
+    color: var(--color-text-primary);
+    cursor: default;
+    opacity: 0.5;
+  }
+
+  .hero-cert-carousel .carousel-arrow-btn:last-child {
+    border-right: none;
+    border-left: var(--border-hairline);
+  }
+
+  .carousel-items-container {
+    display: flex;
+    flex-grow: 1;
+    overflow-x: auto;
+  }
+
+  .cert-carousel-cell {
+    padding: var(--space-3) var(--space-4);
+    border-right: 1px dashed var(--color-border-hairline);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    white-space: nowrap;
+    flex-grow: 1;
+  }
+
+  .cert-carousel-cell:last-child {
+    border-right: none;
+  }
+
+  .cell-lead {
+    font-size: 0.5625rem;
+    color: var(--ink-500);
+    margin-bottom: 2px;
+  }
+
+  /* Shared Sections */
+  .section-padding {
+    padding: var(--space-8) 0;
+  }
+
+  .process-scroll-wrapper {
+    padding: var(--space-8) 0 var(--space-6) 0;
+  }
+
+  .bg-vellum {
+    background-color: var(--color-surface-page);
+  }
+
+  .content-container {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+  }
+
+  .section-header {
+    margin-bottom: var(--space-6);
+  }
+
+  .section-header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: var(--space-6);
+    flex-wrap: wrap;
+    gap: var(--space-4);
+  }
+
+  .section-title {
+    font-size: var(--font-size-h2);
+    margin: var(--space-2) 0 var(--space-2) 0;
+    color: var(--color-text-primary);
+  }
+
+  .section-desc {
+    font-size: 1.0625rem;
+    color: var(--color-text-secondary);
+    max-width: 68ch;
+    margin: 0;
+  }
+
+  /* Projects Grid */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+  }
+
+  @media (min-width: 640px) {
+    .projects-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .projects-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  /* Digital Twin Section */
+  .digital-twin-section {
+    background-color: var(--color-surface-night);
+    color: var(--color-text-on-night);
+    padding: var(--space-8) 0;
+    border-top: var(--border-strong);
+    border-bottom: var(--border-strong);
+    position: relative;
+  }
+  .digital-twin-tag-row {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: var(--space-2);
+  }
+  .digital-twin-tag {
+    color: var(--color-graphic-accent);
+    letter-spacing: 0.08em;
+  }
+  .digital-twin-section .section-title {
+    color: var(--white);
+  }
+  .digital-twin-section .section-desc {
+    color: var(--vellum-300);
+    max-width: 820px;
+  }
+
+  /* Safety Band */
+  .safety-band {
+    background-color: var(--color-surface-night);
+    color: var(--color-text-on-night);
+    padding: var(--space-8) 0;
+    border-top: var(--border-strong);
+    border-bottom: var(--border-strong);
+  }
+
+  .safety-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+
+  @media (min-width: 1024px) {
+    .safety-grid {
+      grid-template-columns: 1.4fr 1fr;
+      gap: var(--space-8);
+      align-items: center;
+    }
+  }
+
+  .safety-tag {
+    color: var(--color-graphic-accent);
+  }
+
+  .safety-title {
+    font-size: var(--font-size-h2);
+    margin: var(--space-2) 0 var(--space-4) 0;
+    color: var(--white);
+  }
+
+  .safety-text {
+    font-size: 1.0625rem;
+    color: var(--color-text-on-night);
+    line-height: 1.5;
+    margin-bottom: var(--space-6);
+    opacity: 0.9;
+  }
+
+  .cert-box {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: var(--space-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .cert-item {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+    padding-bottom: var(--space-3);
+  }
+
+  .cert-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .cert-val {
+    font-size: 1.125rem;
+    color: var(--color-graphic-accent);
+    font-weight: 700;
+    margin: var(--space-1) 0;
+  }
+
+  .cert-desc {
+    font-size: 0.75rem;
+    opacity: 0.75;
+  }
+
+  /* Closing CTA */
+  .cta-section {
+    padding: var(--space-9) 0;
+    background-color: var(--color-surface-raised);
+    border-bottom: var(--border-strong);
+  }
+
+  .cta-tag {
+    color: var(--color-text-accent);
+  }
+
+  .cta-title {
+    font-size: var(--font-size-h1);
+    margin: var(--space-2) 0 var(--space-3) 0;
+  }
+
+  .cta-desc {
+    font-size: 1.125rem;
+    color: var(--color-text-secondary);
+    max-width: 60ch;
+    margin: 0 auto var(--space-6) auto;
+  }
+
+  .cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+  }
+</style>

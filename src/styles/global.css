@@ -1,0 +1,106 @@
+@import "tailwindcss";
+@import "./tokens.css";
+@import "./rfq.css";
+@import "./coverage.css";
+@import "./status.css";
+@import "./process-sheet.css";
+@import "./typology.css";
+@import "./tower-3d.css";
+@import "./floor-plan.css";
+@import "./scroll-fx.css";
+@import "@fontsource-variable/archivo";
+@import "@fontsource/jetbrains-mono/500.css";
+
+html { scroll-padding-top: 80px; }
+
+body {
+  margin: 0;
+  background: var(--color-surface-page);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  font-size: var(--font-size-body);
+  line-height: 1.5;
+}
+
+h1, h2 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+}
+
+.label, .data { font-family: var(--font-mono); font-weight: 500; }
+.label { font-size: var(--font-size-label); text-transform: uppercase; letter-spacing: 0.06em; }
+.data { font-size: var(--font-size-data); font-variant-numeric: tabular-nums; }
+
+/* Global focus rule: never remove or hide */
+:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+.on-night :focus-visible { outline-color: var(--color-text-on-night); }
+
+a { color: var(--color-text-accent); }
+
+.skip-link {
+  position: absolute;
+  left: var(--space-4);
+  top: -100px;
+  background: var(--color-surface-night);
+  color: var(--color-text-on-night);
+  padding: var(--space-3) var(--space-4);
+  z-index: 100;
+  font-family: var(--font-mono);
+  font-size: var(--font-size-label);
+  text-transform: uppercase;
+  text-decoration: none;
+  font-weight: 600;
+  transition: top var(--motion-fast) var(--motion-ease);
+}
+.skip-link:focus {
+  top: var(--space-4);
+}
+
+/* Technical drafting grid & scan line utilities */
+.drafting-grid {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(18, 32, 43, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(18, 32, 43, 0.04) 1px, transparent 1px);
+}
+
+.scan-line {
+  height: 1px;
+  background-color: var(--color-graphic-accent);
+  width: 100%;
+}
+
+@keyframes scanLineAnim {
+  0% { transform: scaleX(0); transform-origin: left; }
+  100% { transform: scaleX(1); transform-origin: left; }
+}
+
+.scan-line-animated {
+  animation: scanLineAnim var(--motion-slow) var(--motion-ease) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .scan-line-animated {
+    animation: none !important;
+    transform: scaleX(1) !important;
+  }
+}
