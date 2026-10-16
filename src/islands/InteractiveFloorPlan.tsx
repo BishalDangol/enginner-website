@@ -194,15 +194,116 @@ const FLOOR_PLAN_ZONES: FloorPlanZone[] = [
   },
 ];
 
+interface CodeComplianceCheck {
+  id: string;
+  codeShort: string;
+  standard: string;
+  clause: string;
+  targetZoneId: string;
+  status: "COMPLIANT" | "AUTO-REMEDIATED" | "VERIFIED";
+  statusColor: string;
+  metric: string;
+  ruleSpec: string;
+  measured: string;
+  reticleCoords: { x: number; y: number; r: number; calloutX: number; calloutY: number };
+}
+
+const CODE_COMPLIANCE_CHECKS: CodeComplianceCheck[] = [
+  {
+    id: "tia-222",
+    codeShort: "TIA-222-H §4.2",
+    standard: "TIA-222-H Structural Standard",
+    clause: "§4.2 Wind Moment & Torsion Ratio",
+    targetZoneId: "waveguide-bridge",
+    status: "COMPLIANT",
+    statusColor: "#10b981",
+    metric: "0.76 (PASS < 1.0)",
+    ruleSpec: "Radial 30mm ice + 160 km/h wind shear capacity",
+    measured: "Max base moment: 4,120 kN·m / 5,420 kN·m limit",
+    reticleCoords: { x: 260, y: 315, r: 18, calloutX: 180, calloutY: 350 },
+  },
+  {
+    id: "ieee-80",
+    codeShort: "IEEE Std 80",
+    standard: "IEEE Std 80-2013 Grounding",
+    clause: "§14.1 Earth Grid Loop Impedance",
+    targetZoneId: "earthing-grid",
+    status: "VERIFIED",
+    statusColor: "#10b981",
+    metric: "1.42 Ω (< 2.0 Ω)",
+    ruleSpec: "Master ground loop potential rise < 5 kV step/touch",
+    measured: "Wenner 4-point bedrock test: 1.42 Ω certified",
+    reticleCoords: { x: 740, y: 390, r: 20, calloutX: 470, calloutY: 345 },
+  },
+  {
+    id: "nfpa-855",
+    codeShort: "NFPA 855 §4.3",
+    standard: "NFPA 855 Stationary BESS",
+    clause: "§4.3.1 Battery Separation Clearance",
+    targetZoneId: "battery-vault",
+    status: "AUTO-REMEDIATED",
+    statusColor: "#f59e0b",
+    metric: "3.00 m (SAFE)",
+    ruleSpec: "LiFePO4 rack minimum clear perimeter ≥ 0.90 m",
+    measured: "Aisle clearance: 1.20 m + 2-hr REI 120 fire barrier",
+    reticleCoords: { x: 415, y: 160, r: 24, calloutX: 310, calloutY: 220 },
+  },
+  {
+    id: "tia-942",
+    codeShort: "TIA-942 TIER III",
+    standard: "TIA-942 Telecom Infrastructure",
+    clause: "§8.3 Dual Power Distribution Paths",
+    targetZoneId: "bts-room",
+    status: "COMPLIANT",
+    statusColor: "#10b981",
+    metric: "2N A+B DUAL BUS",
+    ruleSpec: "Concurrent maintainability on DC rectifiers & cooling",
+    measured: "Dual inverter feeds + N+1 redundant split AC",
+    reticleCoords: { x: 185, y: 160, r: 24, calloutX: 100, calloutY: 220 },
+  },
+  {
+    id: "iso-27001",
+    codeShort: "ISO 27001",
+    standard: "ISO 27001 Physical Perimeter",
+    clause: "§9.1 Critical Site Ingress Barrier",
+    targetZoneId: "perimeter-security",
+    status: "VERIFIED",
+    statusColor: "#38bdf8",
+    metric: "2.4m ANTI-CLIMB",
+    ruleSpec: "358 welded mesh with continuous razor coils & NOC CCTV",
+    measured: "Dual AI tripwire PTZ cameras linked to central NOC",
+    reticleCoords: { x: 385, y: 25, r: 22, calloutX: 360, calloutY: 65 },
+  },
+];
+
 type DiagramViewMode = "architectural" | "zoning" | "structural" | "cable_routing" | "safety_egress";
 
 export default function InteractiveFloorPlan() {
   const [activeZoneIndex, setActiveZoneIndex] = useState(0);
   const [viewMode, setViewMode] = useState<DiagramViewMode>("architectural");
+  const [selectedAuditId, setSelectedAuditId] = useState<string | null>(null);
+  const [datumScanY, setDatumScanY] = useState(140);
   const introCardRef = useRef<HTMLDivElement | null>(null);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const isUserClickingRef = useRef(false);
+
+  // Smooth oscillating scan datum line (Heron AI architectural laser scanline)
+  useEffect(() => {
+    let animId: number;
+    let start = performance.now();
+
+    const loop = (now: number) => {
+      const elapsed = (now - start) / 1000;
+      // Oscillate Y between 50 and 380 smoothly over 7 seconds
+      const y = 215 + Math.sin(elapsed * 0.9) * 165;
+      setDatumScanY(y);
+      animId = requestAnimationFrame(loop);
+    };
+
+    animId = requestAnimationFrame(loop);
+    return () => cancelAnimationFrame(animId);
+  }, []);
 
   const activeZone = FLOOR_PLAN_ZONES[activeZoneIndex];
 
@@ -419,6 +520,36 @@ export default function InteractiveFloorPlan() {
                 >
                   CABLE TRAY
                 </button>
+              </div>
+            </div>
+
+            {/* HERON CAD CODE COMPLIANCE AUDIT BAR */}
+            <div className="cad-compliance-audit-strip">
+              <span className="label compliance-hdr">CODE AUDIT [HERON CAD]:</span>
+              <div className="compliance-chips-row">
+                <button
+                  type="button"
+                  className={`audit-chip-btn ${selectedAuditId === null ? "chip-active" : ""}`}
+                  onClick={() => setSelectedAuditId(null)}
+                >
+                  ALL CHECKS (5)
+                </button>
+                {CODE_COMPLIANCE_CHECKS.map((chk) => (
+                  <button
+                    key={chk.id}
+                    type="button"
+                    className={`audit-chip-btn ${selectedAuditId === chk.id ? "chip-active" : ""}`}
+                    onClick={() => {
+                      const nextId = selectedAuditId === chk.id ? null : chk.id;
+                      setSelectedAuditId(nextId);
+                      const targetIdx = FLOOR_PLAN_ZONES.findIndex((z) => z.id === chk.targetZoneId);
+                      if (targetIdx !== -1) setActiveZoneIndex(targetIdx);
+                    }}
+                  >
+                    <span className="chip-status-dot" style={{ backgroundColor: chk.statusColor }} />
+                    <span>{chk.codeShort}</span>
+                  </button>
+                ))}
               </div>
             </div>
 
@@ -793,15 +924,151 @@ export default function InteractiveFloorPlan() {
                   <circle key={i} cx={tx} cy={ty} r="3" fill={activeZone.colorTheme} />
                 ))}
 
-                {/* Dimension Annotations Overlay */}
-                <g className="cad-dimension-lines" stroke="rgba(237, 240, 238, 0.4)" strokeWidth="0.8">
-                  {/* Overall Width Dimension */}
-                  <line x1="50" y1="42" x2="720" y2="42" />
-                  <line x1="50" y1="38" x2="50" y2="46" />
-                  <line x1="720" y1="38" x2="720" y2="46" />
-                  <text x="385" y="38" fill="var(--vellum-200)" fontSize="8" fontFamily="monospace" textAnchor="middle">
-                    SHELTER OVERALL: 13,400 mm
+                {/* HORIZONTAL SCANNING DATUM LASER LINE (HERON AI CAD ELEVATION SCANNER) */}
+                <g className="cad-datum-scanner" pointerEvents="none">
+                  <line
+                    x1="20"
+                    y1={datumScanY}
+                    x2="750"
+                    y2={datumScanY}
+                    stroke="#ff3811"
+                    strokeWidth="1.2"
+                    strokeDasharray="6,4"
+                    opacity="0.85"
+                  />
+                  <circle cx="746" cy={datumScanY} r="3.5" fill="#ff3811" />
+                  <rect
+                    x="636"
+                    y={Math.min(Math.max(datumScanY - 9, 24), 380)}
+                    width="106"
+                    height="18"
+                    fill="#ff3811"
+                    rx="2"
+                  />
+                  <text
+                    x="689"
+                    y={Math.min(Math.max(datumScanY + 4, 37), 393)}
+                    fill="#ffffff"
+                    fontSize="8"
+                    fontFamily="monospace"
+                    fontWeight="bold"
+                    textAnchor="middle"
+                  >
+                    SCAN: {Math.round((datumScanY / 420) * 100)}% // +{(datumScanY * 0.015).toFixed(2)}M
                   </text>
+                </g>
+
+                {/* HERON CAD CODE COMPLIANCE RETICLES & CALLOUT BADGES */}
+                {CODE_COMPLIANCE_CHECKS.map((chk) => {
+                  const isVisible = selectedAuditId === null || selectedAuditId === chk.id;
+                  const isSelected = selectedAuditId === chk.id;
+                  if (!isVisible && !isSelected) return null;
+
+                  const { x, y, r, calloutX, calloutY } = chk.reticleCoords;
+
+                  return (
+                    <g
+                      key={chk.id}
+                      className="cad-compliance-group"
+                      cursor="pointer"
+                      onClick={() => {
+                        setSelectedAuditId(selectedAuditId === chk.id ? null : chk.id);
+                        const targetIdx = FLOOR_PLAN_ZONES.findIndex((z) => z.id === chk.targetZoneId);
+                        if (targetIdx !== -1) setActiveZoneIndex(targetIdx);
+                      }}
+                    >
+                      {/* Pulsing Concentric Reticle */}
+                      <circle
+                        cx={x}
+                        cy={y}
+                        r={r + (isSelected ? 6 : 2)}
+                        fill="none"
+                        stroke={chk.statusColor}
+                        strokeWidth="1.5"
+                        strokeDasharray={isSelected ? "4,2" : "none"}
+                        opacity={isSelected ? 1 : 0.7}
+                      />
+                      <circle cx={x} cy={y} r="3" fill={chk.statusColor} />
+
+                      {/* Angular Leader Line */}
+                      <path
+                        d={`M ${x} ${y} L ${x + (calloutX > x ? 18 : -18)} ${y + (calloutY > y ? 14 : -14)} L ${calloutX} ${calloutY}`}
+                        fill="none"
+                        stroke={chk.statusColor}
+                        strokeWidth="1"
+                        strokeDasharray="2,2"
+                        opacity={isSelected ? 1 : 0.6}
+                      />
+
+                      {/* Floating HUD Badge */}
+                      <g transform={`translate(${calloutX > 400 ? calloutX - 165 : calloutX}, ${calloutY})`}>
+                        <rect
+                          x="0"
+                          y="0"
+                          width="168"
+                          height="44"
+                          fill="rgba(12, 22, 30, 0.95)"
+                          stroke={chk.statusColor}
+                          strokeWidth={isSelected ? "1.5" : "1"}
+                          rx="2"
+                        />
+                        {/* Status Stamp Top Pill */}
+                        <rect
+                          x="0"
+                          y="0"
+                          width="168"
+                          height="14"
+                          fill={chk.status === "COMPLIANT" ? "rgba(16, 185, 129, 0.2)" : chk.status === "AUTO-REMEDIATED" ? "rgba(245, 158, 11, 0.2)" : "rgba(56, 189, 248, 0.2)"}
+                        />
+                        <text x="6" y="10" fill={chk.statusColor} fontSize="7.5" fontFamily="monospace" fontWeight="bold">
+                          [{chk.status}] {chk.codeShort}
+                        </text>
+                        <text x="162" y="10" fill={chk.statusColor} fontSize="7.5" fontFamily="monospace" textAnchor="end">
+                          {chk.metric}
+                        </text>
+
+                        {/* Description Lines */}
+                        <text x="6" y="24" fill="#edf0ee" fontSize="7" fontFamily="monospace">
+                          {chk.clause.slice(0, 26)}
+                        </text>
+                        <text x="6" y="36" fill="#94a3b8" fontSize="6.5" fontFamily="monospace">
+                          {chk.measured.slice(0, 28)}
+                        </text>
+                      </g>
+                    </g>
+                  );
+                })}
+
+                {/* CAD DRAFTING CORNER REGISTRATION CROSSHAIRS (+) */}
+                {[
+                  [15, 15],
+                  [755, 15],
+                  [15, 405],
+                  [755, 405],
+                ].map(([cx, cy], i) => (
+                  <g key={i} stroke="rgba(237, 240, 238, 0.5)" strokeWidth="0.8">
+                    <line x1={cx - 6} y1={cy} x2={cx + 6} y2={cy} />
+                    <line x1={cx} y1={cy - 6} x2={cx} y2={cy + 6} />
+                  </g>
+                ))}
+
+                {/* MILLIMETER RULER GRADUATION TICKS (TOP & BOTTOM BORDERS) */}
+                <g stroke="rgba(237, 240, 238, 0.2)" strokeWidth="0.6">
+                  {Array.from({ length: 37 }).map((_, i) => {
+                    const gx = 25 + i * 20;
+                    const isMajor = i % 5 === 0;
+                    return (
+                      <g key={i}>
+                        <line x1={gx} y1="14" x2={gx} y2={isMajor ? "22" : "18"} />
+                        <line x1={gx} y1={isMajor ? "398" : "402"} x2={gx} y2="406" />
+                        {isMajor && (
+                          <text x={gx} y="11" fill="rgba(237, 240, 238, 0.4)" fontSize="6" fontFamily="monospace" textAnchor="middle">
+                            {i * 100}
+                          </text>
+                        )}
+                      </g>
+                    );
+                  })}
                 </g>
               </svg>
             </div>

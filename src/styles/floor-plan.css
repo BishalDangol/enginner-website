@@ -357,3 +357,85 @@
 .telemetry-chip .data {
   color: var(--vellum-100);
 }
+
+/* ==========================================================================
+   HERON CAD CODE COMPLIANCE AUDIT STRIP & CHIPS
+   ========================================================================== */
+
+.cad-compliance-audit-strip {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 8px 16px;
+  background: rgba(12, 22, 30, 0.98);
+  border-bottom: 1px solid rgba(237, 240, 238, 0.1);
+}
+
+@media (min-width: 640px) {
+  .cad-compliance-audit-strip {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.compliance-hdr {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  color: var(--orange-400);
+  white-space: nowrap;
+}
+
+.compliance-chips-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.audit-chip-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(18, 32, 43, 0.8);
+  border: 1px solid rgba(237, 240, 238, 0.18);
+  color: var(--vellum-300);
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  padding: 3px 8px;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.audit-chip-btn:hover {
+  background: rgba(30, 48, 62, 0.9);
+  color: var(--white);
+  border-color: rgba(237, 240, 238, 0.4);
+}
+
+.audit-chip-btn.chip-active {
+  background: rgba(232, 80, 26, 0.2);
+  border-color: var(--orange-500);
+  color: #ffffff;
+  box-shadow: 0 0 10px rgba(232, 80, 26, 0.3);
+}
+
+.chip-status-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+}
+
+.cad-compliance-group {
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.cad-compliance-group:hover {
+  filter: brightness(1.25);
+}
+
+.cad-datum-scanner {
+  transition: all 0.05s linear;
+}
+

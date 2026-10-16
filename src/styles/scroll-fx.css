@@ -107,3 +107,94 @@
     display: none !important;
   }
 }
+
+/* ==========================================================================
+   HERON CAD DRAFTING ACCENTS & SPLIT ACTION BUTTONS
+   ========================================================================== */
+
+/* Precision Millimeter Drafting Divider */
+.cad-ruler-divider {
+  width: 100%;
+  height: 24px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--color-border-hairline);
+  border-bottom: 1px solid var(--color-border-hairline);
+  margin: var(--space-6) 0;
+  padding: 0 var(--space-3);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: var(--color-text-tertiary);
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--color-border-hairline) 0px,
+    var(--color-border-hairline) 1px,
+    transparent 1px,
+    transparent 20px
+  );
+  overflow: hidden;
+}
+
+.cad-ruler-divider::before {
+  content: "+";
+  font-family: var(--font-mono);
+  font-weight: bold;
+  color: var(--orange-500);
+}
+
+.cad-ruler-divider::after {
+  content: "+";
+  font-family: var(--font-mono);
+  font-weight: bold;
+  color: var(--orange-500);
+}
+
+/* Heron Technical Split Action Button */
+.heron-split-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  background: var(--night-900);
+  border: 1px solid var(--ink-700);
+  color: var(--vellum-100);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 2px;
+  overflow: hidden;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.heron-split-btn:hover {
+  background: var(--orange-600);
+  border-color: var(--orange-500);
+  color: #ffffff;
+  box-shadow: 0 4px 16px rgba(232, 80, 26, 0.35);
+}
+
+.heron-split-btn .btn-label {
+  padding: 8px 14px;
+}
+
+.heron-split-btn .btn-divider {
+  width: 1px;
+  height: 20px;
+  background: rgba(237, 240, 238, 0.2);
+}
+
+.heron-split-btn .btn-arrow {
+  padding: 8px 12px;
+  transition: transform 0.2s ease;
+}
+
+.heron-split-btn:hover .btn-arrow {
+  transform: translateX(3px);
+}
+
