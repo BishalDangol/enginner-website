@@ -1,140 +1,38 @@
 "use client";
 
-import React, { useState } from "react";
-import Link from "next/link";
+import React from "react";
 
 export default function Footer() {
-  const [email, setEmail] = useState("");
-  const [subscribed, setSubscribed] = useState(false);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (email) {
-      setSubscribed(true);
-    }
-  };
-
   return (
-    <footer style={{ background: "#FAF8F5", borderTop: "1px solid rgba(0,0,0,0.1)", padding: "80px 24px 40px 24px" }}>
-      <div style={{ maxWidth: "1600px", margin: "0 auto" }}>
-        
-        {/* TOP ROW: NEWSLETTER & BIG STATEMENT */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "48px", paddingBottom: "64px", borderBottom: "1px solid rgba(0,0,0,0.08)" }}>
-          <div>
-            <span style={{ fontFamily: "monospace", fontSize: "11px", color: "#fa3600", letterSpacing: "0.08em" }}>
-              [MISSION]
-            </span>
-            <h3 style={{ fontSize: "2rem", fontWeight: 800, textTransform: "uppercase", color: "#0c161e", margin: "12px 0 16px 0", letterSpacing: "-0.01em" }}>
-              AN AI AGENT THAT WORKS INSIDE YOUR DESIGN TOOLS
-            </h3>
-            <p style={{ fontSize: "1rem", color: "rgba(18, 32, 43, 0.7)", lineHeight: 1.6, maxWidth: "500px", margin: 0 }}>
-              Bridging parametric computational geometry with continuous building code compliance.
-            </p>
-          </div>
+    <div
+      dangerouslySetInnerHTML={{
+        __html: `<footer class="footer"><div class="w-layout-blockcontainer container w-container"><div class="footer-main grid"><div id="w-node-ec209fda-4140-b2bf-5394-7c1f4ef3318f-4ef3318a" class="footer-head"><div id="w-node-ec209fda-4140-b2bf-5394-7c1f4ef33190-4ef3318a" class="footer-title-wrap"><div class="footer-title"><div class="heading h4 tb-h5 mb-h3">An AI agent that works inside your design tools</div></div><div class="line line-horizital bot left right"></div></div><div class="footer-form-wrap"><div class="footer-form-label"><div class="txt txt-font-mono txt-14 mb-txt-12">Subscribe</div></div><div class="footer-form-inner"><div class="footer-form w-form"><form id="footer-form" name="wf-form-Footer-Form" data-name="Footer Form" method="get" class="footer-form-main w-node-ec209fda-4140-b2bf-5394-7c1f4ef331a0-4ef3318a" data-wf-page-id="6a4b5161f0d11f1602cc3ba1" data-wf-element-id="ec209fda-4140-b2bf-5394-7c1f4ef331a0"><div class="footer-form-title"><div class="txt txt-16 mb-txt-14">Want to see more cool websites like this?<br/>Sign up for occasional updates from Bearplus.</div></div><div class="input-wrap footer-form-input-wrap"><input class="txt txt-16 input footer-form-input w-input" autocomplete="off" maxlength="256" name="email" data-name="Email" placeholder="Enter your email" type="email" id="email" required=""/><button type="submit" class="input-submit footer-form-input-submit"><div class="input-submit-ic"><div class="ic-embed w-embed"><svg width="100%" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M18.002 10L12.4629 15.0234L11.2871 13.7266L14.4316 10.875H2V9.125H14.4316L11.2871 6.27344L12.4629 4.97656L18.002 10Z" fill="currentColor"/>
+</svg></div></div></button></div></form><div class="footer-form-success w-form-done"><div class="footer-form-success-inner"><div class="footer-form-success-title"><div class="heading h6 mb-h5">Thanks for reaching out!</div></div><div class="footer-form-success-sub"><div class="txt txt-16 txt-reg">We&#x27;ve received your information.<br/>Our team will reach out to you shortly!</div></div></div></div><div class="w-form-fail"><div>Oops! Something went wrong while submitting the form.</div></div></div></div><div class="line line-vertical left top"></div></div></div><div id="w-node-_35b68888-015e-8c8e-2f22-bde4cb8c5a57-4ef3318a" class="footer-body"><div class="footer-content-item"><div id="w-node-ec209fda-4140-b2bf-5394-7c1f4ef331af-4ef3318a" class="footer-menu"><div class="footer-menu-item item-right"><div class="footer-menu-item-label"><div class="txt txt-font-mono txt-14 mb-txt-12">Company</div></div><div class="footer-menu-item-link-wrap item-top"><a href="/" aria-current="page" class="footer-menu-item-link item-top w-inline-block w--current"><div class="txt txt-16 mb-txt-14">Home</div></a><a class='footer-menu-item-link item-top w-inline-block' href='/about-us'><div class="txt txt-16 mb-txt-14">About us</div></a><a class='footer-menu-item-link item-top w-inline-block' href='/contact-us'><div class="txt txt-16 mb-txt-14">Contact us</div></a></div><div class="line line-vertical left top"></div></div><div class="footer-menu-item"><div class="footer-menu-item-label"><div class="txt txt-font-mono txt-14 mb-txt-12">Product</div></div><div class="footer-menu-item-link-wrap"><a class='footer-menu-item-link w-inline-block' href='/heron-chat-widget'><div class="txt txt-16 mb-txt-14">Heron Chat Widget</div></a><a class='footer-menu-item-link w-inline-block' href='/heron-dashboard'><div class="txt txt-16 mb-txt-14">Heron Dashboard</div></a><a class='footer-menu-item-link w-inline-block' href='/pricing'><div class="txt txt-16 mb-txt-14">Pricing</div></a></div><div class="line line-vertical left top"></div></div><div class="footer-menu-item"><div class="footer-menu-item-label"><div class="txt txt-font-mono txt-14 mb-txt-12">Resources</div></div><div class="footer-menu-item-link-wrap"><a class='footer-menu-item-link w-inline-block' data-sub-link='insights' href='/resources'><div class="txt txt-16 mb-txt-14">Insights</div></a><a class='footer-menu-item-link w-inline-block' data-sub-link='ai-practices' href='/resources'><div class="txt txt-16 mb-txt-14">AI Practices</div></a><a class='footer-menu-item-link w-inline-block' data-sub-link='design-workflows' href='/resources'><div class="txt txt-16 mb-txt-14">Design Workflows</div></a></div><div class="line line-vertical left top"></div></div></div><div class="line line-horizital bot left right footer-content-item-line"></div></div><div class="footer-content-item item-bot"><div id="w-node-ec209fda-4140-b2bf-5394-7c1f4ef331e4-4ef3318a" class="footer-info-wrap"><div id="w-node-ec209fda-4140-b2bf-5394-7c1f4ef331e5-4ef3318a" class="footer-info-item item1"><div class="footer-info-item-label"><div class="txt txt-font-mono txt-14 mb-txt-12">Address</div></div><a href="https://maps.app.goo.gl/asX4qFDMyfEEQCis6" target="_blank" class="footer-info-item-title w-inline-block"><div class="txt txt-16 mb-txt-14">60 Martin Pl, Sydney, <br/>NSW 2000, Australia</div></a><a id="w-node-b4d62e44-e78d-71ea-908f-439a88f65c5d-4ef3318a" href="https://share.google/bPO24hGLkHwMPquIY" target="_blank" class="footer-info-item-title hidden-tab w-inline-block"><div class="txt txt-16 mb-txt-14">Direction</div></a><div class="line line-vertical left top"></div><div class="line line-horizital left right bot"></div></div><div id="w-node-ec209fda-4140-b2bf-5394-7c1f4ef331ee-4ef3318a" class="footer-info-item item2"><div class="footer-info-item-inner"><div class="footer-info-item-label"><div class="txt txt-font-mono txt-14 mb-txt-12">New business</div></div><a href="mailto:business@bear.plus" class="footer-info-item-title w-inline-block"><div class="txt txt-16 mb-txt-14">business@bear.plus</div></a><div class="line line-horizital bot left right"></div></div><div class="footer-info-item-inner item2"><div class="footer-info-item-label"><div class="txt txt-font-mono txt-14 mb-txt-12">General inquiries</div></div><a href="mailto:hello@heronaiapp.com" class="footer-info-item-title w-inline-block"><div class="txt txt-16 mb-txt-14">hello@heronaiapp.com</div></a><div class="line line-vertical left top"></div></div><div class="line line-vertical left top"></div></div><div id="w-node-ec209fda-4140-b2bf-5394-7c1f4ef33200-4ef3318a" class="footer-info-item item3"><div class="footer-info-item-label"><div class="txt txt-font-mono txt-14 mb-txt-12">Social</div></div><div class="footer-info-item-title-wrap"><a href="https://www.bear.plus/" target="_blank" class="footer-info-item-title w-inline-block"><div class="txt txt-16 mb-txt-14">Website</div></a><a href="https://dribbble.com/bearplus" target="_blank" class="footer-info-item-title w-inline-block"><div class="txt txt-16 mb-txt-14">Dribbble</div></a><a href="https://thefwa.com/profiles/bear-plus" target="_blank" class="footer-info-item-title w-inline-block"><div class="txt txt-16 mb-txt-14">FWA</div></a><a href="https://www.awwwards.com/bearplus/" target="_blank" class="footer-info-item-title w-inline-block"><div class="txt txt-16 mb-txt-14">Awwwards</div></a><a href="https://www.instagram.com/bearplus.agency" target="_blank" class="footer-info-item-title w-inline-block"><div class="txt txt-16 mb-txt-14">Instagram</div></a><a href="https://www.linkedin.com/company/bear-plus/" target="_blank" class="footer-info-item-title w-inline-block"><div class="txt txt-16 mb-txt-14">Linkedin</div></a></div><div class="line line-vertical left top"></div><div class="line line-horizital left right bot"></div></div></div></div></div><div id="w-node-ec209fda-4140-b2bf-5394-7c1f4ef3320d-4ef3318a" class="footer-logo"><div class="line line-vertical left top"></div><div class="footer-logo-inner full"><div class="ic-embed w-embed"><svg width="100%" class="footer-logo-svg" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M6.81268 5.8125L3.18768 8.125L16.0002 16.0625L20.0002 13.625L6.81268 5.8125Z" fill="#fa3600" class="footer-logo-path"/>
+<path d="M15.8123 31.1245V16.1245L2.49982 8.68701V23.562L15.8123 31.1245Z" fill="#fa3600" class="footer-logo-path"/>
+<path d="M19.8752 13.8745L16.0002 16.187V31.1245L20.1252 28.937V23.937L24.5627 21.437L25.0002 26.187L29.1877 23.562L28.6877 8.68701L24.5627 10.8745V16.187L20.1252 18.562L19.8752 13.8745Z" fill="#fa3600" class="footer-logo-path"/>
+<path d="M15.6878 0.75L12.0628 3.0625L24.8128 10.9375L28.7503 8.3125L15.6878 0.75Z" fill="#fa3600" class="footer-logo-path"/>
+<path d="M24.7501 11L11.6876 3.625L11.5001 8.0625L24.5626 15.875L24.7501 11Z" fill="#fa3600" class="footer-logo-path"/>
+<path d="M20.1878 18.437L20.3753 14.062L24.5628 16.062L20.1878 18.437Z" fill="#fa3600" class="footer-logo-path"/>
+<path d="M24.5626 21.375L20.8751 23.5L24.5626 26.125V21.375Z" fill="#fa3600" class="footer-logo-path"/>
+<path d="M20.3711 2.98633L20.373 2.98828L24.7725 5.55762L24.7764 5.55859L29.4209 8.18262V23.832L24.5732 26.5918L20.9434 24.5107L20.5684 24.2959V28.9707L15.835 31.71L11.3047 29.0879L11.2988 29.085L6.89551 26.4766L6.8916 26.4746L2.25 23.832V8.18652L7.09863 5.36816L10.6855 7.46875L11.0615 7.68945V3.06543L15.8369 0.289062L20.3711 2.98633ZM28.2363 9.33887L25.1035 11.1533L24.9785 11.2246V16.2471L19.7588 19.2686V14.2393L19.3838 14.4561L16.3652 16.2041L16.2402 16.2764V30.541L16.6152 30.3232L19.6338 28.5762L19.7588 28.5039V23.3613L24.9785 20.3906V25.4297L25.3525 25.2168L28.4844 23.4336L28.6113 23.3613V9.12207L28.2363 9.33887ZM23.7949 21.9961L21.3604 23.3818L20.9805 23.5986L21.3594 23.8164L23.7939 25.2119L24.1689 25.4268V21.7842L23.7949 21.9961ZM20.5684 17.8643L20.9443 17.6475L23.377 16.2383L23.7559 16.0195L23.374 15.8047L20.9414 14.4375L20.5684 14.2285V17.8643ZM6.9707 6.37988L3.83496 8.20215L3.46191 8.41895L3.83496 8.63477L7.2998 10.6406L11.7061 13.1836L11.707 13.1846L11.71 13.1865L15.71 15.5029L15.8359 15.5752L15.9609 15.5029L18.9893 13.749L19.3604 13.5342L18.9912 13.3174L15.6328 11.3428H15.6338L15.6328 11.3418L15.6299 11.3408L11.3018 8.76855L11.3008 8.76758L7.22266 6.37988L7.09668 6.30664L6.9707 6.37988ZM15.7061 1.30371L12.6309 3.09082L12.2637 3.30371L12.6279 3.52148L16.0371 5.55859L16.04 5.56055L20.3613 8.06641H20.3623L20.3633 8.06738H20.3643L20.3672 8.06934L20.3711 8.07129L20.3721 8.07227V8.07129L24.4492 10.4502L24.5742 10.5234L24.7002 10.4502L27.8223 8.64258L28.2002 8.42383L27.8203 8.20898L24.3701 6.25977H24.3691L19.96 3.68457L19.9561 3.68262H19.957L15.959 1.30469L15.833 1.22949L15.7061 1.30371ZM15.4307 16.2764L15.3057 16.2041L11.3047 13.8877L6.9082 11.3506L6.90137 11.3457L6.89453 11.3418L3.43555 9.33887L3.05957 9.12207V23.3613L3.18652 23.4336L7.29785 25.7744L7.30273 25.7773H7.30371L11.71 28.3867L11.7129 28.3877L15.0557 30.3232L15.4307 30.541V16.2764ZM24.1689 11.2246L24.0449 11.1514L19.96 8.76953L19.959 8.76855L15.6318 6.25977L15.6289 6.25781H15.6279L15.626 6.25684L12.25 4.23828L11.8711 4.0127V8.16504L11.9932 8.2373L16.042 10.6436L16.043 10.6445L20.3623 13.1836L20.3662 13.1865L23.7959 15.1123L24.1689 15.3223V11.2246Z" fill="currentColor" stroke="currentColor" stroke-width="0.2" class="footer-logo-stroke"/>
+</svg>
 
-          <div>
-            <span style={{ fontFamily: "monospace", fontSize: "11px", color: "rgba(18, 32, 43, 0.5)", letterSpacing: "0.08em" }}>
-              [NEWSLETTER]
-            </span>
-            <h4 style={{ fontSize: "1.25rem", fontWeight: 700, margin: "12px 0 16px 0", color: "#0c161e" }}>
-              Receive engineering updates and code compliance briefs.
-            </h4>
-
-            {subscribed ? (
-              <div style={{ padding: "12px 16px", background: "rgba(16, 185, 129, 0.1)", border: "1px solid #10b981", color: "#065f46", fontFamily: "monospace", fontSize: "13px" }}>
-                ✓ Thank you. We will keep you updated.
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} style={{ display: "flex", gap: "8px", maxWidth: "440px" }}>
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Enter your email"
-                  required
-                  style={{
-                    flex: 1,
-                    padding: "12px 16px",
-                    background: "#ffffff",
-                    border: "1px solid rgba(0,0,0,0.15)",
-                    fontSize: "14px",
-                    fontFamily: "monospace",
-                    outline: "none",
-                  }}
-                />
-                <button
-                  type="submit"
-                  style={{
-                    padding: "12px 20px",
-                    background: "#0c161e",
-                    color: "#ffffff",
-                    border: "none",
-                    fontFamily: "monospace",
-                    fontSize: "13px",
-                    fontWeight: 700,
-                    cursor: "pointer",
-                    transition: "background 0.2s ease",
-                  }}
-                  onMouseEnter={(e) => (e.currentTarget.style.background = "#fa3600")}
-                  onMouseLeave={(e) => (e.currentTarget.style.background = "#0c161e")}
-                >
-                  Join →
-                </button>
-              </form>
-            )}
-          </div>
-        </div>
-
-        {/* MIDDLE ROW: LINKS & ADDRESS */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "32px", padding: "48px 0", borderBottom: "1px solid rgba(0,0,0,0.08)", fontSize: "14px" }}>
-          <div>
-            <div style={{ fontFamily: "monospace", fontSize: "11px", color: "rgba(0,0,0,0.4)", marginBottom: "16px" }}>PRODUCT</div>
-            <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "10px" }}>
-              <li><a href="#product" style={{ color: "#0c161e", textDecoration: "none" }}>Revit Add-In</a></li>
-              <li><a href="#product" style={{ color: "#0c161e", textDecoration: "none" }}>ArchiCAD Extension</a></li>
-              <li><a href="#product" style={{ color: "#0c161e", textDecoration: "none" }}>Rhino Integration</a></li>
-              <li><a href="#why-us" style={{ color: "#0c161e", textDecoration: "none" }}>Compliance Engine</a></li>
-            </ul>
-          </div>
-
-          <div>
-            <div style={{ fontFamily: "monospace", fontSize: "11px", color: "rgba(0,0,0,0.4)", marginBottom: "16px" }}>COMPANY</div>
-            <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "10px" }}>
-              <li><Link href="/" style={{ color: "#0c161e", textDecoration: "none" }}>Home</Link></li>
-              <li><a href="#why-us" style={{ color: "#0c161e", textDecoration: "none" }}>About us</a></li>
-              <li><a href="#contact" style={{ color: "#0c161e", textDecoration: "none" }}>Contact</a></li>
-              <li><a href="mailto:careers@heronaiapp.com" style={{ color: "#0c161e", textDecoration: "none" }}>Careers</a></li>
-            </ul>
-          </div>
-
-          <div>
-            <div style={{ fontFamily: "monospace", fontSize: "11px", color: "rgba(0,0,0,0.4)", marginBottom: "16px" }}>ADDRESS</div>
-            <p style={{ margin: 0, color: "rgba(18, 32, 43, 0.75)", lineHeight: 1.6 }}>
-              60 Martin Pl, Sydney<br />
-              NSW 2000, Australia
-            </p>
-          </div>
-
-          <div>
-            <div style={{ fontFamily: "monospace", fontSize: "11px", color: "rgba(0,0,0,0.4)", marginBottom: "16px" }}>CONNECT</div>
-            <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "10px" }}>
-              <li><a href="mailto:hello@heronaiapp.com" style={{ color: "#fa3600", textDecoration: "none" }}>hello@heronaiapp.com</a></li>
-              <li><a href="https://linkedin.com" target="_blank" rel="noreferrer" style={{ color: "#0c161e", textDecoration: "none" }}>LinkedIn</a></li>
-              <li><a href="https://twitter.com" target="_blank" rel="noreferrer" style={{ color: "#0c161e", textDecoration: "none" }}>X / Twitter</a></li>
-            </ul>
-          </div>
-        </div>
-
-        {/* BOTTOM ROW: COPYRIGHT */}
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingTop: "32px", fontSize: "12px", fontFamily: "monospace", color: "rgba(18, 32, 43, 0.5)", flexWrap: "wrap", gap: "16px" }}>
-          <div>© 2026 HERON AI. All rights reserved.</div>
-          <div style={{ display: "flex", gap: "24px" }}>
-            <span>PRIVACY POLICY</span>
-            <span>TERMS &amp; CONDITIONS</span>
-            <span>COOKIE POLICY</span>
-          </div>
-        </div>
-      </div>
-    </footer>
+</div></div><div class="footer-logo-inner sketch"><img src="https://cdn.prod.website-files.com/6a4b5161f0d11f1602cc3bbf/6a685b5a07a3038b09d2a9d4_7eae2a6d059ebb6121966d2839ba80ee_logo-sketch.svg" loading="lazy" alt="" class="img-basic img-fill"/></div></div><div class="line line-horizital bot left right"></div></div><div class="footer-img-wrap"><div class="footer-img-inner bg-global"><div id="w-node-ec209fda-4140-b2bf-5394-7c1f4ef33214-4ef3318a" class="footer-img-item hidden-dsk"><img src="https://cdn.prod.website-files.com/6a4b5161f0d11f1602cc3bbf/6a4b5161f0d11f1602cc3c0a_7a1f4c59a32ecf47588f364258cddcaf_footer1.avif" loading="lazy" alt="" class="img-basic img-fill"/></div><div class="hidden-tb"><div data-wf--ink-mask--variant="circle" class="ink-mask"><div data-end="75" data-start="85" class="ink-mask-img main"><img src="https://cdn.prod.website-files.com/6a4b5161f0d11f1602cc3bbf/6a698acae521ff1cc6cba1f2_3a9b60f8f07a704746b20978dd8d73d1_Frame%20484%20(1).png" class="img-basic img-abs"/></div><div class="ink-mask-img sub ink-filter"><svg width="100%" preserveAspectRatio="none" class="layer"><defs><mask id="inkCircleMask" maskContentUnits="userSpaceOnUse"><circle cx="50%" cy="50%" r="0" fill="white" STYLE="filter: url(#sharedDisplacementFilter);" class="mask"></circle></mask></defs><filter id="sharedDisplacementFilter"><feTurbulence type="fractalNoise" baseFrequency="0.045 0.055" numOctaves="4" seed="5" result="noise"></feTurbulence><feDisplacementMap in="SourceGraphic" in2="noise" scale="100" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap><feGaussianBlur stdDeviation="1.8" result="blurred"></feGaussianBlur><feComponentTransfer in="blurred" result="contrast"><feFuncA type="linear" slope="2.2" intercept="-0.6"></feFuncA></feComponentTransfer></filter><image href="https://cdn.prod.website-files.com/6a4b5161f0d11f1602cc3bbf/6a4b5161f0d11f1602cc3c0a_7a1f4c59a32ecf47588f364258cddcaf_footer1.avif" x="0" y="0" width="100%" mask="url(#inkCircleMask)" height="100%" class="img-basic"></image></svg></div></div></div></div><div class="bg-border"><div class="bg-border-inner"><div class="bg-border-item bg-border-horizital top"></div><div class="bg-border-item bg-border-horizital bot"></div><div class="bg-border-item bg-border-vertical left"></div><div class="bg-border-item bg-border-vertical right"></div><div class="bg-border-plus top left"><div class="embed-ic w-embed"><svg width="100%" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M5.995 0V8V12" stroke="currentColor" class="path-vertical"/>
+<path d="M12 5.995L4 5.99499L0 5.99499" class="path-horizital" stroke="currentColor"/>
+</svg></div></div><div class="bg-border-plus top right"><div class="embed-ic w-embed"><svg width="100%" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M5.995 0V8V12" stroke="currentColor" class="path-vertical"/>
+<path d="M12 5.995L4 5.99499L0 5.99499" class="path-horizital" stroke="currentColor"/>
+</svg></div></div><div class="bg-border-plus bot left"><div class="embed-ic w-embed"><svg width="100%" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M5.995 0V8V12" stroke="currentColor" class="path-vertical"/>
+<path d="M12 5.995L4 5.99499L0 5.99499" class="path-horizital" stroke="currentColor"/>
+</svg></div></div><div class="bg-border-plus bot right"><div class="embed-ic w-embed"><svg width="100%" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M5.995 0V8V12" stroke="currentColor" class="path-vertical"/>
+<path d="M12 5.995L4 5.99499L0 5.99499" class="path-horizital" stroke="currentColor"/>
+</svg></div></div></div></div></div><div class="footer-copyright-wrap grid"><div id="w-node-ec209fda-4140-b2bf-5394-7c1f4ef33221-4ef3318a" class="footer-copyright"><div class="footer-copyright-txt"><div class="footer-copyright-txt-block w-richtext"><p>©2026 HERON AI. All rights reserved. Concept Crafted by <a href="https://www.bear.plus/" target="_blank">Bearplus</a></p></div></div><div class="line line-vertical right top hidden-tb"></div></div><div id="w-node-ec209fda-4140-b2bf-5394-7c1f4ef33225-4ef3318a" class="footer-policy"><a class='footer-policy-item w-inline-block' href='/privacy-policy'><div class="line line-vertical left top"></div><div class="txt txt-16 mb-txt-12">Privacy Policy</div></a><a class='footer-policy-item w-inline-block' href='/terms-and-conditions'><div class="line line-vertical left top"></div><div class="txt txt-16 mb-txt-12">Terms &amp; Conditions</div></a><a class='footer-policy-item w-inline-block' href='/cookie-policy'><div class="line line-vertical left top"></div><div class="txt txt-16 mb-txt-12">Cookie Policy</div></a></div><div class="line line-horizital top left right"></div></div></div></footer>`,
+      }}
+    />
   );
 }

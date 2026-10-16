@@ -1,268 +1,42 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 
-interface HeroProps {
-  badge?: string;
-  title?: string;
-  subtitle?: string;
-  primaryCtaText?: string;
-  secondaryCtaText?: string;
-}
-
-export default function HeroSection({
-  badge = "[0,0] // REVIT & ARCHICAD NATIVE",
-  title = "AN AI AGENT THAT WORKS INSIDE YOUR DESIGN TOOLS",
-  subtitle = "Heron sees your model, spots problems, and suggests fixes as you design. When you approve, it makes the edit itself, all without leaving the software you already use.",
-  primaryCtaText = "Book a demo",
-  secondaryCtaText = "See how it works",
-}: HeroProps) {
-  const [scanProgress, setScanProgress] = useState(64);
-
-  // Smooth oscillating datum scanline
-  useEffect(() => {
-    let animId: number;
-    let start = performance.now();
-
-    const loop = (now: number) => {
-      const elapsed = (now - start) / 1000;
-      // Oscillate between 15% and 88%
-      const p = 51.5 + Math.sin(elapsed * 0.8) * 36.5;
-      setScanProgress(p);
-      animId = requestAnimationFrame(loop);
-    };
-
-    animId = requestAnimationFrame(loop);
-    return () => cancelAnimationFrame(animId);
-  }, []);
-
+export default function HeroSection() {
   return (
-    <section className="hero-section" style={{ position: "relative", width: "100%", padding: "64px 24px 32px 24px", maxWidth: "1600px", margin: "0 auto" }}>
-      {/* TOP DRAFTING METADATA STRIP */}
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px dashed rgba(0,0,0,0.12)", paddingBottom: "12px", marginBottom: "32px", fontFamily: "var(--font-mono, monospace)", fontSize: "11px", color: "rgba(18, 32, 43, 0.6)" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-          <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#fa3600", display: "inline-block" }}></span>
-          <span>{badge}</span>
-        </div>
-        <div style={{ display: "flex", gap: "24px" }}>
-          <span>LAT: 37.7749° N</span>
-          <span>SCALE: 1:100</span>
-          <span>BIM MODEL: ACTIVE</span>
-        </div>
-      </div>
-
-      {/* HEADLINE & INTRODUCTION */}
-      <div style={{ maxWidth: "1100px", margin: "0 auto", textAlign: "center", marginBottom: "48px" }}>
-        <h1
-          style={{
-            fontSize: "clamp(2.5rem, 5.5vw, 5.25rem)",
-            fontWeight: 800,
-            lineHeight: 1.05,
-            letterSpacing: "-0.03em",
-            textTransform: "uppercase",
-            color: "#0c161e",
-            margin: "0 0 24px 0",
-          }}
-        >
-          {title}
-        </h1>
-
-        <p
-          style={{
-            fontSize: "clamp(1rem, 1.3vw, 1.25rem)",
-            lineHeight: 1.6,
-            color: "rgba(18, 32, 43, 0.75)",
-            maxWidth: "760px",
-            margin: "0 auto 32px auto",
-          }}
-        >
-          {subtitle}
-        </p>
-
-        {/* CTAs */}
-        <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "16px", flexWrap: "wrap" }}>
-          <a
-            href="#contact"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              background: "#fa3600",
-              color: "#ffffff",
-              textDecoration: "none",
-              fontFamily: "monospace",
-              fontSize: "14px",
-              fontWeight: 700,
-              letterSpacing: "0.04em",
-              border: "1px solid #fa3600",
-              boxShadow: "0 4px 16px rgba(250, 54, 0, 0.25)",
-              transition: "transform 0.2s ease, box-shadow 0.2s ease",
-            }}
-            onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-2px)")}
-            onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
-          >
-            <span style={{ padding: "12px 24px" }}>{primaryCtaText}</span>
-            <span style={{ width: "1px", height: "24px", background: "rgba(255,255,255,0.3)" }}></span>
-            <span style={{ padding: "12px 16px" }}>→</span>
-          </a>
-
-          <a
-            href="#why-us"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              background: "transparent",
-              color: "#0c161e",
-              textDecoration: "none",
-              fontFamily: "monospace",
-              fontSize: "14px",
-              fontWeight: 600,
-              letterSpacing: "0.04em",
-              border: "1px solid rgba(0,0,0,0.18)",
-              padding: "12px 24px",
-              transition: "border-color 0.2s ease, background 0.2s ease",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = "#0c161e";
-              e.currentTarget.style.background = "rgba(0,0,0,0.03)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.borderColor = "rgba(0,0,0,0.18)";
-              e.currentTarget.style.background = "transparent";
-            }}
-          >
-            {secondaryCtaText}
-          </a>
-        </div>
-      </div>
-
-      {/* CENTRAL ARCHITECTURAL CAD ELEVATION & LASER DATUM SCANNER */}
-      <div
-        style={{
-          position: "relative",
-          width: "100%",
-          maxWidth: "1280px",
-          margin: "0 auto",
-          background: "#0c161e",
-          border: "1px solid rgba(237, 240, 238, 0.15)",
-          boxShadow: "0 20px 50px rgba(0,0,0,0.15)",
-          overflow: "hidden",
-        }}
-      >
-        {/* CAD Grid Header Bar */}
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            padding: "10px 16px",
-            background: "rgba(18, 32, 43, 0.95)",
-            borderBottom: "1px solid rgba(237, 240, 238, 0.1)",
-            fontFamily: "monospace",
-            fontSize: "11px",
-            color: "#edf0ee",
-          }}
-        >
-          <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-            <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#10b981" }}></span>
-            <span>ELEVATION: LEVEL 04 — WEST SECTION</span>
-          </div>
-          <div style={{ display: "flex", gap: "16px", color: "rgba(237, 240, 238, 0.6)" }}>
-            <span>GRID: 200mm</span>
-            <span style={{ color: "#fa3600" }}>COMPLIANCE: 98%</span>
-          </div>
-        </div>
-
-        {/* SVG Drawing Canvas */}
-        <div style={{ position: "relative", width: "100%", height: "480px" }}>
-          <svg viewBox="0 0 1000 480" style={{ width: "100%", height: "100%", display: "block" }}>
-            <defs>
-              <pattern id="hero-cad-grid" width="20" height="20" patternUnits="userSpaceOnUse">
-                <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(237, 240, 238, 0.05)" strokeWidth="0.8" />
-              </pattern>
-            </defs>
-
-            {/* Background Grid */}
-            <rect width="1000" height="480" fill="#0c161e" />
-            <rect width="1000" height="480" fill="url(#hero-cad-grid)" />
-
-            {/* Architectural Building Elevation Wireframe */}
-            <g stroke="rgba(237, 240, 238, 0.4)" strokeWidth="1" fill="none">
-              {/* Outer Building Structural Frame */}
-              <rect x="180" y="60" width="640" height="380" stroke="#edf0ee" strokeWidth="1.5" />
-              
-              {/* Floor Levels */}
-              <line x1="180" y1="140" x2="820" y2="140" stroke="rgba(237, 240, 238, 0.25)" strokeDasharray="4,4" />
-              <line x1="180" y1="220" x2="820" y2="220" stroke="rgba(237, 240, 238, 0.25)" strokeDasharray="4,4" />
-              <line x1="180" y1="300" x2="820" y2="300" stroke="rgba(237, 240, 238, 0.25)" strokeDasharray="4,4" />
-              <line x1="180" y1="380" x2="820" y2="380" stroke="rgba(237, 240, 238, 0.25)" strokeDasharray="4,4" />
-
-              {/* Window Bays & Mullions */}
-              {[240, 320, 400, 480, 560, 640, 720, 780].map((x, i) => (
-                <line key={i} x1={x} y1="60" x2={x} y2="440" stroke="rgba(237, 240, 238, 0.2)" />
-              ))}
-
-              {/* Roof Truss Detail */}
-              <polygon points="180,60 500,20 820,60" stroke="#fa3600" strokeWidth="1.2" />
-              <line x1="500" y1="20" x2="500" y2="60" stroke="#fa3600" strokeWidth="1" strokeDasharray="2,2" />
-
-              {/* Structural Cross Bracing */}
-              <line x1="180" y1="380" x2="320" y2="440" stroke="rgba(237, 240, 238, 0.25)" />
-              <line x1="320" y1="380" x2="180" y2="440" stroke="rgba(237, 240, 238, 0.25)" />
-              <line x1="680" y1="380" x2="820" y2="440" stroke="rgba(237, 240, 238, 0.25)" />
-              <line x1="820" y1="380" x2="680" y2="440" stroke="rgba(237, 240, 238, 0.25)" />
-
-              {/* Level Markers */}
-              <text x="140" y="65" fill="#94a3b8" fontSize="10" fontFamily="monospace">LVL 05 +18.0M</text>
-              <text x="140" y="145" fill="#94a3b8" fontSize="10" fontFamily="monospace">LVL 04 +14.4M</text>
-              <text x="140" y="225" fill="#94a3b8" fontSize="10" fontFamily="monospace">LVL 03 +10.8M</text>
-              <text x="140" y="305" fill="#94a3b8" fontSize="10" fontFamily="monospace">LVL 02 +07.2M</text>
-              <text x="140" y="385" fill="#94a3b8" fontSize="10" fontFamily="monospace">LVL 01 +03.6M</text>
-              <text x="140" y="445" fill="#fa3600" fontSize="10" fontFamily="monospace">GRADE ±0.0M</text>
-            </g>
-
-            {/* DYNAMIC OSCILLATING HORIZONTAL LASER DATUM SCANNER */}
-            <g pointerEvents="none">
-              <line
-                x1="40"
-                y1={(scanProgress / 100) * 440 + 20}
-                x2="960"
-                y2={(scanProgress / 100) * 440 + 20}
-                stroke="#fa3600"
-                strokeWidth="1.5"
-                strokeDasharray="6,4"
-              />
-              <circle cx="950" cy={(scanProgress / 100) * 440 + 20} r="4" fill="#fa3600" />
-              <rect
-                x="840"
-                y={(scanProgress / 100) * 440 + 8}
-                width="100"
-                height="22"
-                fill="#fa3600"
-                rx="2"
-              />
-              <text
-                x="890"
-                y={(scanProgress / 100) * 440 + 23}
-                fill="#ffffff"
-                fontSize="10"
-                fontFamily="monospace"
-                fontWeight="bold"
-                textAnchor="middle"
-              >
-                DATUM: {Math.round(scanProgress)}%
-              </text>
-            </g>
-
-            {/* Corner Registration Crosshairs */}
-            {[[20, 20], [980, 20], [20, 460], [980, 460]].map(([cx, cy], i) => (
-              <g key={i} stroke="rgba(237, 240, 238, 0.4)" strokeWidth="1">
-                <line x1={cx - 8} y1={cy} x2={cx + 8} y2={cy} />
-                <line x1={cx} y1={cy - 8} x2={cx} y2={cy + 8} />
-              </g>
-            ))}
-          </svg>
-        </div>
-      </div>
-    </section>
+    <div
+      dangerouslySetInnerHTML={{
+        __html: `<section class="home-hero"><div class="w-layout-blockcontainer container full-h w-container"><div class="home-hero-inner"><div data-cursor="hidden" id="w-node-_729c246d-aa7a-7d4c-f3b9-5314955335b6-02cc3ba1" class="home-hero-img-wrap"><div class="home-hero-img bg-global"><div class="home-hero-img-interact-wrap"><div class="line line-horizital left right home-hero-curor-line"></div><div class="line line-vertical home-hero-curor-line"></div><div class="home-hero-img-plus"><div class="home-hero-img-plus-line line-vertical"></div><div class="home-hero-img-plus-line line-horizital"></div></div><div class="home-hero-img-coordi"><div class="txt txt-font-mono txt-10">X:<span data-control="x">1131</span>PX</div><div class="txt txt-font-mono txt-10">Y:<span data-control="y">1131</span>PX</div></div><div class="home-hero-interact"><div class="home-hero-interact-txt"><div class="txt txt-font-mono txt-10">Click and drag your mouse to see violations</div></div></div></div><div class="bg-border"><div class="bg-border-inner"><div class="bg-border-item bg-border-horizital top"></div><div class="bg-border-item bg-border-horizital bot"></div><div class="bg-border-item bg-border-vertical left"></div><div class="bg-border-item bg-border-vertical right"></div><div class="bg-border-plus top left"><div class="embed-ic w-embed"><svg width="100%" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M5.995 0V8V12" stroke="currentColor" class="path-vertical"/>
+<path d="M12 5.995L4 5.99499L0 5.99499" class="path-horizital" stroke="currentColor"/>
+</svg></div></div><div class="bg-border-plus top right"><div class="embed-ic w-embed"><svg width="100%" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M5.995 0V8V12" stroke="currentColor" class="path-vertical"/>
+<path d="M12 5.995L4 5.99499L0 5.99499" class="path-horizital" stroke="currentColor"/>
+</svg></div></div><div class="bg-border-plus bot left"><div class="embed-ic w-embed"><svg width="100%" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M5.995 0V8V12" stroke="currentColor" class="path-vertical"/>
+<path d="M12 5.995L4 5.99499L0 5.99499" class="path-horizital" stroke="currentColor"/>
+</svg></div></div><div class="bg-border-plus bot right"><div class="embed-ic w-embed"><svg width="100%" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M5.995 0V8V12" stroke="currentColor" class="path-vertical"/>
+<path d="M12 5.995L4 5.99499L0 5.99499" class="path-horizital" stroke="currentColor"/>
+</svg></div></div></div></div><div class="home-hero-img-inner"><img src="https://cdn.prod.website-files.com/6a4b5161f0d11f1602cc3bbf/6a703ca7b25c47076637c631_4f993b1a199968429382e85294f3e6d1_Full.webp" loading="eager" alt="Black and white architectural sketch of a modern concrete building with large windows and trees on each side." class="img-basic img-abs"/></div></div><div class="home-hero-ruler"><div class="home-hero-img-deco-wrap"><div class="home-hero-img-deco-main"><div class="home-hero-img-deco item2"><div class="home-hero-img-deco-ic"><div class="home-hero-img-deco-ic-inner"><div class="embed-ic w-embed"><svg width="100%" viewBox="0 0 5 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M4.35547 0.353546L0.355469 4.35355M4.35547 4.35355L0.355469 0.353546" stroke="#F15534" stroke-linejoin="round"/>
+</svg></div></div></div><div class="home-hero-img-deco-inner"><div class="txt txt-font-mono txt-12">IBC 1015.3</div><div class="txt txt-font-mono txt-14">Guardrail required for fall protection</div></div><div data-anim="fade-loop" class="home-hero-img-deco-bg"></div></div><div class="home-hero-img-deco item1"><div class="home-hero-img-deco-ic"><div class="home-hero-img-deco-ic-inner"><div class="embed-ic w-embed"><svg width="100%" viewBox="0 0 5 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M4.35547 0.353546L0.355469 4.35355M4.35547 4.35355L0.355469 0.353546" stroke="#F15534" stroke-linejoin="round"/>
+</svg></div></div></div><div class="home-hero-img-deco-inner"><div class="txt txt-font-mono txt-12">IBC 1011.11</div><div class="txt txt-font-mono txt-14">Handrails required.</div></div><div data-anim="fade-loop" class="home-hero-img-deco-bg"></div></div></div></div><div class="home-hero-ruler-inner"><div data-cursor="hidden" class="home-hero-ruler-item-wrap"><div class="home-hero-ruler-item left"><div class="line line-dash line-horizital top left right line-opacity-64 home-hero-ruler-item-line-horizital"></div><div class="line line-dash line-horizital top left right line-opacity-64 home-hero-ruler-item-line-horizital"></div><div class="line line-dash line-horizital top left right line-opacity-64 home-hero-ruler-item-line-horizital"></div><div class="line line-dash line-horizital top left right line-opacity-64 home-hero-ruler-item-line-horizital"></div><div class="line line-dash line-horizital top left right line-opacity-64 home-hero-ruler-item-line-horizital"></div><div class="line line-dash line-horizital top left right line-opacity-64 home-hero-ruler-item-line-horizital"></div><div class="line line-dash line-horizital top left right line-opacity-64 home-hero-ruler-item-line-horizital"></div><div class="line line-vertical left line-brand line-opacity-64 home-hero-ruler-item-line-vertical"></div></div><div class="home-hero-ruler-item top"><div class="line line-horizital left right top line-brand line-opacity-64 home-hero-ruler-item-line-horizital"></div><div class="line line-dash line-vertical line-opacity-64 home-hero-ruler-item-line-vertical"></div><div class="line line-dash line-vertical line-opacity-64 home-hero-ruler-item-line-vertical"></div><div class="line line-dash line-vertical line-opacity-64 home-hero-ruler-item-line-vertical"></div><div class="line line-dash line-vertical line-opacity-64 home-hero-ruler-item-line-vertical"></div><div class="line line-dash line-vertical line-opacity-64 home-hero-ruler-item-line-vertical"></div><div class="line line-dash line-vertical line-opacity-64 home-hero-ruler-item-line-vertical"></div><div class="line line-dash line-vertical line-opacity-64 home-hero-ruler-item-line-vertical"></div><div class="line line-dash line-vertical line-opacity-64 home-hero-ruler-item-line-vertical"></div><div class="line line-dash line-vertical line-opacity-64 home-hero-ruler-item-line-vertical"></div><div class="line line-dash line-vertical line-opacity-64 home-hero-ruler-item-line-vertical"></div><div class="line line-dash line-vertical line-opacity-64 home-hero-ruler-item-line-vertical"></div><div class="line line-dash line-vertical line-opacity-64 home-hero-ruler-item-line-vertical"></div><div class="line line-dash line-vertical line-opacity-64 home-hero-ruler-item-line-vertical"></div></div></div><div data-cursor="hidden" class="home-hero-ruler-item-wrap"><div class="home-hero-ruler-item right"><div class="line line-dash line-horizital top left right line-opacity-64 home-hero-ruler-item-line-horizital"></div><div class="line line-dash line-horizital top left right line-opacity-64 home-hero-ruler-item-line-horizital"></div><div class="line line-dash line-horizital top left right line-opacity-64 home-hero-ruler-item-line-horizital"></div><div class="line line-dash line-horizital top left right line-opacity-64 home-hero-ruler-item-line-horizital"></div><div class="line line-dash line-horizital top left right line-opacity-64 home-hero-ruler-item-line-horizital"></div><div class="line line-dash line-horizital top left right line-opacity-64 home-hero-ruler-item-line-horizital"></div><div class="line line-vertical right line-brand line-opacity-64 home-hero-ruler-item-line-vertical"></div></div><div class="home-hero-ruler-item top"><div class="line line-horizital left right top line-brand line-opacity-64 home-hero-ruler-item-line-horizital"></div><div class="line line-dash line-vertical line-opacity-64 home-hero-ruler-item-line-vertical"></div><div class="line line-dash line-vertical line-opacity-64 home-hero-ruler-item-line-vertical"></div><div class="line line-dash line-vertical line-opacity-64 home-hero-ruler-item-line-vertical"></div><div class="line line-dash line-vertical line-opacity-64 home-hero-ruler-item-line-vertical"></div><div class="line line-dash line-vertical line-opacity-64 home-hero-ruler-item-line-vertical"></div><div class="line line-dash line-vertical line-opacity-64 home-hero-ruler-item-line-vertical"></div><div class="line line-dash line-vertical line-opacity-64 home-hero-ruler-item-line-vertical"></div><div class="line line-dash line-vertical line-opacity-64 home-hero-ruler-item-line-vertical"></div><div class="line line-dash line-vertical line-opacity-64 home-hero-ruler-item-line-vertical"></div><div class="line line-dash line-vertical line-opacity-64 home-hero-ruler-item-line-vertical"></div><div class="line line-dash line-vertical line-opacity-64 home-hero-ruler-item-line-vertical"></div><div class="line line-dash line-vertical line-opacity-64 home-hero-ruler-item-line-vertical"></div><div class="line line-dash line-vertical line-opacity-64 home-hero-ruler-item-line-vertical"></div></div></div><div data-cursor="hidden" class="home-hero-ruler-item-wrap"><div class="home-hero-ruler-item bot"><div class="line line-horizital left right bot line-brand line-opacity-64 home-hero-ruler-item-line-horizital"></div><div class="line line-dash line-vertical line-opacity-64 home-hero-ruler-item-line-vertical"></div><div class="line line-dash line-vertical line-opacity-64 home-hero-ruler-item-line-vertical"></div><div class="line line-dash line-vertical line-opacity-64 home-hero-ruler-item-line-vertical"></div><div class="line line-dash line-vertical line-opacity-64 home-hero-ruler-item-line-vertical"></div><div class="line line-dash line-vertical line-opacity-64 home-hero-ruler-item-line-vertical"></div><div class="line line-dash line-vertical line-opacity-64 home-hero-ruler-item-line-vertical"></div><div class="line line-dash line-vertical line-opacity-64 home-hero-ruler-item-line-vertical"></div><div class="line line-dash line-vertical line-opacity-64 home-hero-ruler-item-line-vertical"></div><div class="line line-dash line-vertical line-opacity-64 home-hero-ruler-item-line-vertical"></div><div class="line line-dash line-vertical line-opacity-64 home-hero-ruler-item-line-vertical"></div><div class="line line-dash line-vertical line-opacity-64 home-hero-ruler-item-line-vertical"></div><div class="line line-dash line-vertical line-opacity-64 home-hero-ruler-item-line-vertical"></div><div class="line line-dash line-vertical line-opacity-64 home-hero-ruler-item-line-vertical"></div></div><div class="home-hero-ruler-item left"><div class="line line-dash line-horizital top left right line-opacity-64 home-hero-ruler-item-line-horizital"></div><div class="line line-dash line-horizital top left right line-opacity-64 home-hero-ruler-item-line-horizital"></div><div class="line line-dash line-horizital top left right line-opacity-64 home-hero-ruler-item-line-horizital"></div><div class="line line-dash line-horizital top left right line-opacity-64 home-hero-ruler-item-line-horizital"></div><div class="line line-dash line-horizital top left right line-opacity-64 home-hero-ruler-item-line-horizital"></div><div class="line line-dash line-horizital top left right line-opacity-64 home-hero-ruler-item-line-horizital"></div><div class="line line-dash line-horizital top left right line-opacity-64 home-hero-ruler-item-line-horizital"></div><div class="line line-vertical left line-brand line-opacity-64 home-hero-ruler-item-line-vertical"></div></div></div><div data-cursor="hidden" class="home-hero-ruler-item-wrap"><div class="home-hero-ruler-item bot"><div class="line line-horizital left right bot line-brand line-opacity-64 home-hero-ruler-item-line-horizital"></div><div class="line line-dash line-vertical line-opacity-64 home-hero-ruler-item-line-vertical"></div><div class="line line-dash line-vertical line-opacity-64 home-hero-ruler-item-line-vertical"></div><div class="line line-dash line-vertical line-opacity-64 home-hero-ruler-item-line-vertical"></div><div class="line line-dash line-vertical line-opacity-64 home-hero-ruler-item-line-vertical"></div><div class="line line-dash line-vertical line-opacity-64 home-hero-ruler-item-line-vertical"></div><div class="line line-dash line-vertical line-opacity-64 home-hero-ruler-item-line-vertical"></div><div class="line line-dash line-vertical line-opacity-64 home-hero-ruler-item-line-vertical"></div><div class="line line-dash line-vertical line-opacity-64 home-hero-ruler-item-line-vertical"></div><div class="line line-dash line-vertical line-opacity-64 home-hero-ruler-item-line-vertical"></div><div class="line line-dash line-vertical line-opacity-64 home-hero-ruler-item-line-vertical"></div><div class="line line-dash line-vertical line-opacity-64 home-hero-ruler-item-line-vertical"></div><div class="line line-dash line-vertical line-opacity-64 home-hero-ruler-item-line-vertical"></div><div class="line line-dash line-vertical line-opacity-64 home-hero-ruler-item-line-vertical"></div></div><div class="home-hero-ruler-item right"><div class="line line-dash line-horizital top left right line-opacity-64 home-hero-ruler-item-line-horizital"></div><div class="line line-dash line-horizital top left right line-opacity-64 home-hero-ruler-item-line-horizital"></div><div class="line line-dash line-horizital top left right line-opacity-64 home-hero-ruler-item-line-horizital"></div><div class="line line-dash line-horizital top left right line-opacity-64 home-hero-ruler-item-line-horizital"></div><div class="line line-dash line-horizital top left right line-opacity-64 home-hero-ruler-item-line-horizital"></div><div class="line line-dash line-horizital top left right line-opacity-64 home-hero-ruler-item-line-horizital"></div><div class="line line-vertical right line-brand line-opacity-64 home-hero-ruler-item-line-vertical"></div></div></div></div></div></div><div id="w-node-b162e7de-d9c0-bc88-c38b-ddef9da35359-02cc3ba1" class="home-hero-content grid"><div class="line line-horizital left right top"></div><div class="line line-horizital left right bot"></div><div id="w-node-f028d908-4226-0863-af4b-7c555e4c7fcf-02cc3ba1" class="home-hero-title-wrap"><div class="home-hero-title"><h1 class="heading h1 tb-h3 mb-h2">An AI agent that works inside your design tools</h1></div><div class="line line-horizital left right bot"></div></div><div id="w-node-_048e7864-17ba-32cb-1d76-93b692053862-02cc3ba1" class="home-hero-sub-wrap"><div class="line line-vertical left top"></div><div class="home-hero-sub-inner"><div class="home-hero-sub"><div class="txt txt-16 txt-reg">Heron reviews your model, identifies issues, and proposes solutions. Upon approval, it edits automatically. This concept crafted by <a href="https://www.bear.plus/" target="_blank" class="home-hero-sub-link">Bearplus agency</a>, the award-winning design agency.</div><div class="line line-horizital left right bot"></div></div><a class='home-hero-btn w-inline-block' href='/heron-dashboard'><div class="line line-vertical left top hidden-mb"></div><div data-wf--button--variant="outline-2" class="btn-fill w-variant-b76e1715-f3d6-4272-d4a4-e7650212eef1"><div class="btn-fill-bg w-variant-b76e1715-f3d6-4272-d4a4-e7650212eef1"></div><div class="btn-fill-label w-variant-b76e1715-f3d6-4272-d4a4-e7650212eef1"><div id="w-node-e4008f8f-3a67-5da4-cf42-372f27004be5-27004be2" class="btn-fill-label-inner label-top w-variant-b76e1715-f3d6-4272-d4a4-e7650212eef1"><div class="txt txt-font-mono txt-14">Discover more</div></div><div id="w-node-e4008f8f-3a67-5da4-cf42-372f27004be8-27004be2" class="btn-fill-label-inner label-bot w-variant-b76e1715-f3d6-4272-d4a4-e7650212eef1"><div class="txt txt-font-mono txt-14">Discover more</div></div></div><div class="btn-fill-icon w-variant-b76e1715-f3d6-4272-d4a4-e7650212eef1"><div id="w-node-e4008f8f-3a67-5da4-cf42-372f27004bec-27004be2" class="btn-fill-icon-inner w-variant-b76e1715-f3d6-4272-d4a4-e7650212eef1 icon-top w-variant-b76e1715-f3d6-4272-d4a4-e7650212eef1"><div class="btn-fill-icon-svg"><div class="embed-ic w-embed"><svg width="100%" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M11.875 14.375L16.25 9.93818L11.875 5.625M16.25 9.93818H2.5" stroke="currentColor" stroke-width="1.5"/>
+</svg>
+</div></div></div><div id="w-node-e4008f8f-3a67-5da4-cf42-372f27004bef-27004be2" class="btn-fill-icon-inner w-variant-b76e1715-f3d6-4272-d4a4-e7650212eef1 icon-bot"><div class="btn-fill-icon-svg"><div class="embed-ic w-embed"><svg width="100%" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M11.875 14.375L16.25 9.93818L11.875 5.625M16.25 9.93818H2.5" stroke="currentColor" stroke-width="1.5"/>
+</svg>
+</div></div></div></div></div></a><div class="line line-horizital left right bot"></div></div><div class="home-hero-work-wrap"><div class="home-hero-work"><div class="home-hero-work-inner"><div class="home-hero-work-item"><div class="home-hero-work-item-ic"><div class="embed-ic w-embed"><svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 16 16" fill="none">
+  <path d="M7.98775 4.5V8.0298L10.5 8M7.97376 1.75L13.4332 4.90202L13.4755 11.1982L8.00175 14.3096L2.54229 11.1576L2.5 4.86144L7.97376 1.75Z" stroke="currentColor" stroke-width="1.25"/>
+</svg></div></div><div class="home-hero-work-item-title"><div class="txt txt-font-mono txt-14">Faster iterations</div></div></div><div class="home-hero-work-item"><div class="home-hero-work-item-ic"><div class="embed-ic w-embed"><svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 16 16" fill="none">
+  <path d="M13.4332 4.90202L7.97376 1.75L2.5 4.86144L2.54229 11.1576L8.00175 14.3096L13.4755 11.1982L13.4332 4.90202ZM13.4332 4.90202L7.98775 8.0298L5.5 6.5" stroke="currentColor" stroke-width="1.25"/>
+</svg></div></div><div class="home-hero-work-item-title"><div class="txt txt-font-mono txt-14">Fewer mistakes</div></div></div><div class="home-hero-work-item"><div class="home-hero-work-item-ic"><div class="embed-ic w-embed"><svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 16 16" fill="none">
+  <path d="M13.4205 4.93181L7.96106 1.77979L2.4873 4.89123L2.52959 11.1874L7.98906 14.3394L13.4628 11.2279L13.4205 4.93181Z" stroke="currentColor" stroke-width="1.25"/>
+  <circle cx="7.9873" cy="8.02979" r="2" stroke="currentColor" stroke-width="1.25"/>
+</svg></div></div><div class="home-hero-work-item-title"><div class="txt txt-font-mono txt-14">Less busywork</div></div></div></div></div></div></div></div></div></div></section>`,
+      }}
+    />
   );
 }
