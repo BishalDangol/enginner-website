@@ -30,11 +30,7 @@ export default function RootLayout({
       <body className="body">
         <SmoothScrollProvider>{children}</SmoothScrollProvider>
 
-        {/* ScrollTrigger & Animation Scripts */}
-        <Script
-          src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=6a4b5161f0d11f1602cc3bbf"
-          strategy="beforeInteractive"
-        />
+        {/* GSAP & ScrollTrigger Core */}
         <Script
           src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"
           strategy="beforeInteractive"
@@ -42,22 +38,6 @@ export default function RootLayout({
         <Script
           src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"
           strategy="beforeInteractive"
-        />
-        <Script
-          src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"
-          strategy="beforeInteractive"
-        />
-        <Script
-          src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/TextPlugin.min.js"
-          strategy="beforeInteractive"
-        />
-        <Script
-          src="https://cdn.prod.website-files.com/6a4b5161f0d11f1602cc3bbf/js/webflow.a0aa6ca1.b7683852b8a60d8e.js"
-          strategy="lazyOnload"
-        />
-        <Script
-          src="https://heronai-bp.netlify.app/main.js"
-          strategy="lazyOnload"
         />
       </body>
     </html>
