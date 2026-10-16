@@ -14,34 +14,36 @@
   }
   .body-inner,
   .main-inner {
-    overflow: hidden;
+    overflow: visible !important;
   }
   .main {
-    clip-path: inset(var(--mask-percent)) !important;
+    clip-path: none !important;
+    overflow: visible !important;
   }
 
   .loading {
-    opacity: 1;
-    pointer-events: all;
+    display: none !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
   }
   .home-intel-inner,
   .home-map-main-img {
     grid-row: 1/2 !important;
-    pointer-events: none;
+    pointer-events: auto !important;
   }
   .home-map-main-img-inner,
   .home-map-intro {
-    opacity: 0;
-    pointer-events: none;
+    opacity: 1 !important;
+    pointer-events: auto !important;
   }
   .loading.loaded {
-    display: none;
+    display: none !important;
   }
   [df-init] {
-    opacity: 0;
+    opacity: 1 !important;
   }
   .lenis.lenis-stopped {
-    overflow: hidden;
+    overflow: visible !important;
   }
 
   .lenis.lenis-smooth iframe {
